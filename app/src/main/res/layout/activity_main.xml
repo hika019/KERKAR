@@ -6,30 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/main_assignment_info_veiw"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/main_info_view_background"
         app:layout_constraintBottom_toTopOf="@+id/main_info_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -37,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="20dp"
         android:text="@string/assignment_to_date"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
         app:layout_constraintTop_toTopOf="@+id/main_assignment_info_veiw" />
 
@@ -46,8 +36,8 @@
         android:id="@+id/main_info_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/main_info_view_background"
         app:layout_constraintBottom_toTopOf="@+id/main_news_info"
         app:layout_constraintHorizontal_bias="0.5"
@@ -61,17 +51,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="20dp"
         android:text="@string/class_infomation"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/main_info_view"
         app:layout_constraintTop_toTopOf="@+id/main_info_view" />
+
 
     <View
         android:id="@+id/main_news_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/main_info_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -79,15 +70,14 @@
         app:layout_constraintRight_toRightOf="@id/main_info_view"
         app:layout_constraintTop_toBottomOf="@+id/main_info_view" />
 
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="20dp"
         android:text="@string/school_infomation"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/main_news_info"
         app:layout_constraintTop_toTopOf="@+id/main_news_info" />
 
@@ -100,6 +90,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:backgroundTint="@android:color/darker_gray"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
