@@ -7,24 +7,45 @@
     tools:context=".MainActivity">
 
     <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_info_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/main_class_to_day_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:text="@string/timetable_to_day"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <View
         android:id="@+id/main_assignment_info_veiw"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/main_info_view_background"
-        app:layout_constraintBottom_toTopOf="@+id/main_info_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/main_assignment_info_textveiw"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="27dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/assignment_to_date"
@@ -32,54 +53,20 @@
         app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
         app:layout_constraintTop_toTopOf="@+id/main_assignment_info_veiw" />
 
-    <View
-        android:id="@+id/main_info_view"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_assignment_info_recyclerview"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/main_info_view_background"
-        app:layout_constraintBottom_toTopOf="@+id/main_news_info"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="@id/main_assignment_info_veiw"
-        app:layout_constraintRight_toRightOf="@id/main_assignment_info_veiw"
-        app:layout_constraintTop_toBottomOf="@+id/main_assignment_info_veiw" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/class_infomation"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/main_info_view"
-        app:layout_constraintTop_toTopOf="@+id/main_info_view" />
-
-
-    <View
-        android:id="@+id/main_news_info"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/main_info_view_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="@id/main_info_view"
-        app:layout_constraintRight_toRightOf="@id/main_info_view"
-        app:layout_constraintTop_toBottomOf="@+id/main_info_view" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/school_infomation"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/main_news_info"
-        app:layout_constraintTop_toTopOf="@+id/main_news_info" />
+        app:layout_constraintBottom_toBottomOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintEnd_toEndOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintTop_toBottomOf="@+id/main_assignment_info_textveiw" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -88,9 +75,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
+        app:backgroundTint="@color/light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:backgroundTint="@android:color/darker_gray"/>
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
