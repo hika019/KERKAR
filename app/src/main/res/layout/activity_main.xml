@@ -17,13 +17,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/main_class_to_day_textview"
+        android:id="@+id/today_timetable_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="20sp"
         android:text="@string/timetable_to_day"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/view" />
 
@@ -56,13 +56,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_assignment_info_recyclerview"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/main_assignment_info_veiw"
         app:layout_constraintEnd_toEndOf="@+id/main_assignment_info_veiw"
         app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
@@ -79,5 +79,55 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/timetable_1_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="1限"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_2textview"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/today_timetable_textview" />
+
+    <TextView
+        android:id="@+id/timetable_2textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_3_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_1_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_1_textview" />
+
+    <TextView
+        android:id="@+id/timetable_3_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_4_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_2textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_2textview" />
+
+    <TextView
+        android:id="@+id/timetable_4_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_5_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_3_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_3_textview" />
+
+    <TextView
+        android:id="@+id/timetable_5_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5限"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/timetable_4_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_4_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

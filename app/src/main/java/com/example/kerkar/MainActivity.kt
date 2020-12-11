@@ -15,12 +15,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        
+
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
         main_assignment_adapter.add(AssignmentItem())
         main_assignment_adapter.add(AssignmentItem())
-
-
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(AssignmentItem())
         main_assignment_info_recyclerview.adapter = main_assignment_adapter
     }
 
@@ -34,9 +42,15 @@ class MainActivity : AppCompatActivity() {
 class AssignmentItem: Item<GroupieViewHolder>(){
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
     }
-
     override fun getLayout(): Int {
         return R.layout.assignment_info
     }
+}
 
+class today_timetable_Item: Item<GroupieViewHolder>(){
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+    }
+    override fun getLayout(): Int {
+        return R.layout.today_taimetable
+    }
 }
