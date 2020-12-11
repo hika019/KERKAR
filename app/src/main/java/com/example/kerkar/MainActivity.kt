@@ -3,11 +3,11 @@ package com.example.kerkar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,9 +41,13 @@ class MainActivity : AppCompatActivity() {
 
 class AssignmentItem: Item<GroupieViewHolder>(){
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        //各レポートの内容をいじる
+        //下のはサンプル
+        val tmp = viewHolder.itemView.main_assignmennt_info_subject_textview.text
+
     }
     override fun getLayout(): Int {
-        return R.layout.assignment_info
+        return R.layout.main_assignment_info_item
     }
 }
 
