@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="AppThem" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@android:color/holo_green_light</item>
+        <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorAccent">#0000FF</item>
 
-    <style name="MyTheme" parent="@style/Theme.AppCompat">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="colorButtonNormal">@color/dark_gray</item>
 
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/MyActionBar</item>
-    </style>
-
-    <!-- ActionBar styles -->
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/actionbar_background</item>
-
-        <!-- Support library compatibility -->
-        <item name="background">@drawable/actionbar_background</item>
     </style>
 
 </resources>
