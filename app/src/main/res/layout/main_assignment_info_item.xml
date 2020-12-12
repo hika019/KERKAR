@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="12/24"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_assignmennt_info_subject_textview"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,11 +20,11 @@
 
     <TextView
         android:id="@+id/main_assignmennt_info_subject_textview"
-        android:layout_width="120dp"
+        android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="創造理工学実験"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,11 +36,11 @@
 
     <TextView
         android:id="@+id/main_assignment_info_details_textview"
-        android:layout_width="120dp"
+        android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="小レポート"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
