@@ -4,25 +4,29 @@
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_item1"
+            android:id="@+id/draw_manu_home"
             android:icon="@android:drawable/ic_menu_my_calendar"
-            android:title="Calendar" />
+            android:title="@string/home" />
         <item
-            android:id="@+id/menu_item2"
+            android:id="@+id/draw_manu_timetable"
             android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="Places" />
+            android:title="@string/timetable" />
+        <item
+            android:id="@+id/draw_manu_setting"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="@string/setting" />
     </group>
 
-    <item android:title="TITLE!">
+    <item android:title="@string/assignment">
         <menu>
             <item
-                android:id="@+id/menu_item3"
+                android:id="@+id/draw_manu_submitted_assignment"
                 android:icon="@android:drawable/ic_menu_save"
-                android:title="Save" />
+                android:title="@string/submitted_assignment" />
             <item
-                android:id="@+id/menu_item4"
+                android:id="@+id/draw_manu_unsubmitted_assignment"
                 android:icon="@android:drawable/ic_menu_delete"
-                android:title="Delete" />
+                android:title="@string/unsubmitted_assignment" />
         </menu>
     </item>
 </menu>

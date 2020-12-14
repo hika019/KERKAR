@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
+        
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
         main_assignment_adapter.add(AssignmentItem())
         main_assignment_adapter.add(AssignmentItem())
