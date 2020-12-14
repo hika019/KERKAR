@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_info_view_background"
+        app:layout_constraintEnd_toEndOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/today_timetable_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/timetable_to_day"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <View
+        android:id="@+id/main_assignment_info_veiw"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/main_info_view_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/main_assignment_info_textveiw"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/assignment_to_date"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintTop_toTopOf="@+id/main_assignment_info_veiw" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_assignment_info_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintEnd_toEndOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintStart_toStartOf="@+id/main_assignment_info_veiw"
+        app:layout_constraintTop_toBottomOf="@+id/main_assignment_info_textveiw" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        app:backgroundTint="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:tint="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/timetable_1_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="1限"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_2textview"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/today_timetable_textview" />
+
+    <TextView
+        android:id="@+id/timetable_2textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_3_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_1_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_1_textview" />
+
+    <TextView
+        android:id="@+id/timetable_3_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_4_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_2textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_2textview" />
+
+    <TextView
+        android:id="@+id/timetable_4_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4限"
+        app:layout_constraintEnd_toStartOf="@+id/timetable_5_textview"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timetable_3_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_3_textview" />
+
+    <TextView
+        android:id="@+id/timetable_5_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5限"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/timetable_4_textview"
+        app:layout_constraintTop_toTopOf="@+id/timetable_4_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
