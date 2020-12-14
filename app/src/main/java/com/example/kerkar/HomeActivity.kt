@@ -11,27 +11,18 @@ import android.widget.Toast
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
 
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.draw_manu_home -> {
-                Toast.makeText(this, "aiuep", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
 
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
