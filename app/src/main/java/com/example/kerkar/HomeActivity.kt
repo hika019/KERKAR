@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import com.google.android.material.navigation.NavigationView
 
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -27,6 +30,15 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
 
+        nav_view.setNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.draw_manu_home -> {
+                    Toast.makeText(this, "aiueo", Toast.LENGTH_SHORT).show()
+                    false
+                }
+                else -> false
+            }
+        }
 
 
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
@@ -51,6 +63,17 @@ class HomeActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun NavigationView.setNavigationItemSelectedListener(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.draw_manu_home -> Log.d("draw", "home select")
+        }
+
+
+        return true
+    }
+
+
 }
 
 class AssignmentItem: Item<GroupieViewHolder>(){
