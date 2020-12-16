@@ -2,16 +2,14 @@ package com.example.kerkar
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.View
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class assignment_list_activity :AppCompatActivity() {
+class TimetableActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_assignment_list)
-
+        setContentView(R.layout.activity_timetable)
         setSupportActionBar(findViewById(R.id.toolbar))
 
         nav_view.setNavigationItemSelectedListener {
@@ -22,13 +20,11 @@ class assignment_list_activity :AppCompatActivity() {
                     false
                 }
                 R.id.draw_manu_unsubmitted_assignment -> {
-//                    val intent = Intent(this, assignment_list_activity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this, assignment_list_activity::class.java)
+                    startActivity(intent)
                     false
                 }
                 R.id.draw_manu_timetable -> {
-                    val intent = Intent(this, TimetableActivity::class.java)
-                    startActivity(intent)
                     false
                 }
                 else -> false
@@ -38,5 +34,4 @@ class assignment_list_activity :AppCompatActivity() {
 
 
     }
-
 }
