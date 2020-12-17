@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_assignment_list.*
 import kotlinx.android.synthetic.main.activity_home.nav_view
 
 class assignment_list_activity :AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_assignment_list)
@@ -38,17 +39,18 @@ class assignment_list_activity :AppCompatActivity() {
         }
 
 
-
         //提出済み,未提出の切り替え
         unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
                 unsubmitted_textview.setTypeface(Typeface.DEFAULT)
+                val flag = 0
                 Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
             }else{
                 unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
                 submitted_textview.setTypeface(Typeface.DEFAULT)
                 Toast.makeText(this, "false", Toast.LENGTH_SHORT).show()
+                val flag = 1
             }
         }
 
