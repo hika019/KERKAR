@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_assignment_list.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_home.nav_view
 
 class assignment_list_activity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,16 @@ class assignment_list_activity :AppCompatActivity() {
             }
 
         }
+        
+        switch1.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(switch1.isChecked){
+                Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "false", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        
 
 
     }
