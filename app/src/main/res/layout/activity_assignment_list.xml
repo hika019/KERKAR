@@ -23,7 +23,7 @@
             app:navigationIcon="@android:drawable/sym_def_app_icon" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/unsubmitted_or_submitted_switch"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -33,24 +33,25 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/submitted_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/submitted_assignment"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/switch1"
-            app:layout_constraintStart_toEndOf="@+id/switch1"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
+            app:layout_constraintStart_toEndOf="@+id/unsubmitted_or_submitted_switch"
+            app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/unsubmitted_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/unsubmitted_assignment"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/switch1"
-            app:layout_constraintEnd_toStartOf="@+id/switch1"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
+            app:layout_constraintEnd_toStartOf="@+id/unsubmitted_or_submitted_switch"
+            app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
 
         <View
             android:id="@+id/view2"
@@ -64,10 +65,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+            app:layout_constraintTop_toBottomOf="@+id/unsubmitted_or_submitted_switch" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/assignment_activity_assignment_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
