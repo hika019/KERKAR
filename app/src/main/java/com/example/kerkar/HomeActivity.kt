@@ -1,14 +1,10 @@
 package com.example.kerkar
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
 
 import com.xwray.groupie.GroupAdapter
@@ -48,26 +44,22 @@ class HomeActivity : AppCompatActivity() {
                 }
                 else -> false
             }
-
-
-
-
         }
 
 
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
-        main_assignment_adapter.add(AssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
+        main_assignment_adapter.add(MainAssignmentItem())
         main_assignment_info_recyclerview.adapter = main_assignment_adapter
 
         floatingActionButton.setOnClickListener {
@@ -78,23 +70,14 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun NavigationView.setNavigationItemSelectedListener(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.draw_manu_home -> Log.d("draw", "home select")
-        }
-
-
-        return true
-    }
-
 
 }
 
-class AssignmentItem: Item<GroupieViewHolder>(){
+class MainAssignmentItem: Item<GroupieViewHolder>(){
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //各レポートの内容をいじる
         //下のはサンプル
-        val tmp = viewHolder.itemView.main_assignmennt_info_subject_textview.text
+        val tmp = viewHolder.itemView.assignmennt_activity_info_title_textview.text
 
     }
     override fun getLayout(): Int {

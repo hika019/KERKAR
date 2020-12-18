@@ -2,11 +2,12 @@ package com.example.kerkar
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.graphics.Typeface.BOLD
-import android.graphics.Typeface.DEFAULT
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_assignment_list.*
 import kotlinx.android.synthetic.main.activity_home.nav_view
 
@@ -39,6 +40,15 @@ class assignment_list_activity :AppCompatActivity() {
         }
 
 
+        val hoge = GroupAdapter<GroupieViewHolder>()
+        hoge.add(MainAssignmentItem())
+        hoge.add(MainAssignmentItem())
+        hoge.add(MainAssignmentItem())
+        hoge.add(MainAssignmentItem())
+        AssignmentActivity_assignment_recyclerView.adapter = hoge
+
+
+
         //提出済み,未提出の切り替え
         unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
@@ -54,9 +64,19 @@ class assignment_list_activity :AppCompatActivity() {
             }
         }
 
-        
 
 
     }
 
+}
+class AssignmentActivityItem: Item<GroupieViewHolder>(){
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        //各レポートの内容をいじる
+        //下のはサンプル
+        //val tmp = viewHolder.itemView.assignment_activity_assignment_recyclerView
+
+    }
+    override fun getLayout(): Int {
+        return R.layout.main_assignment_info_item
+    }
 }
