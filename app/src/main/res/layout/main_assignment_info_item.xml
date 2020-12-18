@@ -6,20 +6,20 @@
     android:layout_height="50dp">
 
     <TextView
-        android:id="@+id/assignmennt_activity_info_day_textview"
+        android:id="@+id/main_activity_info_day_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="12/24"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/assignmennt_activity_info_title_textview"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_info_title_textview"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/assignmennt_activity_info_title_textview"
+        android:id="@+id/main_activity_info_title_textview"
         android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,14 +28,14 @@
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/assignment_activity_info_details_textview"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_info_details_textview"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/assignmennt_activity_info_day_textview"
+        app:layout_constraintStart_toEndOf="@+id/main_activity_info_day_textview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/assignment_activity_info_details_textview"
+        android:id="@+id/main_activity_info_details_textview"
         android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/assignmennt_activity_info_title_textview"
+        app:layout_constraintStart_toEndOf="@+id/main_activity_info_title_textview"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
