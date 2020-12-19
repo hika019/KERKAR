@@ -70,9 +70,12 @@ class HomeActivity : AppCompatActivity() {
                 .setView(mdialogView)
                 .setTitle("課題追加")
                 .setPositiveButton("確定", {dialog, which ->
-                    val dialog_deadline_day = mdialogView.dialog_deadline_day
-                    val dialog_deadline_time = mdialogView.dialog_deadline_time
-                    val subject = mdialogView.dialog_subject
+                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.toString(),
+                                                        mdialogView.dialog_deadline_time.toString(),
+                                                        mdialogView.dialog_subject.toString(),
+                                                        mdialogView.dialog_assignment_title.toString(),
+                                                        mdialogView.dialog_assignment_special_notes.toString())
+                    Log.d("dialog", add_assignment.time.toString())//上手く取り出せない
                 })
                 .setNegativeButton("破棄", {dialog, which ->
 
