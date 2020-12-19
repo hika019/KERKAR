@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
@@ -11,6 +12,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.add_assignment_dialog.view.*
 import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
 
 
@@ -61,11 +63,22 @@ class HomeActivity : AppCompatActivity() {
                     })
                     .show()
         }
-
-
-
-
         floatingActionButton.setOnClickListener {
+            val mdialogView = LayoutInflater.from(this).inflate(R.layout.add_assignment_dialog, null)
+
+            val mBilder = AlertDialog.Builder(this)
+                .setView(mdialogView)
+                .setTitle("課題追加")
+                .setPositiveButton("確定", {dialog, which ->
+                    val dialog_deadline_day = mdialogView.dialog_deadline_day
+                    val dialog_deadline_time = mdialogView.dialog_deadline_time
+                    val subject = mdialogView.dialog_subject
+                })
+                .setNegativeButton("破棄", {dialog, which ->
+
+                })
+
+            mBilder.show()
 
         }
 

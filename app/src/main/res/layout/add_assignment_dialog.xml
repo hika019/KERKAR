@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/dialog_deadline_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="提出期限(01/20)"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/dialog_deadline_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="提出期限(17:00)"
+        android:inputType="time"
+        app:layout_constraintStart_toStartOf="@+id/dialog_deadline_day"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_deadline_day" />
+
+    <EditText
+        android:id="@+id/dialog_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="科目名(英語)"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/dialog_deadline_time"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_deadline_time" />
+
+    <EditText
+        android:id="@+id/dialog_assignment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="課題名(レポート)"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/dialog_subject"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_subject" />
+
+    <EditText
+        android:id="@+id/dialog_assignment_special_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="その他・特記事項"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/dialog_assignment_title"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_assignment_title" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
