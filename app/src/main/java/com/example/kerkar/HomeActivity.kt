@@ -3,6 +3,9 @@ package com.example.kerkar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -45,18 +48,24 @@ class HomeActivity : AppCompatActivity() {
         main_assignment_adapter.add(MainAssignmentItem())
         main_assignment_adapter.add(MainAssignmentItem())
         main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
         main_assignment_info_recyclerview.adapter = main_assignment_adapter
 
+        main_assignment_adapter.setOnItemClickListener { item, view ->
+            var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
+            str = str.replace("\\n", "\n")
+            AlertDialog.Builder(this)
+                    .setTitle("課題")
+                    .setMessage(str)
+                    .setPositiveButton("OK", {dialog, which ->
+
+                    })
+                    .show()
+        }
+
+
+
+
         floatingActionButton.setOnClickListener {
-            val intent = Intent(this, assignment_list_activity::class.java)
-            startActivity(intent)
 
         }
 
