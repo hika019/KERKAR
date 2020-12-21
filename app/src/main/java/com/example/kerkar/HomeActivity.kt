@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
                                                         mdialogView.dialog_subject.text.toString(),
                                                         mdialogView.dialog_assignment_title.text.toString(),
                                                         mdialogView.dialog_assignment_special_notes.text.toString())
-                    Log.d("dialog", add_assignment.day.toString()+"hoge")//上手く取り出せない
+                    Log.d("dialog", add_assignment.day)//上手く取り出せない
                 })
                 .setNegativeButton("破棄", {dialog, which ->
 
