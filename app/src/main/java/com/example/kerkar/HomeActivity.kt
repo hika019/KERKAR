@@ -65,17 +65,16 @@ class HomeActivity : AppCompatActivity() {
         }
         floatingActionButton.setOnClickListener {
             val mdialogView = LayoutInflater.from(this).inflate(R.layout.add_assignment_dialog, null)
-
             val mBilder = AlertDialog.Builder(this)
                 .setView(mdialogView)
                 .setTitle("課題追加")
                 .setPositiveButton("確定", {dialog, which ->
-                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.toString(),
-                                                        mdialogView.dialog_deadline_time.toString(),
-                                                        mdialogView.dialog_subject.toString(),
-                                                        mdialogView.dialog_assignment_title.toString(),
-                                                        mdialogView.dialog_assignment_special_notes.toString())
-                    Log.d("dialog", add_assignment.time.toString())//上手く取り出せない
+                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.text.toString(),
+                                                        mdialogView.dialog_deadline_time.text.toString(),
+                                                        mdialogView.dialog_subject.text.toString(),
+                                                        mdialogView.dialog_assignment_title.text.toString(),
+                                                        mdialogView.dialog_assignment_special_notes.text.toString())
+                    Log.d("dialog", add_assignment.day.toString()+"hoge")//上手く取り出せない
                 })
                 .setNegativeButton("破棄", {dialog, which ->
 
