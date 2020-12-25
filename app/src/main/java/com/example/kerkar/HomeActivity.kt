@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -22,6 +20,8 @@ import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
 class HomeActivity_fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.activity_home, container, false)
+        
+        val frame_context = getContext()
 
 
 
@@ -50,21 +50,22 @@ class HomeActivity_fragment : Fragment() {
 
 
 
-//        main_assignment_adapter.setOnItemClickListener { item, view ->
-//            var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
-//            str = str.replace("\\n", "\n")
-//            AlertDialog.Builder(this)
-//                    .setTitle("課題")
-//                    .setMessage(str)
-//                    .setPositiveButton("OK", {dialog, which ->
-//
-//                    })
-//                    .show()
-//        }
+        main_assignment_adapter.setOnItemClickListener { item, view ->
+            var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
+            str = str.replace("\\n", "\n")
+            AlertDialog.Builder(frame_context!!)
+                    .setTitle("課題")
+                    .setMessage(str)
+                    .setPositiveButton("OK", {dialog, which ->
 
+                    })
+                    .show()
+        }
+
+        //fab contextでなんかエラー
 //        floatingActionButton.setOnClickListener {
-//            val mdialogView = LayoutInflater.from(this).inflate(R.layout.add_assignment_dialog, null)
-//            val mBilder = AlertDialog.Builder(this)
+//            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.add_assignment_dialog, null)//ここ
+//            val mBilder = AlertDialog.Builder(frame_context!!)
 //                .setView(mdialogView)
 //                .setTitle("課題追加")
 //                .setPositiveButton("確定", {dialog, which ->

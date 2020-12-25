@@ -1,11 +1,13 @@
 package com.example.kerkar
 
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -20,6 +22,8 @@ class assignment_list_fragment :Fragment() {
         val view = inflater.inflate(R.layout.activity_assignment_list, container, false)
         val assignmentSwith=assignment_swith()
 
+        val frame_context = getContext()
+        Log.d("hoge", "this:"+ frame_context.toString())
 
 
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
@@ -45,21 +49,21 @@ class assignment_list_fragment :Fragment() {
 
 
         //提出済み,未提出の切り替え
-//        unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if(isChecked){
-//                submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-//                unsubmitted_textview.setTypeface(Typeface.DEFAULT)
-//                assignmentSwith.flag=0
-//                Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
-//            }else{
-//                unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-//                submitted_textview.setTypeface(Typeface.DEFAULT)
-//                Toast.makeText(this, "false", Toast.LENGTH_SHORT).show()
-//                assignmentSwith.flag=1
-//            }
-//        }
-//
-//
+        view.unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                view.submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
+                view.unsubmitted_textview.setTypeface(Typeface.DEFAULT)
+                assignmentSwith.flag=0
+                Toast.makeText(frame_context!!, "true", Toast.LENGTH_SHORT).show()
+            }else{
+                view.unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
+                view.submitted_textview.setTypeface(Typeface.DEFAULT)
+                Toast.makeText(frame_context!!, "false", Toast.LENGTH_SHORT).show()
+                assignmentSwith.flag=1
+            }
+        }
+
+
         return view
     }
 
