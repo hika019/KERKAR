@@ -23,7 +23,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@android:drawable/sym_def_app_icon" />
+            app:navigationIcon="@android:drawable/sym_def_app_icon"
+            app:title="ケルカル" />
 
         <fragment
             android:id="@+id/nav_host_fragment"
@@ -35,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:navGraph="@navigation/navigation_graph"/>
+            app:navGraph="@navigation/navigation_graph" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
