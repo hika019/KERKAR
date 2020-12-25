@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.add_assignment_dialog.view.*
 import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
@@ -62,27 +61,27 @@ class HomeActivity_fragment : Fragment() {
                     .show()
         }
 
-        //fab contextでなんかエラー
-//        floatingActionButton.setOnClickListener {
-//            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.add_assignment_dialog, null)//ここ
-//            val mBilder = AlertDialog.Builder(frame_context!!)
-//                .setView(mdialogView)
-//                .setTitle("課題追加")
-//                .setPositiveButton("確定", {dialog, which ->
-//                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.text.toString(),
-//                                                        mdialogView.dialog_deadline_time.text.toString(),
-//                                                        mdialogView.dialog_subject.text.toString(),
-//                                                        mdialogView.dialog_assignment_title.text.toString(),
-//                                                        mdialogView.dialog_assignment_special_notes.text.toString())
-//                    Log.d("dialog", add_assignment.day)//上手く取り出せない
-//                })
-//                .setNegativeButton("破棄", {dialog, which ->
-//
-//                })
-//
-//            mBilder.show()
-//
-//        }
+
+        view.floatingActionButton.setOnClickListener {
+            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.add_assignment_dialog, null)
+            val mBilder = AlertDialog.Builder(frame_context!!)
+                .setView(mdialogView)
+                .setTitle("課題追加")
+                .setPositiveButton("確定", {dialog, which ->
+                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.text.toString(),
+                                                        mdialogView.dialog_deadline_time.text.toString(),
+                                                        mdialogView.dialog_subject.text.toString(),
+                                                        mdialogView.dialog_assignment_title.text.toString(),
+                                                        mdialogView.dialog_assignment_special_notes.text.toString())
+                    Log.d("dialog", add_assignment.day)//上手く取り出せない
+                })
+                .setNegativeButton("破棄", {dialog, which ->
+
+                })
+
+            mBilder.show()
+
+        }
         return view
     }
 
