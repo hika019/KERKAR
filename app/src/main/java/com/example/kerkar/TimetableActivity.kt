@@ -3,35 +3,17 @@ package com.example.kerkar
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
 
-class TimetableActivity :AppCompatActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_timetable)
-        setSupportActionBar(findViewById(R.id.toolbar))
+class Timetable_flagment : Fragment(){
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
+        val view = inflater.inflate(R.layout.activity_timetable, container, false)
 
-        nav_view.setNavigationItemSelectedListener {
-            when (it.itemId){
-                R.id.draw_manu_home -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    false
-                }
-                R.id.draw_manu_unsubmitted_assignment -> {
-                    val intent = Intent(this, assignment_list_activity::class.java)
-                    startActivity(intent)
-                    false
-                }
-                R.id.draw_manu_timetable -> {
-                    false
-                }
-                else -> false
-            }
-
-        }
-
-
+        return view
     }
 }

@@ -1,47 +1,26 @@
 package com.example.kerkar
 
-import android.content.Intent
-import android.graphics.Typeface
+
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_assignment_list.*
-import kotlinx.android.synthetic.main.activity_assignment_list.nav_view
+import kotlinx.android.synthetic.main.activity_assignment_list.view.*
 import kotlinx.android.synthetic.main.assignment_activity_item.view.*
 
 
-class assignment_list_activity :AppCompatActivity() {
+class assignment_list_fragment :Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
+        val view = inflater.inflate(R.layout.activity_assignment_list, container, false)
         val assignmentSwith=assignment_swith()
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_assignment_list)
-        setSupportActionBar(findViewById(R.id.toolbar))
-        nav_view.setNavigationItemSelectedListener {
-            when (it.itemId){
-                R.id.draw_manu_home -> {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    false
-                }
-                R.id.draw_manu_unsubmitted_assignment -> {
-//                    val intent = Intent(this, assignment_list_activity::class.java)
-//                    startActivity(intent)
-                    false
-                }
-                R.id.draw_manu_timetable -> {
-                    val intent = Intent(this, TimetableActivity::class.java)
-                    startActivity(intent)
-                    false
-                }
-                else -> false
-            }
 
-        }
+
 
         val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
         main_assignment_adapter.add(assignment_item())
@@ -56,7 +35,7 @@ class assignment_list_activity :AppCompatActivity() {
         main_assignment_adapter.add(assignment_item())
         main_assignment_adapter.add(assignment_item())
         main_assignment_adapter.add(assignment_item())
-        AssignmentActivity_assignment_recyclerView.adapter = main_assignment_adapter
+        view.AssignmentActivity_assignment_recyclerView.adapter = main_assignment_adapter
 
 
 
@@ -66,22 +45,22 @@ class assignment_list_activity :AppCompatActivity() {
 
 
         //提出済み,未提出の切り替え
-        unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-                unsubmitted_textview.setTypeface(Typeface.DEFAULT)
-                assignmentSwith.flag=0
-                Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
-            }else{
-                unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-                submitted_textview.setTypeface(Typeface.DEFAULT)
-                Toast.makeText(this, "false", Toast.LENGTH_SHORT).show()
-                assignmentSwith.flag=1
-            }
-        }
-
-
-
+//        unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if(isChecked){
+//                submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
+//                unsubmitted_textview.setTypeface(Typeface.DEFAULT)
+//                assignmentSwith.flag=0
+//                Toast.makeText(this, "true", Toast.LENGTH_SHORT).show()
+//            }else{
+//                unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
+//                submitted_textview.setTypeface(Typeface.DEFAULT)
+//                Toast.makeText(this, "false", Toast.LENGTH_SHORT).show()
+//                assignmentSwith.flag=1
+//            }
+//        }
+//
+//
+        return view
     }
 
 }

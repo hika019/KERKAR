@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.kerkar.HomeActivity_fragment"
+        android:label="HomeActivity_flagment"
+        tools:layout="@layout/activity_home"/>
+    <fragment
+        android:id="@+id/nav_assignment_list"
+        android:name="com.example.kerkar.assignment_list_fragment"
+        android:label="assignment_list_flagment"
+        tools:layout="@layout/activity_assignment_list"/>
+    <fragment
+        android:id="@+id/nav_timetable"
+        android:name="com.example.kerkar.Timetable_flagment"
+        android:label="Timetable_flagment"
+        tools:layout="@layout/activity_timetable"/>
+</navigation>
