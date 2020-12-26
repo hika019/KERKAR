@@ -20,7 +20,7 @@ class HomeActivity_fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.activity_home, container, false)
         
-        val frame_context = getContext()
+        val this_context = getContext()
 
 
 
@@ -52,7 +52,7 @@ class HomeActivity_fragment : Fragment() {
         main_assignment_adapter.setOnItemClickListener { item, view ->
             var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
             str = str.replace("\\n", "\n")
-            AlertDialog.Builder(frame_context!!)
+            AlertDialog.Builder(this_context!!)
                     .setTitle("課題")
                     .setMessage(str)
                     .setPositiveButton("OK", {dialog, which ->
@@ -63,8 +63,8 @@ class HomeActivity_fragment : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.dialog_add_assignment, null)
-            val mBilder = AlertDialog.Builder(frame_context!!)
+            val mdialogView = LayoutInflater.from(this_context).inflate(R.layout.dialog_add_assignment, null)
+            val mBilder = AlertDialog.Builder(this_context!!)
                 .setView(mdialogView)
                 .setTitle("課題追加")
                 .setPositiveButton("確定", {dialog, which ->
@@ -73,7 +73,7 @@ class HomeActivity_fragment : Fragment() {
                                                         mdialogView.dialog_subject.text.toString(),
                                                         mdialogView.dialog_assignment_title.text.toString(),
                                                         mdialogView.dialog_assignment_special_notes.text.toString())
-                    Log.d("dialog", add_assignment.day)//上手く取り出せない
+                    Log.d("dialog", add_assignment.day)
                 })
                 .setNegativeButton("破棄", {dialog, which ->
 
@@ -104,6 +104,6 @@ class today_timetable_Item: Item<GroupieViewHolder>(){
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
     }
     override fun getLayout(): Int {
-        return R.layout.today_taimetable
+        return R.layout.item_taimetable
     }
 }
