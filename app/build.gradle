@@ -33,13 +33,13 @@ android {
         jvmTarget = '1.8'
     }
 
-    sourceSets {
-        main{
-            res.srcDirs = ['src/main/res',
-                           'src/main/res/layout',
-                           'src/main/res/layout/item']
-        }
-    }
+//    sourceSets {
+//        main{
+//            res.srcDirs = ['src/main/res',
+//                           'src/main/res/layout',
+//                           'src/main/res/layout/item']
+//        }
+//    }
 
 }
 

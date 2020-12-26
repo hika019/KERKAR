@@ -13,7 +13,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_assignment_list.view.*
-import kotlinx.android.synthetic.main.assignment_activity_item.view.*
+import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
 class assignment_list_fragment :Fragment() {
@@ -83,6 +83,6 @@ class assignment_item: Item<GroupieViewHolder>() {
     }
 
     override fun getLayout(): Int {
-        return R.layout.assignment_activity_item
+        return R.layout.item_assignment_activity
     }
 }

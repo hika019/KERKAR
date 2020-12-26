@@ -12,8 +12,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.view.*
-import kotlinx.android.synthetic.main.add_assignment_dialog.view.*
-import kotlinx.android.synthetic.main.main_assignment_info_item.view.*
+import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
+import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 
 
 class HomeActivity_fragment : Fragment() {
@@ -63,7 +63,7 @@ class HomeActivity_fragment : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.add_assignment_dialog, null)
+            val mdialogView = LayoutInflater.from(frame_context).inflate(R.layout.dialog_add_assignment, null)
             val mBilder = AlertDialog.Builder(frame_context!!)
                 .setView(mdialogView)
                 .setTitle("課題追加")
@@ -96,7 +96,7 @@ class MainAssignmentItem: Item<GroupieViewHolder>(){
 
     }
     override fun getLayout(): Int {
-        return R.layout.main_assignment_info_item
+        return R.layout.item_home_assignment_info
     }
 }
 
