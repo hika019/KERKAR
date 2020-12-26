@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/monday" />
+                android:text="@string/monday"
+                android:textSize="@dimen/timetable_textsize" />
 
             <TextView
                 android:id="@+id/timetable_title_tuesday"
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/tuesday" />
+                android:text="@string/tuesday"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <TextView
                 android:id="@+id/timetable_title_wednesday"
@@ -50,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/wednesday" />
+                android:text="@string/wednesday"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <TextView
                 android:id="@+id/timetable_title_thursday"
@@ -58,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/thursday" />
+                android:text="@string/thursday"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <TextView
                 android:id="@+id/timetable_title_friday"
@@ -66,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/friday" />
+                android:text="@string/friday"
+                android:textSize="@dimen/timetable_textsize"/>
         </TableRow>
 
         <TableRow
@@ -81,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="center"
-                android:text="@string/first_period" />
+                android:text="@string/first_period"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <include
                 android:id="@+id/timetable_include_mon1"
@@ -132,7 +138,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="center"
-                android:text="@string/second_period" />
+                android:text="@string/second_period"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <include
                 android:id="@+id/timetable_include_mon2"
@@ -183,7 +190,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="center"
-                android:text="@string/third_period" />
+                android:text="@string/third_period"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <include
                 android:id="@+id/timetable_include_mon3"
@@ -233,7 +241,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="center"
-                android:text="@string/fourth_period" />
+                android:text="@string/fourth_period"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <include
                 android:id="@+id/timetable_include_mon4"
@@ -282,7 +291,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:gravity="center"
-                android:text="@string/fifth_period" />
+                android:text="@string/fifth_period"
+                android:textSize="@dimen/timetable_textsize"/>
 
             <include
                 android:id="@+id/timetable_include_mon5"

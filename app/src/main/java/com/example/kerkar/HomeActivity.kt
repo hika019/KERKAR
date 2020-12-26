@@ -1,6 +1,7 @@
 package com.example.kerkar
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,13 +15,19 @@ import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
+import java.util.*
 
 
 class HomeActivity_fragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View?{
         val view = inflater.inflate(R.layout.activity_home, container, false)
-        
         val this_context = getContext()
+
+        today_class(view, this_context!!)
 
 
 
@@ -55,7 +62,7 @@ class HomeActivity_fragment : Fragment() {
             AlertDialog.Builder(this_context!!)
                     .setTitle("課題")
                     .setMessage(str)
-                    .setPositiveButton("OK", {dialog, which ->
+                    .setPositiveButton("OK", { dialog, which ->
 
                     })
                     .show()
@@ -63,19 +70,24 @@ class HomeActivity_fragment : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-            val mdialogView = LayoutInflater.from(this_context).inflate(R.layout.dialog_add_assignment, null)
+            val mdialogView = LayoutInflater.from(this_context).inflate(
+                R.layout.dialog_add_assignment,
+                null
+            )
             val mBilder = AlertDialog.Builder(this_context!!)
                 .setView(mdialogView)
                 .setTitle("課題追加")
-                .setPositiveButton("確定", {dialog, which ->
-                    var add_assignment = add_assignment(mdialogView.dialog_deadline_day.text.toString(),
-                                                        mdialogView.dialog_deadline_time.text.toString(),
-                                                        mdialogView.dialog_subject.text.toString(),
-                                                        mdialogView.dialog_assignment_title.text.toString(),
-                                                        mdialogView.dialog_assignment_special_notes.text.toString())
+                .setPositiveButton("確定", { dialog, which ->
+                    var add_assignment = add_assignment(
+                        mdialogView.dialog_deadline_day.text.toString(),
+                        mdialogView.dialog_deadline_time.text.toString(),
+                        mdialogView.dialog_subject.text.toString(),
+                        mdialogView.dialog_assignment_title.text.toString(),
+                        mdialogView.dialog_assignment_special_notes.text.toString()
+                    )
                     Log.d("dialog", add_assignment.day)
                 })
-                .setNegativeButton("破棄", {dialog, which ->
+                .setNegativeButton("破棄", { dialog, which ->
 
                 })
 
@@ -83,6 +95,35 @@ class HomeActivity_fragment : Fragment() {
 
         }
         return view
+    }
+
+
+    private fun today_class(view: View, context: Context) {
+        val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+        val calendar: Calendar = Calendar.getInstance()
+        val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
+        Log.d("week", week_name[calendar.get(Calendar.DAY_OF_WEEK)-1])
+
+        view.today_first_period.setOnClickListener {
+            val timetable_dialog_class = timetable_dialog_class()
+            timetable_dialog_class.timetable_dialog(week+"1", context)
+        }
+        view.today_second_period.setOnClickListener {
+            val timetable_dialog_class = timetable_dialog_class()
+            timetable_dialog_class.timetable_dialog(week+"2", context)
+        }
+        view.today_third_period.setOnClickListener {
+            val timetable_dialog_class = timetable_dialog_class()
+            timetable_dialog_class.timetable_dialog(week+"3", context)
+        }
+        view.today_fourth_period.setOnClickListener {
+            val timetable_dialog_class = timetable_dialog_class()
+            timetable_dialog_class.timetable_dialog(week+"4", context)
+        }
+        view.today_fifth_period.setOnClickListener {
+            val timetable_dialog_class = timetable_dialog_class()
+            timetable_dialog_class.timetable_dialog(week+"5", context)
+        }
     }
 
 

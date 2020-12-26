@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="2"
         android:text="情報倫理"
-        android:textSize="@dimen/timetable_textsize"
+        android:textSize="@dimen/home_timetable_textsize"
         app:layout_constraintBottom_toBottomOf="@id/view3"
         app:layout_constraintEnd_toEndOf="@id/view3"
         app:layout_constraintStart_toStartOf="@id/view3"
