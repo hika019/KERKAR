@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timetable_include_fri4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -29,7 +29,7 @@
                 android:text="　 " />
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/timetable_title_monday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -37,7 +37,7 @@
                 android:text="@string/monday" />
 
             <TextView
-                android:id="@+id/textView39"
+                android:id="@+id/timetable_title_tuesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
                 android:text="@string/tuesday" />
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/timetable_title_wednesday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,7 +53,7 @@
                 android:text="@string/wednesday" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/timetable_title_thursday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,7 +61,7 @@
                 android:text="@string/thursday" />
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/timetable_title_friday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -84,34 +84,39 @@
                 android:text="@string/first_period" />
 
             <include
+                android:id="@+id/timetable_include_mon1"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_tue1"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_wen1"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_thu1"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_fri1"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </TableRow>
 
@@ -128,35 +133,41 @@
                 android:layout_weight="0.7"
                 android:gravity="center"
                 android:text="@string/second_period" />
-            <include
-                layout="@layout/item_taimetable"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
 
             <include
+                android:id="@+id/timetable_include_mon2"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_tue2"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_wen2"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_thu2"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/timetable_include_fri2"
+                layout="@layout/item_taimetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </TableRow>
 
@@ -173,35 +184,41 @@
                 android:layout_weight="0.7"
                 android:gravity="center"
                 android:text="@string/third_period" />
-            <include
-                layout="@layout/item_taimetable"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
 
             <include
+                android:id="@+id/timetable_include_mon3"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_tue3"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_wen3"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_thu3"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/timetable_include_fri3"
+                layout="@layout/item_taimetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow
@@ -219,34 +236,38 @@
                 android:text="@string/fourth_period" />
 
             <include
+                android:id="@+id/timetable_include_mon4"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/timetable_include_tue4"
+                layout="@layout/item_taimetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/timetable_include_wen4"
+                layout="@layout/item_taimetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/timetable_include_thu4"
+                layout="@layout/item_taimetable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
             <include
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <include
-                layout="@layout/item_taimetable"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <include
-                layout="@layout/item_taimetable"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <include
-                layout="@layout/item_taimetable"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow
@@ -264,34 +285,39 @@
                 android:text="@string/fifth_period" />
 
             <include
+                android:id="@+id/timetable_include_mon5"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_tue5"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_wen5"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_thu5"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
+                android:id="@+id/timetable_include_fri5"
                 layout="@layout/item_taimetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
