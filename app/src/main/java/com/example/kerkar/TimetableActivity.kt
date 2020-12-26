@@ -73,6 +73,38 @@ class Timetable_flagment : Fragment(){
         view.timetable_include_wen5.setOnClickListener {
             timetable_dialog_class.timetable_dialog("wen5", context)
         }
+        //木
+        view.timetable_include_thu1.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("thu1", context)
+        }
+        view.timetable_include_thu2.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("thu2", context)
+        }
+        view.timetable_include_thu3.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("thu3", context)
+        }
+        view.timetable_include_thu4.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("thu4", context)
+        }
+        view.timetable_include_thu5.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("thu5", context)
+        }
+        //金
+        view.timetable_include_fri1.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("fri1", context)
+        }
+        view.timetable_include_fri2.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("fri2", context)
+        }
+        view.timetable_include_fri3.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("fri3", context)
+        }
+        view.timetable_include_fri4.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("fri4", context)
+        }
+        view.timetable_include_fri5.setOnClickListener {
+            timetable_dialog_class.timetable_dialog("fri5", context)
+        }
     }
 
 
