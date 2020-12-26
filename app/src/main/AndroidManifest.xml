@@ -11,6 +11,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
+
+
         <activity android:name=".main_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

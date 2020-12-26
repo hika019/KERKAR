@@ -3,9 +3,11 @@ package com.example.kerkar
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
+
 
 class assignment_swith(){
     var flag = 0
@@ -76,11 +78,11 @@ class add_timetable(context: Context){
             }
             .setNeutralButton("検索") {dialog, which ->
 
+
             }
         dialog.show()
     }
-
-    fun search_timetable_dialog(){
+    fun search_timetable_dialog(view: View){
 
     }
 }
