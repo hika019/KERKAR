@@ -16,51 +16,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/main_activity_info_day_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
         android:elevation="2dp"
-        android:text="12/24"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_activity_info_title_textview"
-        app:layout_constraintEnd_toStartOf="@+id/main_activity_info_title_textview"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_activity_info_title_textview" />
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/view4"
+        app:layout_constraintEnd_toEndOf="@id/view4"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@id/view4">
 
-    <TextView
-        android:id="@+id/main_activity_info_title_textview"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:elevation="2dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="創造理工学実験"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/view4"
-        app:layout_constraintEnd_toStartOf="@+id/main_activity_info_details_textview"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/main_activity_info_day_textview"
-        app:layout_constraintTop_toTopOf="@+id/view4" />
+        <TextView
+            android:id="@+id/main_activity_info_day_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:elevation="2dp"
+            android:text="12/24"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/main_activity_info_details_textview"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:elevation="2dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="小レポート"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_activity_info_title_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_activity_info_title_textview"
-        app:layout_constraintTop_toTopOf="@+id/main_activity_info_title_textview" />
+        <TextView
+            android:id="@+id/main_activity_info_title_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="2"
+            android:elevation="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="創造理工学実験"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/main_activity_info_details_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="2"
+            android:elevation="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="小レポート"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
