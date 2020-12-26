@@ -51,8 +51,7 @@ class timetable_dialog_class(){
     }
 }
 
-class add_timetable(context: Context){
-    val context = context
+class add_timetable(var context: Context){
     fun add_timetable_dialog(){
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
         val dialog = AlertDialog.Builder(context)
@@ -70,14 +69,11 @@ class add_timetable(context: Context){
                     Toast.makeText(context, "未入力の場所があります", Toast.LENGTH_SHORT).show()
                     Log.d("add_timetable", "未入力あり")
                 }
-
-
             }
             .setNegativeButton("破棄") { dialog, which ->
 
             }
             .setNeutralButton("検索") {dialog, which ->
-
 
             }
         dialog.show()

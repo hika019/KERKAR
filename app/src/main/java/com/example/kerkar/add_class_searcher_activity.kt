@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.dialog_add_class_searcher.view.*
@@ -19,14 +20,18 @@ class add_class_searcher_fragment: Fragment() {
         val adapter = add_class_search_CustomAdapter(list)
         val layoutManager = LinearLayoutManager(this_context)
 
-        Log.d("adapter:", adapter.toString())
-        Log.d("layoutM:", layoutManager.toString())
 
 
         view.dialog_add_class_serchaer_recycleview.layoutManager = layoutManager
-
         view.dialog_add_class_serchaer_recycleview.adapter = adapter
         view.dialog_add_class_serchaer_recycleview.setHasFixedSize(true)
+
+        adapter.setOnItemClickListener(object: add_class_search_CustomAdapter.OnItemClickListener {
+            override fun onItemClickListener(view: View, position: Int, clickedText: String) {
+                Toast.makeText(this_context, "${clickedText}がタップされました", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
 
 
