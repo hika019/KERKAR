@@ -107,10 +107,4 @@ class Timetable_flagment : Fragment(){
         }
     }
 
-
-
-
-
-
-
 }

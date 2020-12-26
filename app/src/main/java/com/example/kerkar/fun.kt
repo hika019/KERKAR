@@ -1,8 +1,11 @@
 package com.example.kerkar
 
 import android.content.Context
+import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import java.util.*
+import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 
 class assignment_swith(){
     var flag = 0
@@ -20,11 +23,16 @@ class timetable_dialog_class(){
             AlertDialog.Builder(context)
                 .setTitle("授業")
                 .setMessage(message)
-                .setPositiveButton("OK") { dialog, which ->
+                .setPositiveButton("ok") { dialog, which ->
 
                 }
                 .setNegativeButton("授業登録"){dialog, which ->
                     //登録画面
+                    val add_timetable = add_timetable(context)
+                    add_timetable.add_timetable_dialog()
+
+                }
+                .setNeutralButton("課題を確認") { dialog, which ->
 
                 }
                 .show()
@@ -38,6 +46,42 @@ class timetable_dialog_class(){
             str = "授業が登録されていません"
         }
         return str
+    }
+}
+
+class add_timetable(context: Context){
+    val context = context
+    fun add_timetable_dialog(){
+        val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialog_messege)
+            .setTitle("授業登録")
+            .setPositiveButton("確定") { dialog, which ->
+                if (dialog_messege.week_to_day_edit_textview.text.isNotEmpty() and
+                    dialog_messege.period_edittextview.text.isNotEmpty() and
+                    dialog_messege.lecture_neme_edittext.text.isNotEmpty() and
+                    dialog_messege.teacher_name_edittext.text.isNotEmpty() and
+                    dialog_messege.class_name_edittext.text.isNotEmpty()) {
+                    //登録
+                    Log.d("add_timetable", "登録")
+                } else {
+                    Toast.makeText(context, "未入力の場所があります", Toast.LENGTH_SHORT).show()
+                    Log.d("add_timetable", "未入力あり")
+                }
+
+
+            }
+            .setNegativeButton("破棄") { dialog, which ->
+
+            }
+            .setNeutralButton("検索") {dialog, which ->
+
+            }
+        dialog.show()
+    }
+
+    fun search_timetable_dialog(){
+
     }
 }
 

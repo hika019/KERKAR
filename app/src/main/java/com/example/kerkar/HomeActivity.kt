@@ -77,7 +77,7 @@ class HomeActivity_fragment : Fragment() {
             val mBilder = AlertDialog.Builder(this_context!!)
                 .setView(mdialogView)
                 .setTitle("課題追加")
-                .setPositiveButton("確定", { dialog, which ->
+                .setPositiveButton("確定") { dialog, which ->
                     var add_assignment = add_assignment(
                         mdialogView.dialog_deadline_day.text.toString(),
                         mdialogView.dialog_deadline_time.text.toString(),
@@ -86,10 +86,10 @@ class HomeActivity_fragment : Fragment() {
                         mdialogView.dialog_assignment_special_notes.text.toString()
                     )
                     Log.d("dialog", add_assignment.day)
-                })
-                .setNegativeButton("破棄", { dialog, which ->
+                }
+                .setNegativeButton("破棄") { dialog, which ->
 
-                })
+                }
 
             mBilder.show()
 
@@ -102,7 +102,7 @@ class HomeActivity_fragment : Fragment() {
         val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
         val calendar: Calendar = Calendar.getInstance()
         val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
-        Log.d("week", week_name[calendar.get(Calendar.DAY_OF_WEEK)-1])
+        //Log.d("week", week_name[calendar.get(Calendar.DAY_OF_WEEK)-1])
 
         view.today_first_period.setOnClickListener {
             val timetable_dialog_class = timetable_dialog_class()
