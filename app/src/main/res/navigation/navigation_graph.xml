@@ -3,17 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/add_class_searcher_fragment">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.kerkar.HomeActivity_fragment"
         android:label="HomeActivity_flagment"
-        tools:layout="@layout/activity_home">
-        <action
-            android:id="@+id/action_nav_home_to_add_class_searcher_fragment"
-            app:destination="@id/add_class_searcher_fragment" />
-    </fragment>
+        tools:layout="@layout/activity_home"/>
     <fragment
         android:id="@+id/nav_assignment_list"
         android:name="com.example.kerkar.assignment_list_fragment"
@@ -29,13 +25,4 @@
         android:name="com.example.kerkar.settingActivity_fragment"
         android:label="setting_flagment"
         tools:layout="@layout/activity_setting"/>
-    <fragment
-        android:id="@+id/add_class_searcher_fragment"
-        android:name="com.example.kerkar.add_class_searcher_fragment"
-        android:label="add_class_searcher_fragment"
-        tools:layout="@layout/dialog_add_class_searcher">
-        <action
-            android:id="@+id/action_add_class_searcher_fragment_to_nav_home"
-            app:destination="@id/nav_home" />
-    </fragment>
 </navigation>

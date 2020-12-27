@@ -29,7 +29,7 @@ class timetable_dialog_class(){
                 }
                 .setNegativeButton("授業登録"){dialog, which ->
                     //登録画面
-                    val add_timetable = add_timetable(context)
+                    val add_timetable = add_timetable(context, time)
                     add_timetable.add_timetable_dialog()
 
                 }
@@ -50,7 +50,7 @@ class timetable_dialog_class(){
     }
 }
 
-class add_timetable(var context: Context){
+class add_timetable(var context: Context, var time:String){
     fun add_timetable_dialog(){
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
         val dialog = AlertDialog.Builder(context)
@@ -73,12 +73,23 @@ class add_timetable(var context: Context){
 
             }
             .setNeutralButton("検索") {dialog, which ->
-                search_timetable_dialog()
+                search_timetable_dialog(context, time)
             }
         dialog.show()
     }
 
-    fun search_timetable_dialog(){
+    fun search_timetable_dialog(context:Context, time_and_week: String){
+        Log.d("dialog", "called search_timetable_dialog")
+
+//        val classList: Array<String> = serch_classes(time_and_week)//授業検索
+
+        val colorList: Array<String> = arrayOf("倫理\n山田　太郎", "マクロ経済\n鈴木　恵一", "英語スキル\nデイビッド", "哲学\n奥居　達也", "創造理工実験\n長瀬　亮, 渡辺　二郎", "")
+        val builder = AlertDialog.Builder(context)
+        builder.setItems(colorList) { dialog, which ->
+            Toast.makeText(context, colorList[which], Toast.LENGTH_SHORT).show()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }
