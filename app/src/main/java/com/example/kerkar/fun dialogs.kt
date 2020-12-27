@@ -41,8 +41,9 @@ class timetable_dialog_class(){
     }
 
     private fun get_timetable_details(time: String): String {
+        var str: String = ""
         //str = fun 授業詳細を取得(time)
-        var str = "教科:情報倫理\\n教室:951\\n教員:中川　太郎"//一時的
+        //str = "教科:情報倫理\\n教室:951\\n教員:中川　太郎"//一時的
         if(str.isEmpty()){
             str = "授業が登録されていません"
         }
@@ -57,17 +58,51 @@ class add_timetable(var context: Context, var time:String){
             .setView(dialog_messege)
             .setTitle("授業登録")
             .setPositiveButton("確定") { dialog, which ->
-                if (dialog_messege.week_to_day_edit_textview.text.isNotEmpty() and
-                    dialog_messege.period_edittextview.text.isNotEmpty() and
-                    dialog_messege.lecture_neme_edittext.text.isNotEmpty() and
-                    dialog_messege.teacher_name_edittext.text.isNotEmpty() and
-                    dialog_messege.class_name_edittext.text.isNotEmpty()) {
-                    //登録
-                    Log.d("add_timetable", "登録")
+
+                val week_to_day = dialog_messege.week_to_day_edit_textview.text.toString()
+                val period = dialog_messege.period_edittextview.text.toString()
+                val lecture_name = dialog_messege.lecture_neme_edittext.text.toString()
+                val teacher_name = dialog_messege.teacher_name_edittext.text.toString()
+                val class_name = dialog_messege.class_name_edittext.text.toString()
+
+                //空欄の確認
+                if (week_to_day.isNotEmpty() && period.isNotEmpty() &&
+                        lecture_name.isNotEmpty() && teacher_name.isNotEmpty() &&
+                        class_name.isNotEmpty()) {
+
+                    Log.d("add_timetable", "未入力なし")
+
+                    //時間数の確認
+                    if (period.toInt() < 6){
+                        val week_to_daylist = listOf("月", "火", "水", "木", "金")
+                        //登録
+                        Log.d("add_timetable", "時限が5以下です")
+                        Log.d("add_timetable", "これ:"+week_to_daylist.find{it == week_to_day}.toString())
+                        if(week_to_daylist.find{it == week_to_day} != null){
+                            Log.d("add_timetable", "登録へ")
+
+                            //登録fun
+
+                        }else{
+                            Log.d("add_timetable", "曜日が不正")
+                            Toast.makeText(context, "曜日は漢字一文字にしてください", Toast.LENGTH_LONG).show()
+                        }
+                    }else{
+                        //オーバー
+                        Log.d("add_timetable", "時限数が5以上:${period}")
+                        Toast.makeText(context, "時限数は5以下まで対応しています\n" +
+                                                        "入力された時限数は6以上のため登録されていません\n" +
+                                                        "入力された値: ${period}", Toast.LENGTH_LONG).show()
+                    }
+
+
                 } else {
                     Toast.makeText(context, "未入力の場所があります", Toast.LENGTH_SHORT).show()
                     Log.d("add_timetable", "未入力あり")
                 }
+                Log.d("add_timetable", "end add_timetable")
+
+
             }
             .setNegativeButton("破棄") { dialog, which ->
 
