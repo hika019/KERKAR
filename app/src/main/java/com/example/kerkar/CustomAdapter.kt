@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_add_class_searcher.view.*
 
-class add_class_search_CustomAdapter(private val customList: Array<String>): RecyclerView.Adapter<add_class_search_CustomAdapter.CustomViewHolder>() {
+class add_class_search_CustomAdapter(private val teache_List: ArrayList<String>): RecyclerView.Adapter<add_class_search_CustomAdapter.CustomViewHolder>() {
 
     lateinit var listener: OnItemClickListener
 
@@ -25,15 +25,15 @@ class add_class_search_CustomAdapter(private val customList: Array<String>): Rec
     }
 
     override fun getItemCount(): Int {
-        return customList.size
+        return teache_List.size
     }
 
     //ここで挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.view.item_class_search_teacher_name.text = customList[position]
+        holder.view.item_class_search_teacher_name.text = teache_List[position]
         //タップ
         holder.view.setOnClickListener {
-            listener.onItemClickListener(it, position, customList[position])//customList[position]の部分がtoastで表示される
+            listener.onItemClickListener(it, position, teache_List[position])//customList[position]の部分がtoastで表示される
         }
     }
 

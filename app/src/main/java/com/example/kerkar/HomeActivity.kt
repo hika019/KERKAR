@@ -92,8 +92,10 @@ class HomeActivity_fragment : Fragment() {
                 }
 
             mBilder.show()
-
         }
+
+
+
         return view
     }
 

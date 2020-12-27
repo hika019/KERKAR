@@ -16,10 +16,10 @@ class add_class_searcher_fragment: Fragment() {
         val this_context = getContext()
 
 
-        val list = Array<String>(10) {"テキスト$it"}
-        val adapter = add_class_search_CustomAdapter(list)
+        val teache_list = arrayListOf<String>("山田", "山本", "鈴木", "田中")
+        val lecture_list = Array<String>(10) {"テキスト$it"}//list
+        val adapter = add_class_search_CustomAdapter(teache_list)
         val layoutManager = LinearLayoutManager(this_context)
-
 
 
         view.dialog_add_class_serchaer_recycleview.layoutManager = layoutManager
@@ -30,7 +30,6 @@ class add_class_searcher_fragment: Fragment() {
             override fun onItemClickListener(view: View, position: Int, clickedText: String) {
                 Toast.makeText(this_context, "${clickedText}がタップされました", Toast.LENGTH_SHORT).show()
             }
-
         })
 
 
@@ -38,6 +37,8 @@ class add_class_searcher_fragment: Fragment() {
         view.search_button.setOnClickListener{
             Log.d("add_class_search", "serch_button pressed")
         }
+
+
 
         return view
     }
