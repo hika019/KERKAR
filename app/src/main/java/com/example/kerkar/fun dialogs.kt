@@ -1,14 +1,10 @@
 package com.example.kerkar
 
 import android.content.Context
-import android.content.DialogInterface
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 
 
@@ -83,7 +79,6 @@ class add_timetable(var context: Context){
     }
 
     fun search_timetable_dialog(){
-
     }
 
 }
