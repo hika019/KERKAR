@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -25,21 +27,36 @@ class Assignment_list_fragment() :Fragment() {
         val frame_context = getContext()
         Log.d("hoge", "this:"+ frame_context.toString())
 
+        val lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+        val adapter = assignment_list_CustomAdapter(lecture_titel_list, frame_context)
+        val layoutManager = LinearLayoutManager(frame_context)
 
-        val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        main_assignment_adapter.add(assignment_item())
-        view.AssignmentActivity_assignment_recyclerView.adapter = main_assignment_adapter
+        view.AssignmentActivity_assignment_recyclerView.layoutManager = layoutManager
+        view.AssignmentActivity_assignment_recyclerView.adapter = adapter
+        view.AssignmentActivity_assignment_recyclerView.setHasFixedSize(true)
+
+        view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(frame_context, DividerItemDecoration.VERTICAL))
+
+
+
+
+
+
+
+//        val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        main_assignment_adapter.add(assignment_item())
+//        view.AssignmentActivity_assignment_recyclerView.adapter = main_assignment_adapter
 
 
 

@@ -30,7 +30,7 @@ class Home_fragment() : Fragment() {
         today_class(view, this_context!!)
 
         val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
-        val adapter = home_assignment_list_CustomAdapter(teacher_list, this_context)
+        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
         val layoutManager = LinearLayoutManager(this_context)
 
 
