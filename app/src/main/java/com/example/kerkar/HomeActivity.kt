@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 import java.util.*
 
 
-class HomeActivity_fragment : Fragment() {
+class Home_fragment() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

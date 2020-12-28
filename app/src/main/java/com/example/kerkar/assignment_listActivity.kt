@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_assignment_list.view.*
 import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
-class assignment_list_fragment :Fragment() {
+class Assignment_list_fragment() :Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.activity_assignment_list, container, false)
