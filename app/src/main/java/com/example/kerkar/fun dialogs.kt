@@ -17,15 +17,19 @@ data class add_assignment(var day: String, var time:String, var subject:String, 
 }
 
 class assignment_dialog_class(){
-    fun assigmenment_ditail_dialog(context: Context, str:String){
+    fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
 
 
         AlertDialog.Builder(context)
                 .setTitle("課題")
                 .setMessage(str)
-                .setPositiveButton("OK", { dialog, which ->
+                .setPositiveButton("OK") { dialog, which ->
 
-                })
+                }
+                .setNeutralButton("提出済みにする") {dialog, which ->
+                    Log.d("Assignment", "$position　を提出済みにする")
+
+                }
                 .show()
     }
 

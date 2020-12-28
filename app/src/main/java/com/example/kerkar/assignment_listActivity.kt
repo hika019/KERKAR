@@ -12,11 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_assignment_list.view.*
-import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
 class Assignment_list_fragment() :Fragment() {
@@ -30,8 +26,16 @@ class Assignment_list_fragment() :Fragment() {
 
 
         //未提出list
-        var lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
-        list(view, lecture_titel_list, frame_context)
+        var unsubmitted_lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語",
+                "国語", "C言語", "流体力学", "電磁気学")
+        var submitted_lecture_titel_list: ArrayList<String> = ArrayList()
+
+        val list = ItemList(submitted_lecture_titel_list, unsubmitted_lecture_titel_list)
+
+        val submmitted_list = list.submitted_list
+        val unsubmmitted_list = list.unsubmitted_list
+
+        list(view, unsubmmitted_list, submmitted_list, frame_context)
 
 
         //提出済み,未提出の切り替え
@@ -44,8 +48,8 @@ class Assignment_list_fragment() :Fragment() {
 
 //                Toast.makeText(frame_context!!, "true", Toast.LENGTH_SHORT).show()
                 //未提出list取得
-                lecture_titel_list = arrayListOf("環境論", "現代社会経済", "カーネル", "オブジェクト指向言語", "英語", "生命倫理学",)
-                list(view, lecture_titel_list, frame_context)
+//                lecture_titel_list = arrayListOf("環境論", "現代社会経済", "カーネル", "オブジェクト指向言語", "英語", "生命倫理学",)
+                list(view,  submmitted_list, unsubmmitted_list, frame_context)
 
             }else{
                 //未提出
@@ -55,23 +59,23 @@ class Assignment_list_fragment() :Fragment() {
                 assignmentSwith.flag=1
 
                 //提出list取得
-                lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
-                list(view, lecture_titel_list, frame_context)
+//                lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+                list(view, unsubmmitted_list, submmitted_list, frame_context)
             }
         }
 
-        Log.d("AssignmentActivity", lecture_titel_list.toString())
+        Log.d("AssignmentActivity", submmitted_list.toString())
 
 
 
         return view
     }
 
-    private fun list(view: View, list: ArrayList<String>, context: Context?){
+    private fun list(view: View, read_list: ArrayList<String>, write_list: ArrayList<String>, context: Context?){
         val recyclerView = view.AssignmentActivity_assignment_recyclerView
 
 
-        val adapter = assignment_list_CustomAdapter(list, context)
+        val adapter = assignment_list_CustomAdapter(read_list, write_list, context)
         val layoutManager = LinearLayoutManager(context)
 
         recyclerView.layoutManager = layoutManager
@@ -82,22 +86,4 @@ class Assignment_list_fragment() :Fragment() {
 
     }
 
-}
-class assignment_item: Item<GroupieViewHolder>() {
-    val assignmentSwith=assignment_swith()
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        Log.d("item", "call item")
-        if(assignmentSwith.flag == 0){
-            val tmp = viewHolder.itemView.assignment_activity_info_title_textview.text
-        }
-        else{
-            viewHolder.itemView.assignment_activity_info_title_textview.text = "英語"
-        }
-
-
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.item_assignment_activity
-    }
 }

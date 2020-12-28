@@ -1,10 +1,12 @@
 package com.example.kerkar
 
+import android.content.ClipData
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 
@@ -25,6 +27,12 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Stri
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val item = layoutInflater.inflate(R.layout.item_home_assignment_info, parent, false)
+
+        item.setOnClickListener { view ->
+            Log.d("hoge", "click")
+
+        }
+
         return CustomViewHolder(item)
     }
 
@@ -41,8 +49,12 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Stri
             Log.d("HomeActivity", "select assignment item: $position")
 
             //表示する内容
+            val id = "unique_id"
             val str = "期限: 12/25\n科目: 情報倫理\n詳細: 小課題\n$position"
-            assignment_dialog_class.assigmenment_ditail_dialog(context, str)
+            assigmenment_ditail_dialog(context, str, position)
+
+            //消す
+            //removeItem(position)
         }
     }
 
@@ -54,6 +66,36 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Stri
     // リスナー
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.listener = listener
+    }
+
+    // Itemを追加する
+    fun addListItem (item: ClipData.Item) {
+        teache_List.add(item.toString())
+        notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
+    }
+
+    // Itemを削除する
+    private fun removeItem(position: Int) {
+        teache_List.removeAt(position)
+        notifyItemRemoved(position)
+        notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
+    }
+
+
+    private fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
+
+
+        AlertDialog.Builder(context)
+                .setTitle("課題")
+                .setMessage(str)
+                .setPositiveButton("OK") { dialog, which ->
+
+                }
+                .setNeutralButton("提出済みにする") {dialog, which ->
+                    Log.d("Assignment", "$position　を提出済みにする")
+                    removeItem(position)
+                }
+                .show()
     }
 
 }

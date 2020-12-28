@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
@@ -29,9 +27,17 @@ class Home_fragment() : Fragment() {
 
         today_class(view, this_context!!)
 
+
         val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+
+        
+
+        
+        
         val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
         val layoutManager = LinearLayoutManager(this_context)
+
+        
 
 
         view.main_assignment_info_recyclerview.layoutManager = layoutManager
@@ -99,24 +105,4 @@ class Home_fragment() : Fragment() {
         }
     }
 
-}
-
-class MainAssignmentItem: Item<GroupieViewHolder>(){
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        //各レポートの内容をいじる
-        //下のはサンプル
-        val tmp = viewHolder.itemView.item_homeactivity_assignment_title_textview.text
-
-    }
-    override fun getLayout(): Int {
-        return R.layout.item_home_assignment_info
-    }
-}
-
-class today_timetable_Item: Item<GroupieViewHolder>(){
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-    }
-    override fun getLayout(): Int {
-        return R.layout.item_taimetable
-    }
 }
