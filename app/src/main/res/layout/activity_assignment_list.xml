@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:isScrollContainer="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,16 @@
             app:layout_constraintEnd_toStartOf="@+id/unsubmitted_or_submitted_switch"
             app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
 
-        <View
+    <View
+        android:id="@+id/unsubmitted_or_submitted_switch_cover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
+        app:layout_constraintEnd_toEndOf="@+id/submitted_textview"
+        app:layout_constraintStart_toStartOf="@+id/unsubmitted_textview"
+        app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
+
+    <View
             android:id="@+id/view2"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -64,7 +74,6 @@
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/view2"
             app:layout_constraintTop_toTopOf="@+id/view2" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

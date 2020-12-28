@@ -34,12 +34,21 @@ class Assignment_list_fragment() :Fragment() {
 
         val submmitted_list = list.submitted_list
         val unsubmmitted_list = list.unsubmitted_list
+        val switch = view.unsubmitted_or_submitted_switch
 
-        list(view, unsubmmitted_list, submmitted_list, frame_context)
+        list(view, unsubmmitted_list, submmitted_list, context)
 
 
         //提出済み,未提出の切り替え
-        view.unsubmitted_or_submitted_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+        view.unsubmitted_or_submitted_switch_cover.setOnClickListener {
+            if(switch.isChecked){
+                switch.setChecked(false)
+            }else{
+                switch.setChecked(true)
+            }
+
+        }
+        switch.setOnCheckedChangeListener { buttonView, isChecked ->
             if(isChecked){
                 //提出済み
                 view.submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
