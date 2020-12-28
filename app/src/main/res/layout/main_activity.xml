@@ -22,9 +22,8 @@
             android:theme="@style/AppThem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@android:drawable/sym_def_app_icon"
-            app:title="ケルカル" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
         <fragment
             android:id="@+id/nav_host_fragment"

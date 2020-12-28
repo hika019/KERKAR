@@ -27,83 +27,83 @@ class Timetable_flagment : Fragment(){
 
         //月
         view.timetable_include_mon1.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("mon1", context)
+            timetable_dialog_class.timetable_dialog("mon", 1, context)
         }
         view.timetable_include_mon2.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("mon2", context)
+            timetable_dialog_class.timetable_dialog("mon", 2, context)
         }
         view.timetable_include_mon3.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("mon3", context)
+            timetable_dialog_class.timetable_dialog("mon", 3, context)
         }
         view.timetable_include_mon4.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("mon4", context)
+            timetable_dialog_class.timetable_dialog("mon", 4, context)
         }
         view.timetable_include_mon5.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("mon5", context)
+            timetable_dialog_class.timetable_dialog("mon", 5, context)
         }
         //火
         view.timetable_include_tue1.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("tue1", context)
+            timetable_dialog_class.timetable_dialog("tue", 1, context)
         }
         view.timetable_include_tue2.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("tue2", context)
+            timetable_dialog_class.timetable_dialog("tue", 2, context)
         }
         view.timetable_include_tue3.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("tue3", context)
+            timetable_dialog_class.timetable_dialog("tue", 3, context)
         }
         view.timetable_include_tue4.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("tue4", context)
+            timetable_dialog_class.timetable_dialog("tue", 4, context)
         }
         view.timetable_include_tue5.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("tue5", context)
+            timetable_dialog_class.timetable_dialog("tue", 5, context)
         }
         //水
         view.timetable_include_wen1.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("wen1", context)
+            timetable_dialog_class.timetable_dialog("wen", 1, context)
         }
         view.timetable_include_wen2.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("wen2", context)
+            timetable_dialog_class.timetable_dialog("wen", 2, context)
         }
         view.timetable_include_wen3.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("wen3", context)
+            timetable_dialog_class.timetable_dialog("wen", 3, context)
         }
         view.timetable_include_wen4.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("wen4", context)
+            timetable_dialog_class.timetable_dialog("wen", 4, context)
         }
         view.timetable_include_wen5.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("wen5", context)
+            timetable_dialog_class.timetable_dialog("wen", 5, context)
         }
         //木
         view.timetable_include_thu1.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("thu1", context)
+            timetable_dialog_class.timetable_dialog("thu", 1, context)
         }
         view.timetable_include_thu2.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("thu2", context)
+            timetable_dialog_class.timetable_dialog("thu", 2, context)
         }
         view.timetable_include_thu3.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("thu3", context)
+            timetable_dialog_class.timetable_dialog("thu", 3, context)
         }
         view.timetable_include_thu4.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("thu4", context)
+            timetable_dialog_class.timetable_dialog("thu", 4, context)
         }
         view.timetable_include_thu5.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("thu5", context)
+            timetable_dialog_class.timetable_dialog("thu", 5, context)
         }
         //金
         view.timetable_include_fri1.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("fri1", context)
+            timetable_dialog_class.timetable_dialog("fri", 1, context)
         }
         view.timetable_include_fri2.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("fri2", context)
+            timetable_dialog_class.timetable_dialog("fri", 2, context)
         }
         view.timetable_include_fri3.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("fri3", context)
+            timetable_dialog_class.timetable_dialog("fri", 3, context)
         }
         view.timetable_include_fri4.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("fri4", context)
+            timetable_dialog_class.timetable_dialog("fri", 4, context)
         }
         view.timetable_include_fri5.setOnClickListener {
-            timetable_dialog_class.timetable_dialog("fri5", context)
+            timetable_dialog_class.timetable_dialog("fri", 5, context)
         }
     }
 

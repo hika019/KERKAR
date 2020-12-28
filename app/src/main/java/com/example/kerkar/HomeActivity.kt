@@ -107,19 +107,19 @@ class HomeActivity_fragment : Fragment() {
 
         val timetable_dialog_class = timetable_dialog_class()
         view.today_first_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week+"1", context)
+            timetable_dialog_class.timetable_dialog(week, 1, context)
         }
         view.today_second_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week+"2", context)
+            timetable_dialog_class.timetable_dialog(week, 2, context)
         }
         view.today_third_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week+"3", context)
+            timetable_dialog_class.timetable_dialog(week, 3, context)
         }
         view.today_fourth_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week+"4", context)
+            timetable_dialog_class.timetable_dialog(week, 4, context)
         }
         view.today_fifth_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week+"5", context)
+            timetable_dialog_class.timetable_dialog(week, 5, context)
         }
     }
 
