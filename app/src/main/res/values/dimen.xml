@@ -3,6 +3,6 @@
     <dimen name="timetable_textsize">20sp</dimen>
     <dimen name="home_timetable_textsize">14sp</dimen>
 
-    <dimen name="dialog_add_class_textsize">20sp</dimen>
+    <dimen name="dialog_add_class_textsize">18sp</dimen>
     <dimen name="item_textsize">20sp</dimen>
 </resources>
