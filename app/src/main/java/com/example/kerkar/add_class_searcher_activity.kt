@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.dialog_add_class_searcher.*
 import kotlinx.android.synthetic.main.dialog_add_class_searcher.view.*
@@ -27,6 +28,9 @@ class add_class_searcher_activity: AppCompatActivity() {
         dialog_add_class_serchaer_recycleview.layoutManager = layoutManager
         dialog_add_class_serchaer_recycleview.adapter = adapter
         dialog_add_class_serchaer_recycleview.setHasFixedSize(true)
+
+        //線表示
+        dialog_add_class_serchaer_recycleview.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         adapter.setOnItemClickListener(object: add_class_search_CustomAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, position: Int, clickedText: String) {

@@ -2,22 +2,18 @@ package com.example.kerkar
 
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.xwray.groupie.GroupAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
-import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 import java.util.*
 
@@ -33,37 +29,17 @@ class Home_fragment() : Fragment() {
 
         today_class(view, this_context!!)
 
+        val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+        val adapter = home_assignment_list_CustomAdapter(teacher_list, this_context)
+        val layoutManager = LinearLayoutManager(this_context)
 
 
-        val main_assignment_adapter = GroupAdapter<GroupieViewHolder>()
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        main_assignment_adapter.add(MainAssignmentItem())
-        view.main_assignment_info_recyclerview.adapter = main_assignment_adapter
+        view.main_assignment_info_recyclerview.layoutManager = layoutManager
+        view.main_assignment_info_recyclerview.adapter = adapter
+        view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
-        main_assignment_adapter.setOnItemClickListener { item, view ->
-            var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
-            str = str.replace("\\n", "\n")
-            AlertDialog.Builder(this_context!!)
-                    .setTitle("課題")
-                    .setMessage(str)
-                    .setPositiveButton("OK", { dialog, which ->
 
-                    })
-                    .show()
-        }
+
 
         view.floatingActionButton.setOnClickListener {
             val mdialogView = LayoutInflater.from(this_context).inflate(
@@ -129,7 +105,7 @@ class MainAssignmentItem: Item<GroupieViewHolder>(){
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         //各レポートの内容をいじる
         //下のはサンプル
-        val tmp = viewHolder.itemView.main_activity_info_title_textview.text
+        val tmp = viewHolder.itemView.item_homeactivity_assignment_title_textview.text
 
     }
     override fun getLayout(): Int {

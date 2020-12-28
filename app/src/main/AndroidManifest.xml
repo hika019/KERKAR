@@ -10,8 +10,7 @@
         android:supportsRtl="true">
 
 
-
-
+<!--        <activity android:name=".add_class_searcher_activity"-->
         <activity android:name=".main_activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

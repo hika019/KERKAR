@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@id/view4">
 
         <TextView
-            android:id="@+id/main_activity_info_day_textview"
+            android:id="@+id/item_homeactivity_assignment_day_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/main_activity_info_title_textview"
+            android:id="@+id/item_homeactivity_assignment_title_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -51,7 +51,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/main_activity_info_details_textview"
+            android:id="@+id/item_homeactivity_assignment_details_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

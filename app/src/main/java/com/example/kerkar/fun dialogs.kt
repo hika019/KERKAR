@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
+import java.security.AccessController.getContext
 
 
 class assignment_swith(){
@@ -13,6 +14,21 @@ class assignment_swith(){
 }
 
 data class add_assignment(var day: String, var time:String, var subject:String, var assignment_title:String, var special_notes: String){
+}
+
+class assignment_dialog_class(){
+    fun assohmenment_ditail_dialog(context: Context){
+        var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
+        str = str.replace("\\n", "\n")
+        AlertDialog.Builder(context)
+                .setTitle("課題")
+                .setMessage(str)
+                .setPositiveButton("OK", { dialog, which ->
+
+                })
+                .show()
+    }
+
 }
 
 
@@ -114,7 +130,7 @@ class add_timetable(var context: Context, var week:String, val period: Int){
             .setNeutralButton("検索") {dialog, which ->
                 search_timetable_dialog(context, week, period)
             }
-        dialog.show()
+        dialog.create().show()
     }
 
     fun week_to_day_jp_chenger(week:String): String{
@@ -133,10 +149,16 @@ class add_timetable(var context: Context, var week:String, val period: Int){
         val colorList: Array<String> = arrayOf("倫理\n山田　太郎", "マクロ経済\n鈴木　恵一", "英語スキル\nデイビッド", "哲学\n奥居　達也", "創造理工実験\n長瀬　亮, 渡辺　二郎", "統計学\n早瀬　はるか", "形式言語とオートマトン\n奥居　太一")
         val builder = AlertDialog.Builder(context)
         val week_jp = week_to_day_jp_chenger(week)
+
         builder.setTitle(week_jp +"曜日 " +period+"限 で検索されています")
-        builder.setItems(colorList) { dialog, which ->
-            Toast.makeText(context, colorList[which], Toast.LENGTH_SHORT).show()
-        }
+            .setSingleChoiceItems(colorList, -1) { dialog, which ->
+                Toast.makeText(context, colorList[which], Toast.LENGTH_SHORT).show()
+            }
+            .setPositiveButton("確定"){dialog, which ->
+
+                //登録処理
+
+            }
         val dialog = builder.create()
         dialog.show()
     }
