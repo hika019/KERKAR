@@ -39,7 +39,10 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Stri
         holder.view.setOnClickListener {
             val assignment_dialog_class = assignment_dialog_class()
             Log.d("HomeActivity", "select assignment item: $position")
-            assignment_dialog_class.assohmenment_ditail_dialog(context)
+
+            //表示する内容
+            val str = "期限: 12/25\n科目: 情報倫理\n詳細: 小課題\n$position"
+            assignment_dialog_class.assigmenment_ditail_dialog(context, str)
         }
     }
 

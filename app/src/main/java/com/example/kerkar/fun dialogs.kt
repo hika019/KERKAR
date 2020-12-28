@@ -17,9 +17,9 @@ data class add_assignment(var day: String, var time:String, var subject:String, 
 }
 
 class assignment_dialog_class(){
-    fun assohmenment_ditail_dialog(context: Context){
-        var str = "期限: 12/25\\n科目: 情報倫理\\n詳細: 小課題"
-        str = str.replace("\\n", "\n")
+    fun assigmenment_ditail_dialog(context: Context, str:String){
+
+
         AlertDialog.Builder(context)
                 .setTitle("課題")
                 .setMessage(str)
