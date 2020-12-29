@@ -55,6 +55,7 @@ class Home_fragment() : Fragment() {
     }
 
     private fun fab(context: Context){
+        val setting = db_setting()
         val action_local_db = action_local_DB(context)
         val mdialogView = LayoutInflater.from(context).inflate(
                 R.layout.dialog_add_assignment,
@@ -79,8 +80,10 @@ class Home_fragment() : Fragment() {
                             add_assignment.assignment_title.isNotEmpty()){
 
 
+                        //授業idとる
+                        //dbにいれる
                         action_local_db.insert_assignmnet_data(
-                                "unsub",
+                                setting.tbname_unsub,
                                 add_assignment.day, add_assignment.time, add_assignment.subject,
                                 add_assignment.assignment_title, add_assignment.special_notes, 0)
                     }else{
