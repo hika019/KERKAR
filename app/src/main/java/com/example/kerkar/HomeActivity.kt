@@ -44,46 +44,7 @@ class Home_fragment() : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-            val action_local_db = action_local_DB(context)
-            val mdialogView = LayoutInflater.from(context).inflate(
-                    R.layout.dialog_add_assignment,
-                    null
-            )
-            val mBilder = AlertDialog.Builder(this_context)
-                    .setView(mdialogView)
-                    .setTitle("課題追加")
-                    .setPositiveButton("確定") { dialog, which ->
-                        var add_assignment = add_assignment(
-                                mdialogView.dialog_deadline_day.text.toString(),
-                                mdialogView.dialog_deadline_time.text.toString(),
-                                mdialogView.dialog_subject.text.toString(),
-                                mdialogView.dialog_assignment_title.text.toString(),
-                                mdialogView.dialog_assignment_special_notes.text.toString()
-                        )
-                        Log.d("home", add_assignment.toString())
-
-                        if(add_assignment.day.isNotEmpty() &&
-                                add_assignment.time.isNotEmpty() &&
-                                add_assignment.subject.isNotEmpty() &&
-                                add_assignment.assignment_title.isNotEmpty()){
-
-
-                            action_local_db.insert_assignmnet_data(
-                                    "unsub",
-                                    "12/01", "18:00")
-                        }else{
-                            Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
-                        }
-
-
-
-                        Log.d("dialog", add_assignment.day + add_assignment.time)
-                    }
-                    .setNegativeButton("破棄") { dialog, which ->
-
-                    }
-
-            mBilder.show()
+            fab(this_context)
         }
 
 
@@ -120,7 +81,8 @@ class Home_fragment() : Fragment() {
 
                         action_local_db.insert_assignmnet_data(
                                 "unsub",
-                                add_assignment.day, add_assignment.time)
+                                add_assignment.day, add_assignment.time, add_assignment.subject,
+                                add_assignment.assignment_title, add_assignment.special_notes, 0)
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
                     }
