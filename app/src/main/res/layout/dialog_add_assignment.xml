@@ -11,8 +11,9 @@
         android:id="@+id/dialog_deadline_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="提出期限(01/20)"
+        android:hint="提出期限(01/20) *必須"
         android:inputType="date"
+
         tools:layout_editor_absoluteX="105dp"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -21,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="提出期限(17:00)"
+        android:hint="提出期限(17:00) *必須"
         android:inputType="time"
         app:layout_constraintStart_toStartOf="@+id/dialog_deadline_day"
         app:layout_constraintTop_toBottomOf="@+id/dialog_deadline_day" />
@@ -31,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="科目名(英語)"
+        android:hint="科目名(英語) *必須"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/dialog_deadline_time"
         app:layout_constraintTop_toBottomOf="@+id/dialog_deadline_time" />
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="課題名(レポート)"
+        android:hint="課題名(レポート) *必須"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/dialog_subject"
         app:layout_constraintTop_toBottomOf="@+id/dialog_subject" />
