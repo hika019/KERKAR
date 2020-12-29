@@ -36,13 +36,13 @@ class action_local_DB(val context: Context?){
 
     fun insert_assignmnet_data(
             tableName: String,
-            day:String, time:String, subject:String, assignment_name: String, note: String?, type: Int
+            day:String, time:String
     ){
         try{
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val db = dbHelper.writableDatabase
 
-            val str = time + subject + assignment_name
+            val str = time + day
 
             val id = id_generator(str)
 
@@ -50,10 +50,9 @@ class action_local_DB(val context: Context?){
             values.put("id", id)
             values.put("day", day)
             values.put("time", time)
-            values.put("subject", subject)
-            values.put("assignment_name", assignment_name)
-            values.put("note", note)
-            values.put("type", type)
+
+            Log.d("local_db_action", values.toString())
+
 
 
             db.insertOrThrow(tableName, null, values)
@@ -74,7 +73,7 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
 
     val setting = db_setting()
     val tbname_sub = "提出済み課題"
-    val tbname_unsub = "未提出課題"
+    val tbname_unsub = "unsub"
     val tbname_time = "時間割"
 
     val version = setting.dbVersion
@@ -85,7 +84,7 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
         db?.execSQL(sql)
         Log.d("db_local", "create tb :提出済み課題")
 
-        sql = "create table if not exists ${tbname_unsub} (id text primary key, 提出日 text, 提出時間 text, 科目名 text, 課題名 text, その他 text, type integer)"
+        sql = "create table if not exists ${tbname_unsub} (id text primary key, day text, time text)"
         db?.execSQL(sql)
         Log.d("db_local", "create tb :未提出課題")
 
