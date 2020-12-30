@@ -1,9 +1,10 @@
-package com.example.kerkar
+package com.example.kerkar.add_class_search
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kerkar.R
 import kotlinx.android.synthetic.main.item_add_class_searcher.view.*
 
 class add_class_search_CustomAdapter(private val teache_List: ArrayList<String>)

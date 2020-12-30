@@ -1,17 +1,14 @@
-package com.example.kerkar
+package com.example.kerkar.add_class_search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kerkar.R
 import kotlinx.android.synthetic.main.dialog_add_class_searcher.*
-import kotlinx.android.synthetic.main.dialog_add_class_searcher.view.*
 
 class add_class_searcher_activity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){

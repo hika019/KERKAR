@@ -18,8 +18,7 @@ class db_setting(
         val dbName: String = "testDB",
         val dbVersion: Int = 1,
 
-        val tbname_sub: String = "sub_dn",
-        val tbname_unsub: String = "unsub_db",
+        val tbname_assignment: String = "assignment_db",
         val tbname_time: String = "timetable_db")
 
 class action_local_DB(val context: Context?){
@@ -67,6 +66,33 @@ class action_local_DB(val context: Context?){
         }
     }
 
+    fun insert_timetable(week: String, period: String, lecture_name: String, teacher_name: String, class_name: String){
+        try{
+            val setting = db_setting()
+
+            val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
+            val db = dbHelper.writableDatabase
+
+            val str = week + period + lecture_name + teacher_name + class_name
+            val id = id_generator(str)
+
+            val values = ContentValues()
+            values.put("week_to_day_and_period", week+period)
+            values.put("id", id)
+            values.put("week_to_day", week)
+            values.put("period", period)
+            values.put("lecture_name", lecture_name)
+            values.put("teacher_name", teacher_name)
+            values.put("class_name", class_name)
+
+            db.replaceOrThrow(setting.tbname_time, null, values)
+            Log.d("local_db_action", "replaced timetable db")
+
+        }catch (exception: Exception){
+            Log.d("local_db_action", exception.toString())
+        }
+    }
+
 
 
 
@@ -82,15 +108,13 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
 
     //テーブル作成
     override fun onCreate(db: SQLiteDatabase?) {
-        var sql = "create table if not exists ${setting.tbname_sub} (id text primary key, day text, time text, subject_id text, assignment_name text, note text, type integer)"
+        var sql = "create table if not exists ${setting.tbname_assignment} (id text primary key, day text, time text, subject_id text, assignment_name text, note text, type integer)"
         db?.execSQL(sql)
-        Log.d("db_local", "create tb :提出済み課題")
+        Log.d("db_local", "create tb :課題")
 
-        sql = "create table if not exists ${setting.tbname_unsub} (id text primary key, day text, time text, subject_id text, assignment_name text, note text, type integer)"
-        db?.execSQL(sql)
-        Log.d("db_local", "create tb :未提出課題")
 
-        sql = "create table if not exists ${setting.tbname_time} (id text primary key, time text, subject text, class text, teacher text)"
+        sql = "create table if not exists ${setting.tbname_time} " +
+                "(week_to_day_and_period text primary key, id text , week_to_day text, period text, lecture_name text, teacher_name text, class_name text)"
         db?.execSQL(sql)
         Log.d("db_local", "create tb :時間割")
 
@@ -98,13 +122,9 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if (oldVersion < newVersion) {
-            var sql = "alter table ${setting.tbname_sub} add column deleteFlag integer default 0"
+            var sql = "alter table ${setting.tbname_assignment} add column deleteFlag integer default 0"
             db?.execSQL(sql)
-            Log.d("db", "update tb :提出済み課題")
-
-            sql = "alter table ${setting.tbname_unsub} add column deleteFlag integer default 0"
-            db?.execSQL(sql)
-            Log.d("db", "update tb :未提出課題")
+            Log.d("db", "update tb :課題")
 
             sql = "alter table ${setting.tbname_time} add column deleteFlag integer default 0"
             db?.execSQL(sql)

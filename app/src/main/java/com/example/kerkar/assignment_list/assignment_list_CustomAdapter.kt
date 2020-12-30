@@ -1,6 +1,5 @@
-package com.example.kerkar
+package com.example.kerkar.assignment_list
 
-import android.content.ClipData
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kerkar.R
+import com.example.kerkar.assignment_dialog_class
 import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 

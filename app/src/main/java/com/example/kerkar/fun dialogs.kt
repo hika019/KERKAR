@@ -39,10 +39,12 @@ class assignment_dialog_class(){
 class timetable_dialog_class(){
     fun timetable_dialog(week:String, time:Int, context: Context?){
         var message = get_timetable_details(week)
-        message = message.replace("\\n", "\n")
+
+        val week_jp = week_to_day_jp_chenger(week)
+
         if (context != null) {
             AlertDialog.Builder(context)
-                .setTitle("授業")
+                .setTitle("${week_jp}曜日 ${time}限の授業")
                 .setMessage(message)
                 .setPositiveButton("ok") { dialog, which ->
 
@@ -63,7 +65,7 @@ class timetable_dialog_class(){
     private fun get_timetable_details(time: String): String {
         var str: String = ""
         //str = fun 授業詳細を取得(time)
-        str = "教科:情報倫理\\n教室:951\\n教員:中川　太郎"//一時的
+        str = "教科:情報倫理\n教室:951\n教員:中川　太郎"//一時的
         if(str.isEmpty()){
             str = "授業が登録されていません"
         }
@@ -79,14 +81,11 @@ class add_timetable(var context: Context, var week:String, val period: Int){
             .setTitle("授業登録")
             .setPositiveButton("確定") { dialog, which ->
 
-                val week_to_day = dialog_messege.week_to_day_edit_textview.text
-                val period = dialog_messege.period_edittextview.text
-                val lecture_name = dialog_messege.lecture_neme_edittext.text
-                val teacher_name = dialog_messege.teacher_name_edittext.text
-                val class_name = dialog_messege.class_name_edittext.text
-
-
-
+                val week_to_day = dialog_messege.week_to_day_edit_textview.text.toString()
+                val period = dialog_messege.period_edittextview.text.toString()
+                val lecture_name = dialog_messege.lecture_neme_edittext.text.toString()
+                val teacher_name = dialog_messege.teacher_name_edittext.text.toString()
+                val class_name = dialog_messege.class_name_edittext.text.toString()
 
                 //空欄の確認
                 if (week_to_day.isNotEmpty() && period.isNotEmpty() &&
@@ -97,15 +96,20 @@ class add_timetable(var context: Context, var week:String, val period: Int){
 
                     //時間数の確認
                     if (period.toString().toInt() < 6){
+
                         val week_to_daylist = listOf("月", "火", "水", "木", "金")
                         //登録
                         Log.d("add_timetable", "時限が5以下です")
-                        Log.d("add_timetable", "これ:"+week_to_daylist.find{it == week_to_day.toString()}.toString())
+//                        Log.d("add_timetable", "これ:"+week_to_daylist.find{it == week_to_day.toString()}.toString())
                         if(week_to_daylist.find{it == week_to_day.toString()} != null){
-                            Log.d("add_timetable", "edit:"+week_to_day.toString())
+                            Log.d("add_timetable", "edit:"+week_to_day)
                             Log.d("add_timetable", "登録へ")
 
                             //登録fun
+                            val week_symbol = week_to_day_symbol_chenger(week_to_day)
+                            val db = action_local_DB(context)
+                            db.insert_timetable(week_symbol, period, lecture_name, teacher_name, class_name)
+
 
                         }else{
                             Log.d("add_timetable", "曜日が不正")
@@ -137,12 +141,7 @@ class add_timetable(var context: Context, var week:String, val period: Int){
         dialog.create().show()
     }
 
-    fun week_to_day_jp_chenger(week:String): String{
-        val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
-        val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
-        val index: Int = week_to_day_symbol_list.indexOf(week)
-        return week_to_day_jp_list[index]
-    }
+
 
 
     fun search_timetable_dialog(context:Context, week: String, period:Int){
@@ -167,5 +166,19 @@ class add_timetable(var context: Context, var week:String, val period: Int){
         dialog.show()
     }
 
+}
+
+fun week_to_day_jp_chenger(week:String): String{
+    val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
+    val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+    val index: Int = week_to_day_symbol_list.indexOf(week)
+    return week_to_day_jp_list[index]
+}
+
+fun week_to_day_symbol_chenger(week:String): String{
+    val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
+    val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+    val index: Int = week_to_day_jp_list.indexOf(week)
+    return week_to_day_symbol_list[index]
 }
 

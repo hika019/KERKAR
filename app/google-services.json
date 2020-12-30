@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "737953292778",
+    "project_id": "kerkar-test",
+    "storage_bucket": "kerkar-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737953292778:android:3bda3ed7f19a7ee6571293",
+        "android_client_info": {
+          "package_name": "com.example.kerkar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737953292778-cb1stnv63carjgn3q5tjdv89gi1m8pqg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZLZNylEzn3FbtLG7vAK6d9Jzo3D0sqMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737953292778-cb1stnv63carjgn3q5tjdv89gi1m8pqg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

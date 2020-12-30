@@ -1,4 +1,4 @@
-package com.example.kerkar
+package com.example.kerkar.home
 
 
 import android.content.Context
@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kerkar.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
-import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 import java.util.*
 
 
@@ -33,10 +33,6 @@ class Home_fragment() : Fragment() {
         val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
         val layoutManager = LinearLayoutManager(this_context)
 
-
-        
-
-
         view.main_assignment_info_recyclerview.layoutManager = layoutManager
         view.main_assignment_info_recyclerview.adapter = adapter
         view.main_assignment_info_recyclerview.setHasFixedSize(true)
@@ -46,10 +42,6 @@ class Home_fragment() : Fragment() {
         view.floatingActionButton.setOnClickListener {
             fab(this_context)
         }
-
-
-
-
 
         return view
     }
@@ -83,7 +75,7 @@ class Home_fragment() : Fragment() {
                         //授業idとる
                         //dbにいれる
                         action_local_db.insert_assignmnet_data(
-                                setting.tbname_unsub,
+                                setting.tbname_assignment,
                                 add_assignment.day, add_assignment.time, add_assignment.subject,
                                 add_assignment.assignment_title, add_assignment.special_notes, 0)
                     }else{
