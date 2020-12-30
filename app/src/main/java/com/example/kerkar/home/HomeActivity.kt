@@ -53,6 +53,9 @@ class Home_fragment() : Fragment() {
                 R.layout.dialog_add_assignment,
                 null
         )
+
+
+
         val mBilder = AlertDialog.Builder(context)
                 .setView(mdialogView)
                 .setTitle("課題追加")
