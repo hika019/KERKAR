@@ -27,7 +27,11 @@ class firedb_class(private val context: Context){
 
     fun add_timetable_firedb(week_to_day: String, period: String, lecture_name: String, teacher_name: String, class_name: String){
 
-        val data = tiemtable_data(week_to_day, period, lecture_name, teacher_name, class_name)
+        var data = tiemtable_data(
+                str_num_normalization(week_to_day), str_num_normalization(period),
+                str_num_normalization(lecture_name), str_num_normalization(teacher_name), str_num_normalization(class_name))
+
+
 
         firedb.collection("授業")
             .document()

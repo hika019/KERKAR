@@ -171,17 +171,4 @@ class add_timetable(var context: Context, var week:String, val period: Int){
 
 }
 
-fun week_to_day_jp_chenger(week:String): String{
-    val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
-    val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
-    val index: Int = week_to_day_symbol_list.indexOf(week)
-    return week_to_day_jp_list[index]
-}
-
-fun week_to_day_symbol_chenger(week:String): String{
-    val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
-    val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
-    val index: Int = week_to_day_jp_list.indexOf(week)
-    return week_to_day_symbol_list[index]
-}
 
