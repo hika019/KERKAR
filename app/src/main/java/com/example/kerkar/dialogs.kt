@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import java.security.AccessController.getContext
 
@@ -74,6 +75,8 @@ class timetable_dialog_class(){
 }
 
 class add_timetable(var context: Context, var week:String, val period: Int){
+    val firedb = firedb_class(context)
+
     fun add_timetable_dialog(){
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
         val dialog = AlertDialog.Builder(context)
@@ -107,10 +110,12 @@ class add_timetable(var context: Context, var week:String, val period: Int){
 
                             //登録fun
                             val week_symbol = week_to_day_symbol_chenger(week_to_day)
-                            val db = action_local_DB(context)
-                            db.insert_timetable(week_symbol, period, lecture_name, teacher_name, class_name)
+
+                            firedb.add_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
 
 
+//                            val db = action_local_DB(context)
+//                            db.insert_timetable(week_symbol, period, lecture_name, teacher_name, class_name)
                         }else{
                             Log.d("add_timetable", "曜日が不正")
                             Toast.makeText(context, "曜日は漢字一文字にしてください", Toast.LENGTH_LONG).show()
@@ -123,13 +128,11 @@ class add_timetable(var context: Context, var week:String, val period: Int){
                                                         "入力された値: ${period}", Toast.LENGTH_LONG).show()
                     }
 
-
                 } else {
                     Toast.makeText(context, "未入力の場所があります", Toast.LENGTH_SHORT).show()
                     Log.d("add_timetable", "未入力あり")
                 }
                 Log.d("add_timetable", "end add_timetable")
-
 
             }
             .setNegativeButton("破棄") { dialog, which ->

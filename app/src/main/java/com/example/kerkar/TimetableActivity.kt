@@ -25,6 +25,7 @@ class Timetable_fragment() : Fragment(){
     private fun timetable_onclick_event(view: View, context: Context?){
         val timetable_dialog_class = timetable_dialog_class()
 
+
         //月
         view.timetable_include_mon1.setOnClickListener {
             timetable_dialog_class.timetable_dialog("mon", 1, context)

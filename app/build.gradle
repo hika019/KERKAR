@@ -71,4 +71,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.5.0'
     implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'com.google.firebase:firebase-database-ktx:19.5.0'
+    implementation 'com.google.firebase:firebase-firestore:19.6.0'
 }
