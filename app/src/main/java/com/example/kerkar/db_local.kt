@@ -19,13 +19,16 @@ class db_setting(
         val dbVersion: Int = 1,
 
         val tbname_assignment: String = "assignment_db",
-        val tbname_time: String = "timetable_db")
+        val tbname_time: String = "timetable_db",
+        val tbname_userdb: String = "user_db"
+)
 
 class action_local_DB(val context: Context?){
     val dbSetting = db_setting()
     val dbVersion = dbSetting.dbVersion
     val tbName = dbSetting.tableName
     val dbName = dbSetting.dbName
+    val userdb = dbSetting.tbname_userdb
 
 
 
@@ -86,6 +89,27 @@ class action_local_DB(val context: Context?){
         }
     }
 
+    fun insert_userdb(uid: String, college: String, mail: String, password: String){
+        try {
+            val setting = db_setting()
+
+            val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
+            val db = dbHelper.writableDatabase
+
+            val values = ContentValues()
+            values.put("uid", uid)
+            values.put("college", college)
+            values.put("email", mail)
+            values.put("password", password)
+
+            db.replaceOrThrow(setting.tbname_userdb, null, values)
+            Log.d("local_db_action", "replaced timetable db")
+
+        }catch (exception: Exception){
+            Log.d("local_db_action", exception.toString())
+        }
+    }
+
 
 
 
@@ -111,6 +135,12 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
         db?.execSQL(sql)
         Log.d("db_local", "create tb :時間割")
 
+
+        sql = "create table if not exists ${setting.tbname_userdb} " +
+                "(uid text primary key, college text , email text, password text)"
+        db?.execSQL(sql)
+        Log.d("db_local", "create tb :user_db")
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -118,6 +148,10 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
             var sql = "alter table ${setting.tbname_assignment} add column deleteFlag integer default 0"
             db?.execSQL(sql)
             Log.d("db", "update tb :課題")
+
+            sql = "alter table ${setting.tbname_userdb} add column deleteFlag integer default 0"
+            db?.execSQL(sql)
+            Log.d("db", "update tb :user_db")
 
             sql = "alter table ${setting.tbname_time} add column deleteFlag integer default 0"
             db?.execSQL(sql)

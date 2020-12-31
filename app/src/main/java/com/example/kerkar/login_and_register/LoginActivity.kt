@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kerkar.R
-import com.example.kerkar.User_data_class
+import com.example.kerkar.*
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,9 +20,10 @@ import kotlinx.android.synthetic.main.login_activity.*
 
 private const val RC_SIGN_IN = 9001
 private lateinit var auth: FirebaseAuth
-private val TAG = "Login activity"
+private val TAG = "Loginactivity"
 
 class LoginActivity: AppCompatActivity() {
+    val firedb =firedb_login_register_class(this)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
@@ -53,6 +54,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun login() {
+        val db = action_local_DB(this)
         val mail = EmaileditTextText.text.toString()
         val password = PasswordeditTextText.text.toString()
 
@@ -61,8 +63,20 @@ class LoginActivity: AppCompatActivity() {
                 .addOnCompleteListener{
                     if(it.isSuccessful){
                         Log.d(TAG, "signInWithEmail:success")
-                        val user = User_data_class(mail, password, it.result?.user?.uid!!, "")
+
+                        val uid = Firebase.auth.currentUser!!.uid
+                        Log.d(TAG,  "uid:${uid}")
+                        val college = firedb.get_college(uid)
+                        Log.d(TAG, "college:${college}")
+
+                        val intent = Intent(this, main_activity::class.java)
+                        startActivity(intent)
+
+                    }else{
+                        Log.d(TAG, "signInWithEmail:failure")
+                        Toast.makeText(this, "ログインに失敗しました", Toast.LENGTH_LONG).show()
                     }
+
                 }
     }
 
