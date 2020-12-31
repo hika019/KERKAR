@@ -27,14 +27,7 @@ class action_local_DB(val context: Context?){
     val tbName = dbSetting.tableName
     val dbName = dbSetting.dbName
 
-    fun id_generator(str: String): String{
-        val id = MessageDigest.getInstance("SHA-256")
-                .digest(str.toByteArray())
-                .joinToString(separator = "") {
-                    "%02x".format(it)
-                }
-        return id
-    }
+
 
 
     fun insert_assignmnet_data(

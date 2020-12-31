@@ -111,6 +111,8 @@ class add_timetable(var context: Context, var week:String, val period: Int){
                             //登録fun
                             val week_symbol = week_to_day_symbol_chenger(week_to_day)
 
+                            firedb.add_college("中部大学")
+
                             firedb.add_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
 
 

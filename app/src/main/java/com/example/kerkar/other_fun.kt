@@ -1,5 +1,7 @@
 package com.example.kerkar
 
+import java.security.MessageDigest
+
 fun week_to_day_jp_chenger(week:String): String{
     val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
     val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
@@ -34,4 +36,13 @@ fun str_num_normalization(str: String): String{
             .replace("（","(").replace("）",")")
 
     return norm_str
+}
+
+fun id_generator(str: String): String {
+    val id = MessageDigest.getInstance("SHA-256")
+            .digest(str.toByteArray())
+            .joinToString(separator = "") {
+                "%02x".format(it)
+            }
+    return id
 }

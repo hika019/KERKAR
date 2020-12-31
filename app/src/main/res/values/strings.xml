@@ -30,6 +30,15 @@
     <string name="nav_open">Navigation Drawer Open</string>
     <string name="nav_close">Navigation Drawer Close</string>
 
+    <string name="e_mail">メールアドレス</string>
+    <string name="password">パスワード</string>
+    <string name="alredy_have_account">すでにアカウントを持っている</string>
+    <string name="create_account">アカウントを作る</string>
+    <string name="not_login_and_register">ログインせずに使う</string>
+    <string name="register">アカウントを作成</string>
+    <string name="login">ログイン</string>
+
+
 
 
 
