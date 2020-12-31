@@ -23,6 +23,20 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
+        android:id="@+id/college_editTextText"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_register_login"
+        android:ems="10"
+        android:paddingStart="16dp"
+        android:hint="@string/college_name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EmaileditTextText"
+        app:layout_constraintEnd_toEndOf="@+id/EmaileditTextText"
+        app:layout_constraintStart_toStartOf="@+id/EmaileditTextText" />
+
+    <EditText
         android:id="@+id/EmaileditTextText"
         android:layout_width="0dp"
         android:layout_height="50dp"

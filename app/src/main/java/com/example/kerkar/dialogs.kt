@@ -5,9 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
-import java.security.AccessController.getContext
 
 
 class assignment_swith(){
@@ -75,7 +73,7 @@ class timetable_dialog_class(){
 }
 
 class add_timetable(var context: Context, var week:String, val period: Int){
-    val firedb = firedb_class(context)
+    val firedb = firedb_main_class(context)
 
     fun add_timetable_dialog(){
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
@@ -171,6 +169,15 @@ class add_timetable(var context: Context, var week:String, val period: Int){
         dialog.show()
     }
 
+}
+
+fun error_college_upload_dialog(context: Context){
+    val messege = "ユーザー情報が正しくアップロードされなかった可能性があります。"
+    val dialog = AlertDialog.Builder(context)
+            .setTitle("アップロードエラー")
+            .setMessage(messege)
+            .setPositiveButton("OK"){dialog, which -> false}
+            .show()
 }
 
 

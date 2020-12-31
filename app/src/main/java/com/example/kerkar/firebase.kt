@@ -29,8 +29,31 @@ data class college_id(
         val college_nid: String
 )
 
+data class user_data(
+        val college: String?
+)
+val TAG = "firedb"
 
-class firedb_class(private val context: Context){
+class firedb_login_register_class(private val context: Context){
+    private val firedb = FirebaseFirestore.getInstance()
+
+    fun add_user(uid: String, college: String?){
+        val data = user_data(college)
+
+        firedb.collection("ユーザー")
+                .document(uid)
+                .set(data)
+                .addOnCanceledListener { Log.d(TAG, "add user college -> 送信完了")}
+                .addOnFailureListener {
+                    Log.d(TAG, "add user college -> 送信失敗")
+                    error_college_upload_dialog(context)
+                }
+
+    }
+}
+
+
+class firedb_main_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
     fun add_college(college_name: String){

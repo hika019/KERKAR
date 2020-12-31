@@ -32,6 +32,7 @@
 
     <string name="e_mail">メールアドレス</string>
     <string name="password">パスワード</string>
+    <string name="college_name">大学名 ※あとで変更できます</string>
     <string name="alredy_have_account">すでにアカウントを持っている</string>
     <string name="create_account">アカウントを作る</string>
     <string name="not_login_and_register">ログインせずに使う</string>
