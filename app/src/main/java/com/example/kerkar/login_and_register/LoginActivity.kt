@@ -7,10 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kerkar.*
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -46,6 +42,7 @@ class LoginActivity: AppCompatActivity() {
         }
 
 
+
         create_account_textview.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -66,7 +63,7 @@ class LoginActivity: AppCompatActivity() {
 
                         val uid = Firebase.auth.currentUser!!.uid
                         Log.d(TAG,  "uid:${uid}")
-                        val college = firedb.get_college(uid)
+                        val college = firedb.get_college()
                         Log.d(TAG, "college:${college}")
 
                         val intent = Intent(this, main_activity::class.java)

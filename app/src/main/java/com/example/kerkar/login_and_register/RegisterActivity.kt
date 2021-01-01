@@ -59,7 +59,7 @@ class RegisterActivity: AppCompatActivity() {
                     val user_data = User_data_class(mail, password, it.result?.user?.uid!!, college)
 
                     val firedb = firedb_login_register_class(this)
-                    firedb.add_user(user_data.u_id, user_data.college)
+                    firedb.add_user_college(user_data.u_id, user_data.college)
 
 
                     val intent = Intent(this, main_activity::class.java)
