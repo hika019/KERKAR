@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kerkar.R
-import com.example.kerkar.User_data_class
-import com.example.kerkar.firedb_login_register_class
-import com.example.kerkar.main_activity
+import com.example.kerkar.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -39,7 +36,6 @@ class RegisterActivity: AppCompatActivity() {
         auth = Firebase.auth
         val mail = EmaileditTextText.text.toString()
         val password = PasswordeditTextText.text.toString()
-        val college = college_editTextText.text.toString()
 
         if(mail.isEmpty() || password.isEmpty()){
             Toast.makeText(this, "e-mai/password is empty", Toast.LENGTH_SHORT).show()
@@ -56,13 +52,19 @@ class RegisterActivity: AppCompatActivity() {
                     //else if successful
                     Log.d(TAG, "Successfully created user with uid: ${it.result?.user?.uid}")
 
-                    val user_data = User_data_class(mail, password, it.result?.user?.uid!!, college)
+
+                    val list = arrayOf<String>("中部大学", "名古屋大学", "中京大学")
+                    //dialog
+
+
+
+                    val user_data = User_data_class(mail, password, it.result?.user?.uid!!, "college")
 
                     val firedb = firedb_login_register_class(this)
                     firedb.add_user_college(user_data.u_id, user_data.college)
 
 
-                    val intent = Intent(this, main_activity::class.java)
+                    val intent = Intent(this, SelectUniversityActivity::class.java)
                     startActivity(intent)
 
 

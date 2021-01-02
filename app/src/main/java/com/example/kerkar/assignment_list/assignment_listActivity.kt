@@ -40,6 +40,7 @@ class Assignment_list_fragment() :Fragment() {
 
         list(view, unsubmmitted_list, submmitted_list, context)
 
+        view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         //提出済み,未提出の切り替え
         view.unsubmitted_or_submitted_switch_cover.setOnClickListener {
@@ -93,7 +94,7 @@ class Assignment_list_fragment() :Fragment() {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
 
-//        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
 
     }
 
