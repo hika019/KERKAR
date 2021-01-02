@@ -39,6 +39,10 @@
     <string name="register">アカウントを作成</string>
     <string name="login">ログイン</string>
 
+    <string name="enter_university">確定</string>
+    <string name="create_university">大学を追加</string>
+    <string name="add_university_to_account">入学している大学を選択してください</string>
+
 
 
 

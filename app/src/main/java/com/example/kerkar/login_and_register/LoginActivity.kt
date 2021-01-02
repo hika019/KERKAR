@@ -11,7 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.login_activity.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 
 private const val RC_SIGN_IN = 9001
@@ -22,7 +22,7 @@ class LoginActivity: AppCompatActivity() {
     val firedb =firedb_login_register_class(this)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        setContentView(R.layout.activity_login)
         auth = Firebase.auth
 
         use_google_sign_in_button.setOnClickListener{

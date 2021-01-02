@@ -12,7 +12,7 @@ import com.example.kerkar.main_activity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.register_activity.*
+import kotlinx.android.synthetic.main.activity_register.*
 
 private lateinit var auth: FirebaseAuth
 private val TAG = "Register activity"
@@ -20,7 +20,7 @@ private val TAG = "Register activity"
 class RegisterActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.register_activity)
+        setContentView(R.layout.activity_register)
 
 
 
