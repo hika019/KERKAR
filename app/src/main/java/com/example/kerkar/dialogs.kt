@@ -8,9 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 
 
-class assignment_swith(){
-    var flag = 0
-}
+
 
 data class add_assignment(var day: String, var time:String, var subject:String, var assignment_title:String, var special_notes: String){
 }

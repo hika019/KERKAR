@@ -2,6 +2,10 @@ package com.example.kerkar
 
 import java.security.MessageDigest
 
+class assignment_swith(){
+    var flag = 0
+}
+
 fun week_to_day_jp_chenger(week:String): String{
     val week_to_day_jp_list = listOf("日","月", "火", "水", "木", "金", "土")
     val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")

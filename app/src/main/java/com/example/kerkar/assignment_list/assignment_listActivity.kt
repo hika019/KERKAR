@@ -8,12 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.ItemList
 import com.example.kerkar.R
 import com.example.kerkar.assignment_swith
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_assignment_list.view.*
 
 
@@ -36,45 +38,38 @@ class Assignment_list_fragment() :Fragment() {
 
         val submmitted_list = list.submitted_list
         val unsubmmitted_list = list.unsubmitted_list
-        val switch = view.unsubmitted_or_submitted_switch
 
         list(view, unsubmmitted_list, submmitted_list, context)
 
         view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         //提出済み,未提出の切り替え
-        view.unsubmitted_or_submitted_switch_cover.setOnClickListener {
-            if(switch.isChecked){
-                switch.setChecked(false)
-            }else{
-                switch.setChecked(true)
+
+        view.unsubmitted_or_submitted_tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                Toast.makeText(context, tab?.text, Toast.LENGTH_SHORT).show()
+                if(tab?.text == "提出済課題") {
+                    assignmentSwith.flag=0
+                    list(view,  submmitted_list, unsubmmitted_list, frame_context)
+                }
+                else {
+                    assignmentSwith.flag=1
+                    list(view, unsubmmitted_list, submmitted_list, frame_context)
+                }
             }
 
-        }
-        switch.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                //提出済み
-                view.submitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-                view.unsubmitted_textview.setTypeface(Typeface.DEFAULT)
-                assignmentSwith.flag=0
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
 
-//                Toast.makeText(frame_context!!, "true", Toast.LENGTH_SHORT).show()
-                //未提出list取得
-//                lecture_titel_list = arrayListOf("環境論", "現代社会経済", "カーネル", "オブジェクト指向言語", "英語", "生命倫理学",)
-                list(view,  submmitted_list, unsubmmitted_list, frame_context)
-
-            }else{
-                //未提出
-                view.unsubmitted_textview.setTypeface(Typeface.DEFAULT_BOLD)
-                view.submitted_textview.setTypeface(Typeface.DEFAULT)
-//                Toast.makeText(frame_context!!, "false", Toast.LENGTH_SHORT).show()
-                assignmentSwith.flag=1
-
-                //提出list取得
-//                lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
-                list(view, unsubmmitted_list, submmitted_list, frame_context)
             }
-        }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+
+
+
 
         Log.d("AssignmentActivity", submmitted_list.toString())
 

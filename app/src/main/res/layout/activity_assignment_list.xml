@@ -6,61 +6,43 @@
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-
-    <Switch
-        android:id="@+id/unsubmitted_or_submitted_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:isScrollContainer="false"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/unsubmitted_or_submitted_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-            android:id="@+id/submitted_textview"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/unsubmitted_task_TabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/submitted_assignment"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
-            app:layout_constraintStart_toEndOf="@+id/unsubmitted_or_submitted_switch"
-            app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
+            android:text="@string/unsubmitted_assignment" />
 
-    <TextView
-            android:id="@+id/unsubmitted_textview"
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/submitted_task_TabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/unsubmitted_assignment"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
-            app:layout_constraintEnd_toStartOf="@+id/unsubmitted_or_submitted_switch"
-            app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
+            android:text="@string/submitted_assignment" />
+
+    </com.google.android.material.tabs.TabLayout>
+
 
     <View
-        android:id="@+id/unsubmitted_or_submitted_switch_cover"
+        android:id="@+id/view2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/unsubmitted_or_submitted_switch"
-        app:layout_constraintEnd_toEndOf="@+id/submitted_textview"
-        app:layout_constraintStart_toStartOf="@+id/unsubmitted_textview"
-        app:layout_constraintTop_toTopOf="@+id/unsubmitted_or_submitted_switch" />
-
-    <View
-            android:id="@+id/view2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/main_info_view_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/unsubmitted_or_submitted_switch" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/main_info_view_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/unsubmitted_or_submitted_tabs" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/AssignmentActivity_assignment_recyclerView"

@@ -110,8 +110,8 @@ class firedb_main_class(private val context: Context){
         val id_data = id_generator(college_name)
         val data = college_data(college_name)
 
-        firedb.collection("college")
-                .document(id_data)
+        firedb.collection("university")
+                .document()
                 .set(data)
                 .addOnSuccessListener { Log.d("firedb", "add_college firedb -> 送信完了") }
                 .addOnFailureListener {
