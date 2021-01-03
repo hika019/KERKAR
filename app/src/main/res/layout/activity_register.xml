@@ -31,9 +31,9 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/edittext_register_login"
         android:ems="10"
-        android:paddingStart="16dp"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
+        android:paddingStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/PasswordeditTextText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -51,7 +51,6 @@
         android:paddingStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/EmaileditTextText"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/EmaileditTextText"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 

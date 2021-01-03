@@ -19,6 +19,9 @@ class RegisterActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        val firedb = firedb_login_register_class(this)
+        firedb.get_university_list()
+
 
 
         create_account_button.setOnClickListener{
@@ -52,20 +55,21 @@ class RegisterActivity: AppCompatActivity() {
                     //else if successful
                     Log.d(TAG, "Successfully created user with uid: ${it.result?.user?.uid}")
 
-
-                    val list = arrayOf<String>("中部大学", "名古屋大学", "中京大学")
                     //dialog
+                    val register_dialog_class = register_dialog(this, mail, password, it.result?.user?.uid!!)
+                    register_dialog_class.select_univarsity()
+
+
+//                    val user_data = User_data_class(mail, password, it.result?.user?.uid!!, "college")
+//
+//                    val firedb = firedb_login_register_class(this)
+//                    firedb.add_user_data(user_data.u_id, user_data.college)
 
 
 
-                    val user_data = User_data_class(mail, password, it.result?.user?.uid!!, "college")
 
-                    val firedb = firedb_login_register_class(this)
-                    firedb.add_user_college(user_data.u_id, user_data.college)
-
-
-                    val intent = Intent(this, SelectUniversityActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, main_activity::class.java)
+//                    startActivity(intent)
 
 
                 }

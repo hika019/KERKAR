@@ -1,20 +1,21 @@
 package com.example.kerkar
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
+import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
 
-
-
-data class add_assignment(var day: String, var time:String, var subject:String, var assignment_title:String, var special_notes: String){
+data class add_assignment(var day: String, var time: String, var subject: String, var assignment_title: String, var special_notes: String){
 }
 
 class assignment_dialog_class(){
-    fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
+    fun assigmenment_ditail_dialog(context: Context, str: String, position: Int){
 
 
         AlertDialog.Builder(context)
@@ -23,7 +24,7 @@ class assignment_dialog_class(){
                 .setPositiveButton("OK") { dialog, which ->
 
                 }
-                .setNeutralButton("提出済みにする") {dialog, which ->
+                .setNeutralButton("提出済みにする") { dialog, which ->
                     Log.d("Assignment", "$position　を提出済みにする")
 
                 }
@@ -34,7 +35,7 @@ class assignment_dialog_class(){
 
 
 class timetable_dialog_class(){
-    fun timetable_dialog(week:String, time:Int, context: Context?){
+    fun timetable_dialog(week: String, time: Int, context: Context?){
         var message = get_timetable_details(week)
 
         val week_jp = week_to_day_jp_chenger(week)
@@ -46,7 +47,7 @@ class timetable_dialog_class(){
                 .setPositiveButton("ok") { dialog, which ->
 
                 }
-                .setNegativeButton("授業登録"){dialog, which ->
+                .setNegativeButton("授業登録"){ dialog, which ->
                     //登録画面
                     val add_timetable = add_timetable(context, week, time)
                     add_timetable.add_timetable_dialog()
@@ -70,7 +71,7 @@ class timetable_dialog_class(){
     }
 }
 
-class add_timetable(var context: Context, var week:String, val period: Int){
+class add_timetable(var context: Context, var week: String, val period: Int){
     val firedb = firedb_main_class(context)
 
     fun add_timetable_dialog(){
@@ -101,7 +102,7 @@ class add_timetable(var context: Context, var week:String, val period: Int){
                         Log.d("add_timetable", "時限が5以下です")
 //                        Log.d("add_timetable", "これ:"+week_to_daylist.find{it == week_to_day.toString()}.toString())
                         if(week_to_daylist.find{it == week_to_day.toString()} != null){
-                            Log.d("add_timetable", "edit:"+week_to_day)
+                            Log.d("add_timetable", "edit:" + week_to_day)
                             Log.d("add_timetable", "登録へ")
 
                             //登録fun
@@ -121,8 +122,8 @@ class add_timetable(var context: Context, var week:String, val period: Int){
                         //オーバー
                         Log.d("add_timetable", "時限数が5以上:${period}")
                         Toast.makeText(context, "時限数は5以下まで対応しています\n" +
-                                                        "入力された時限数は6以上のため登録されていません\n" +
-                                                        "入力された値: ${period}", Toast.LENGTH_LONG).show()
+                                "入力された時限数は6以上のため登録されていません\n" +
+                                "入力された値: ${period}", Toast.LENGTH_LONG).show()
                     }
 
                 } else {
@@ -135,7 +136,7 @@ class add_timetable(var context: Context, var week:String, val period: Int){
             .setNegativeButton("破棄") { dialog, which ->
 
             }
-            .setNeutralButton("検索") {dialog, which ->
+            .setNeutralButton("検索") { dialog, which ->
                 search_timetable_dialog(context, week, period)
             }
         dialog.create().show()
@@ -144,7 +145,7 @@ class add_timetable(var context: Context, var week:String, val period: Int){
 
 
 
-    fun search_timetable_dialog(context:Context, week: String, period:Int){
+    fun search_timetable_dialog(context: Context, week: String, period: Int){
         Log.d("dialog", "called search_timetable_dialog")
 
 //        val classList: Array<String> = serch_classes(time_and_week)//授業検索
@@ -153,11 +154,11 @@ class add_timetable(var context: Context, var week:String, val period: Int){
         val builder = AlertDialog.Builder(context)
         val week_jp = week_to_day_jp_chenger(week)
 
-        builder.setTitle(week_jp +"曜日 " +period+"限 で検索されています")
+        builder.setTitle(week_jp + "曜日 " + period + "限 で検索されています")
             .setSingleChoiceItems(colorList, -1) { dialog, which ->
                 Toast.makeText(context, colorList[which], Toast.LENGTH_SHORT).show()
             }
-            .setPositiveButton("確定"){dialog, which ->
+            .setPositiveButton("確定"){ dialog, which ->
 
                 //登録処理
 
@@ -173,8 +174,69 @@ fun error_college_upload_dialog(context: Context){
     val dialog = AlertDialog.Builder(context)
             .setTitle("アップロードエラー")
             .setMessage(messege)
-            .setPositiveButton("OK"){dialog, which -> false}
+            .setPositiveButton("OK"){ dialog, which -> false}
             .show()
 }
 
+
+
+class register_dialog(val context: Context, val mail: String, val password: String, val uid: String){
+    fun add_university(){
+        val dialog_layout = LayoutInflater.from(context).inflate(R.layout.dialog_add_university, null)
+        val dialog = AlertDialog.Builder(context)
+                .setTitle("大学を追加")
+                .setView(dialog_layout)
+                .setPositiveButton("OK"){ dialog, which ->
+                    val university_name = dialog_layout.univarsity_edittext.text.toString()
+
+                    //firebaseに追加しょり
+                }
+                .setNegativeButton("戻る"){ dialog, which ->
+                    select_univarsity()
+                }
+
+        dialog.create().show()
+    }
+
+
+
+    fun select_univarsity() {
+
+
+        var university:String? = ""
+
+
+
+
+
+        val list = arrayOf("中部大学", "名古屋大学", "愛知大学")
+
+
+
+        val dialog = AlertDialog.Builder(context)
+                .setTitle("大学の選択")
+                .setSingleChoiceItems(list, -1){ dialog, which ->
+                    university = list[which]
+                    Toast.makeText(context, list[which], Toast.LENGTH_SHORT).show()
+                }
+                .setPositiveButton("確定"){ dialog, which ->
+                    Toast.makeText(context, university.toString(), Toast.LENGTH_SHORT).show()
+
+                    val user_data = User_data_class(mail, password, uid, university.toString())
+
+                    val firedb = firedb_login_register_class(context)
+                    firedb.add_user_data(user_data.u_id, user_data.college)
+
+//                    val intent = Intent(context, main_activity::class.java)
+//                    startActivity(intent)
+
+
+
+                }
+                .setNegativeButton("大学を追加"){ dialog, which->
+                    add_university()
+                }
+        dialog.create().show()
+    }
+}
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kerkar.R
+
 import com.example.kerkar.main_activity
 import kotlinx.android.synthetic.main.activity_select_university.*
 import kotlinx.android.synthetic.main.item_serch_university.view.*
@@ -34,6 +35,9 @@ class SelectUniversityActivity: AppCompatActivity() {
         confirm_button.setOnClickListener{
             val intent = Intent(this, main_activity::class.java)
             startActivity(intent)
+        }
+        add_university_button.setOnClickListener{
+
         }
 
 
