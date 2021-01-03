@@ -50,42 +50,53 @@ class tmp_local_DB(val context: Context?){
 
 
         }catch(exception: Exception){
-            Log.d(TAG, exception.toString())
+            Log.e(TAG, exception.toString())
         }
     }
 
 
-    fun get_tmp() {
-        try{
-            val arraylist :ArrayList<String> = arrayListOf()
-            val hoge = listOf(10)
-            arraylist.clear()
+    fun get_tmp(): Array<String> {
+//        val arraylist: ArrayList<String> = arrayListOf()
+        var list: Array<String> = arrayOf()
 
+        try{
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
+            Log.d(TAG, "call get tmp")
 
             val sql = "select value from ${tbtmp}"
             Log.d(TAG, "sql: ${sql}")
 
             val cursor = database.rawQuery(sql, null)
+            Log.d(TAG, "cursor: ${cursor}")
+
 
             if(cursor.count >0){
-                var list: Array<String> = Array(cursor.count){"$it"}
-
+                Log.d(TAG, "in")
+//                Log.d(TAG, list.toString())
                 cursor.moveToFirst()
                 while(!cursor.isAfterLast){
-                    arraylist.add(cursor.getString(0))
+                    Log.d(TAG, "in-2")
+//                    arraylist.add(cursor.getString(0))
+                    list += cursor.getString(0)
+                    cursor.moveToNext()
                 }
+
             }
-            Toast.makeText(context, cursor.count, Toast.LENGTH_SHORT).show()
-            Log.d(TAG, cursor.count.toString())
+            Log.d(TAG, "out")
+            Log.d(TAG, list.toString())
+
+
+
+
 //            clear()
 
 
         }catch(exception: Exception){
-            Log.d(TAG, exception.toString())
+            Log.e(TAG, "error: "+exception.toString())
         }
 
+        return list
     }
 
 
@@ -100,7 +111,7 @@ class tmp_local_DB(val context: Context?){
 
 
         }catch(exception: Exception){
-            Log.d(TAG, exception.toString())
+            Log.e(TAG, exception.toString())
         }
     }
 }

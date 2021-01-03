@@ -157,7 +157,7 @@ class firedb_login_register_class(private val context: Context){
 
 
     fun get_university_list(){
-        Log.d(TAG, "####call#####")
+        Log.d(TAG, "####call: get_university_list #####")
         firedb.collection("university")
                 .get()
                 .addOnSuccessListener { documents ->
@@ -166,8 +166,8 @@ class firedb_login_register_class(private val context: Context){
                         get_university_name(document.id)
 
                     }
-                    val hoge = tmp_local_DB(context)
-                    hoge.get_tmp()
+//                    val hoge = tmp_local_DB(context)
+//                    hoge.get_tmp()
                 }
     }
     

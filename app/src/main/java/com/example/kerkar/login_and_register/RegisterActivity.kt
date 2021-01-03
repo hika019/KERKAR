@@ -19,6 +19,7 @@ class RegisterActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        //大学リストを取得
         val firedb = firedb_login_register_class(this)
         firedb.get_university_list()
 
@@ -55,7 +56,7 @@ class RegisterActivity: AppCompatActivity() {
                     //else if successful
                     Log.d(TAG, "Successfully created user with uid: ${it.result?.user?.uid}")
 
-                    //dialog
+                    //dialog 大学選択
                     val register_dialog_class = register_dialog(this, mail, password, it.result?.user?.uid!!)
                     register_dialog_class.select_univarsity()
 

@@ -202,14 +202,12 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
 
     fun select_univarsity() {
 
-
         var university:String? = ""
+        val localdb = tmp_local_DB(context)
+        val list = localdb.get_tmp()
 
 
-
-
-
-        val list = arrayOf("中部大学", "名古屋大学", "愛知大学")
+//        val list = arrayOf("中部大学", "名古屋大学", "愛知大学")
 
 
 
