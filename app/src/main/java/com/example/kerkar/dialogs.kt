@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
@@ -225,8 +224,11 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
                     val firedb = firedb_login_register_class(context)
                     firedb.add_user_data(user_data.u_id, user_data.college)
 
-//                    val intent = Intent(context, main_activity::class.java)
-//                    startActivity(intent)
+                    tmp_local_DB(context).clear()
+
+//                    Log.d("fire", "call")
+                    val i = Intent(context, main_activity::class.java)
+                    context.startActivity(i)
 
 
 

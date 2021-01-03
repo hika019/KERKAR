@@ -5,8 +5,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
-import java.security.MessageDigest
 import java.util.ArrayList
 
 private var arrayListId: ArrayList<String> = arrayListOf()
@@ -58,11 +56,11 @@ class tmp_local_DB(val context: Context?){
     fun get_tmp(): Array<String> {
 //        val arraylist: ArrayList<String> = arrayListOf()
         var list: Array<String> = arrayOf()
-
+        Log.d(TAG, "call get tmp")
         try{
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
-            Log.d(TAG, "call get tmp")
+
 
             val sql = "select value from ${tbtmp}"
             Log.d(TAG, "sql: ${sql}")
@@ -84,12 +82,11 @@ class tmp_local_DB(val context: Context?){
 
             }
             Log.d(TAG, "out")
-            Log.d(TAG, list.toString())
+//            Log.d(TAG, list.toString())
 
 
 
 
-//            clear()
 
 
         }catch(exception: Exception){
@@ -101,13 +98,14 @@ class tmp_local_DB(val context: Context?){
 
 
     fun clear(){
+        Log.d(TAG, "call clear")
         try{
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
 
             val sql = "delete from ${tbtmp}"
 
-            database.rawQuery(sql, null)
+            database.delete(tbtmp, "value", null)
 
 
         }catch(exception: Exception){
