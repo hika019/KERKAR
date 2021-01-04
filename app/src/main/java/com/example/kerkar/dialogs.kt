@@ -71,7 +71,8 @@ class timetable_dialog_class(){
 }
 
 class add_timetable(var context: Context, var week: String, val period: Int){
-    val firedb = firedb_main_class(context)
+    val firedb = firedb_timetable_class(context)
+    val TAG = "add_timetable"
 
     fun add_timetable_dialog(){
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
@@ -106,6 +107,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
                             //登録fun
                             val week_symbol = week_to_day_symbol_chenger(week_to_day)
+                            val teacher_list = str_to_array(teacher_name)
+
+                            Log.d(TAG, teacher_list.toString())
 
 
 //                            firedb.add_university_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
@@ -179,6 +183,8 @@ fun error_college_upload_dialog(context: Context){
 
 class register_dialog(val context: Context, val mail: String, val password: String, val uid: String){
 
+    val localdb = tmp_local_DB(context)
+
     fun add_university(uid: String){
         val dialog_layout = LayoutInflater.from(context).inflate(R.layout.dialog_add_university, null)
         val firedb = firedb_login_register_class(context)
@@ -192,6 +198,7 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
 
                     firedb.add_user_data(uid, university_name)
 
+                    localdb.clear()
                     val i = Intent(context, main_activity::class.java)
                     context.startActivity(i)
 
@@ -206,7 +213,6 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
     fun select_univarsity() {
 
         var university:String? = ""
-        val localdb = tmp_local_DB(context)
         val list = localdb.get_tmp()
 
         if(list.size < 0){
@@ -229,6 +235,7 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
                     tmp_local_DB(context).clear()
 
 //                    Log.d("fire", "call")
+                    localdb.clear()
                     val i = Intent(context, main_activity::class.java)
                     context.startActivity(i)
 

@@ -13,50 +13,6 @@ import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Global : Application(){
-    var value: String? = null
-
-    companion object {
-        private var instance : Global? = null
-
-        fun  getInstance(): Global {
-            if (instance == null)
-                instance = Global()
-
-            return instance!!
-        }
-    }
-}
-
-data class tiemtable_data(
-    val week_to_day: String,
-    val period: String,
-    val lecture_name: String,
-    val teacher_name: String,
-    val class_name: String
-     )
-
-data class assignment_data(
-    val day: String,
-    val tiem: String,
-    val lecture_name: String,
-    val assignment_name: String,
-    val note: String?
-)
-
-data class college_data(
-        val college_name: String?
-)
-
-data class college_id(
-        val college_nid: String
-)
-
-data class user_data(
-    val college: String? = null
-)
-
-
 
 private val TAG = "firedb"
 
@@ -73,7 +29,6 @@ fun login_cheack(): Boolean {
 
 class firedb_login_register_class(private val context: Context){
     private var firedb = FirebaseFirestore.getInstance()
-    val global = Global.getInstance()
 
     //university
     fun create_university_collection(university: String){
@@ -180,27 +135,6 @@ class firedb_login_register_class(private val context: Context){
     }
 
 
-    fun get_college() {
-        val login_check = login_cheack()
-        if (login_check == true){
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val postDoc = firedb.collection("user").document(uid)
-            val hoge = postDoc
-                    .get()
-                    .addOnCompleteListener {
-                        if(it.isSuccessful){
-                            Log.d(TAG, "get college is success")
-                            val data = it.result
-
-                        }else{
-                            Log.d(TAG, "get college is failed")
-                        }
-                    }
-
-        }
-
-    }
-
 
     fun get_university_list(){
         Log.d(TAG, "####call: get_university_list #####")
@@ -212,8 +146,6 @@ class firedb_login_register_class(private val context: Context){
                         get_university_name(document.id)
 
                     }
-//                    val hoge = tmp_local_DB(context)
-//                    hoge.get_tmp()
                 }
     }
     
@@ -231,7 +163,6 @@ class firedb_login_register_class(private val context: Context){
                         val localdb = tmp_local_DB(context)
                         localdb.insert_tmp(university_name)
 
-
                     }else{
                         Log.d(TAG, "failed: get_university_name -> ${university_id}")
                     }
@@ -244,7 +175,7 @@ class firedb_login_register_class(private val context: Context){
 }
 
 
-class firedb_main_class(private val context: Context){
+class firedb_timetable_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
     fun get_college() {
@@ -263,7 +194,6 @@ class firedb_main_class(private val context: Context){
                             Log.d(TAG, "get college is failed")
                         }
                     }
-
         }
 
     }
@@ -295,8 +225,5 @@ class firedb_main_class(private val context: Context){
                     Toast.makeText(context, "エラーが発生しました", Toast.LENGTH_SHORT).show()
                 }
     }
-
-
-
 
 }

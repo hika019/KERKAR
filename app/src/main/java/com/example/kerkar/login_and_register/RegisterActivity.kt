@@ -50,7 +50,6 @@ class RegisterActivity: AppCompatActivity() {
         Log.d(TAG, "Password is: $password")
 
         auth.createUserWithEmailAndPassword(mail, password)
-
                 .addOnCompleteListener {
                     if(!it.isSuccessful) return@addOnCompleteListener
                     //else if successful
@@ -59,19 +58,6 @@ class RegisterActivity: AppCompatActivity() {
                     //dialog 大学選択
                     val register_dialog_class = register_dialog(this, mail, password, it.result?.user?.uid!!)
                     register_dialog_class.select_univarsity()
-
-
-//                    val user_data = User_data_class(mail, password, it.result?.user?.uid!!, "college")
-//
-//                    val firedb = firedb_login_register_class(this)
-//                    firedb.add_user_data(user_data.u_id, user_data.college)
-
-
-
-
-//                    val intent = Intent(this, main_activity::class.java)
-//                    startActivity(intent)
-
 
                 }
                 .addOnFailureListener {
