@@ -75,7 +75,53 @@ class firedb_login_register_class(private val context: Context){
     private var firedb = FirebaseFirestore.getInstance()
     val global = Global.getInstance()
 
+    //university
+    fun create_university_collection(university: String){
+        val data = hashMapOf(
+                "university" to university
+        )
+        firedb.collection("university")
+                .document()
+                .set(data)
+                .addOnSuccessListener {
+                    Log.d(TAG, "create_university_name -> 送信完了")
+                    serach_university_doc_id(university)
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "create_university_name -> 送信失敗")
+                    error_college_upload_dialog(context)
+                }
+    }
 
+    fun serach_university_doc_id(university_name: String){
+        firedb.collection("university").whereEqualTo("university", university_name)
+                .get()
+                .addOnSuccessListener{ documents ->
+                    for (document in documents){
+//                        Log.d(TAG, "${document.id} => ${document.data}")
+                        Log.d(TAG, "get university_id: ${document.id}")
+                        add_university_id(document.id)
+                    }
+                }
+    }
+
+    fun add_university_id(university_id: String){
+        val data = hashMapOf(
+                "university_id" to university_id
+        )
+        firedb.collection("university")
+                .document(university_id)
+                .set(data, SetOptions.merge())
+                .addOnSuccessListener { Log.d(TAG, "add_university_id -> 送信完了")}
+                .addOnFailureListener {
+                    Log.d(TAG, "add user college -> 送信失敗")
+                    error_college_upload_dialog(context)
+                }
+        Log.d(TAG, "add university -> ${university_id} -> add_university_id:${university_id}")
+    }
+
+
+    //user
     fun add_user_data(uid: String, college: String){
         val time = SimpleDateFormat("yyyy/MM/dd_HH:mm-ss").format(Date())
         val data = hashMapOf(
@@ -110,13 +156,13 @@ class firedb_login_register_class(private val context: Context){
                     for (document in documents){
 //                        Log.d(TAG, "${document.id} => ${document.data}")
                         Log.d(TAG, "get university_id: ${document.id}")
-                        add_university_id(uid, document.id)
+                        add_user_collection_to_university_id(uid, document.id)
                     }
                 }
     }
 
 
-    fun add_university_id(uid: String, university_id: String){
+    fun add_user_collection_to_university_id(uid: String, university_id: String){
         Log.d(TAG, "call add_university_id")
 
         val data = hashMapOf(
@@ -194,8 +240,6 @@ class firedb_login_register_class(private val context: Context){
                     Log.d(TAG, "Error: get_university_name -> ${it}")
                 }
     }
-
-
 
 }
 

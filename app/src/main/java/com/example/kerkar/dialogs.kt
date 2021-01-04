@@ -180,15 +180,21 @@ fun error_college_upload_dialog(context: Context){
 
 
 class register_dialog(val context: Context, val mail: String, val password: String, val uid: String){
-    fun add_university(){
+
+    fun add_university(uid: String){
         val dialog_layout = LayoutInflater.from(context).inflate(R.layout.dialog_add_university, null)
+        val firedb = firedb_login_register_class(context)
+
         val dialog = AlertDialog.Builder(context)
                 .setTitle("大学を追加")
                 .setView(dialog_layout)
                 .setPositiveButton("OK"){ dialog, which ->
                     val university_name = dialog_layout.univarsity_edittext.text.toString()
+                    firedb.create_university_collection(university_name)
 
-                    //firebaseに追加しょり
+
+                    firedb.add_user_data(uid, university_name)
+
                 }
                 .setNegativeButton("戻る"){ dialog, which ->
                     select_univarsity()
@@ -197,19 +203,15 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
         dialog.create().show()
     }
 
-
-
     fun select_univarsity() {
 
         var university:String? = ""
         val localdb = tmp_local_DB(context)
         val list = localdb.get_tmp()
 
-
-//        val list = arrayOf("中部大学", "名古屋大学", "愛知大学")
-
-
-
+        if(list.size < 0){
+            Toast.makeText(context, "大学一覧を取得中です\nしばらくお待ちください", Toast.LENGTH_LONG).show()
+        }
         val dialog = AlertDialog.Builder(context)
                 .setTitle("大学の選択")
                 .setSingleChoiceItems(list, -1){ dialog, which ->
@@ -230,11 +232,9 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
                     val i = Intent(context, main_activity::class.java)
                     context.startActivity(i)
 
-
-
                 }
                 .setNegativeButton("大学を追加"){ dialog, which->
-                    add_university()
+                    add_university(uid)
                 }
         dialog.create().show()
     }
