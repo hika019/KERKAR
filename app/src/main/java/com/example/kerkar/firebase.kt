@@ -268,12 +268,11 @@ class firedb_main_class(private val context: Context){
 
     }
 
-    fun add_timetable_firedb(week_to_day: String, period: String, lecture_name: String, teacher_name: String, class_name: String){
+    fun add_university_timetable_firedb(week_to_day: String, period: String, lecture_name: String, teacher_name: String, class_name: String){
         firedb.firestoreSettings = settings
 
         var data = hashMapOf(
-                "week_to_day" to  week_to_day,
-                "period" to period,
+                "week_to_day" to  week_to_day + period,
                 "lecture_name" to  lecture_name,
                 "teacher_name" to  teacher_name,
                 "class_name" to  class_name

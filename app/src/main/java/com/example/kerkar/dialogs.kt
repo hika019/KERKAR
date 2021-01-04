@@ -108,11 +108,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                             val week_symbol = week_to_day_symbol_chenger(week_to_day)
 
 
-                            firedb.add_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
+//                            firedb.add_university_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
 
 
-//                            val db = action_local_DB(context)
-//                            db.insert_timetable(week_symbol, period, lecture_name, teacher_name, class_name)
                         }else{
                             Log.d("add_timetable", "曜日が不正")
                             Toast.makeText(context, "曜日は漢字一文字にしてください", Toast.LENGTH_LONG).show()
@@ -188,12 +186,14 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
         val dialog = AlertDialog.Builder(context)
                 .setTitle("大学を追加")
                 .setView(dialog_layout)
-                .setPositiveButton("OK"){ dialog, which ->
+                .setPositiveButton("登録"){ dialog, which ->
                     val university_name = dialog_layout.univarsity_edittext.text.toString()
                     firedb.create_university_collection(university_name)
 
-
                     firedb.add_user_data(uid, university_name)
+
+                    val i = Intent(context, main_activity::class.java)
+                    context.startActivity(i)
 
                 }
                 .setNegativeButton("戻る"){ dialog, which ->
