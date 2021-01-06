@@ -25,7 +25,6 @@ class Home_fragment() : Fragment() {
     ): View?{
         val view = inflater.inflate(R.layout.activity_home, container, false)
         val this_context = getContext()
-
         today_class(view, this_context!!)
 
         val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
@@ -53,8 +52,6 @@ class Home_fragment() : Fragment() {
                 R.layout.dialog_add_assignment,
                 null
         )
-
-
 
         val mBilder = AlertDialog.Builder(context)
                 .setView(mdialogView)

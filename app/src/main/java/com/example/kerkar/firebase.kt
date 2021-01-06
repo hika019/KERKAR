@@ -1,9 +1,7 @@
 package com.example.kerkar
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +10,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 private val TAG = "firedb"
@@ -178,17 +177,21 @@ class firedb_login_register_class(private val context: Context){
 class firedb_timetable_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
-    fun get_college() {
+    fun get_university_id(data: HashMap<String, Any>) {
         val login_check = login_cheack()
         if (login_check == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val postDoc = firedb.collection("user").document(uid)
-            val hoge = postDoc
+            firedb.collection("user").document(uid)
                     .get()
                     .addOnCompleteListener {
                         if(it.isSuccessful){
-                            Log.d(TAG, "get college is success")
-                            val data = it.result
+                            Log.d("hoge", "get college is success")
+                            val university_id = it.result?.getString("university_id")
+
+                            Log.d("hoge", "${university_id}")
+
+                            add_course_data(university_id!!, data)
+
 
                         }else{
                             Log.d(TAG, "get college is failed")
@@ -198,15 +201,38 @@ class firedb_timetable_class(private val context: Context){
 
     }
 
-    fun add_university_timetable_firedb(week_to_day: String, period: String, lecture_name: String, teacher_name: String, class_name: String){
-        firedb.firestoreSettings = settings
+    fun add_course_data(university_id: String, data: HashMap<String, Any>){
+        val week_to_day = data["week_to_day"]!!.toString()
 
-        var data = hashMapOf(
-                "week_to_day" to  week_to_day + period,
-                "lecture_name" to  lecture_name,
-                "teacher_name" to  teacher_name,
-                "class_name" to  class_name
-        )
+        firedb.collection("university")
+                .document(university_id)
+                .collection(week_to_day)
+                .document()
+                .set(data)
+                .addOnSuccessListener {
+                    Log.d(TAG, "add course_data is success")
+
+                }
+                .addOnFailureListener {
+                    Log.e(TAG, "add course_data is failure")
+                }
+
+    }
+
+    fun add_curse_id(){
+
+    }
+
+
+
+    fun add_university_timetable_firedb(data: HashMap<String, Any>){
+//        firedb.firestoreSettings = settings
+
+        //universityに追加
+
+
+
+        get_university_id(data)
 
 
         //大学idを取得
@@ -214,16 +240,16 @@ class firedb_timetable_class(private val context: Context){
 
 
 
-        firedb.collection("college")
-            .document(id_college_data)
-                .collection(lecture_name)
-                .document()
-                .set(data)
-                .addOnSuccessListener { Log.d("firedb", "add_timetable_firedb -> 送信完了") }
-                .addOnFailureListener {
-                    Log.d("firedb", "add_timetable_firedb -> 送信失敗")
-                    Toast.makeText(context, "エラーが発生しました", Toast.LENGTH_SHORT).show()
-                }
+//        firedb.collection("college")
+//            .document(id_college_data)
+//                .collection(lecture_name)
+//                .document()
+//                .set(data)
+//                .addOnSuccessListener { Log.d("firedb", "add_timetable_firedb -> 送信完了") }
+//                .addOnFailureListener {
+//                    Log.d("firedb", "add_timetable_firedb -> 送信失敗")
+//                    Toast.makeText(context, "エラーが発生しました", Toast.LENGTH_SHORT).show()
+//                }
     }
 
 }

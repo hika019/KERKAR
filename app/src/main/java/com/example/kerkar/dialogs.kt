@@ -35,7 +35,7 @@ class assignment_dialog_class(){
 
 class timetable_dialog_class(){
     fun timetable_dialog(week: String, time: Int, context: Context?){
-        var message = get_timetable_details(week)
+        var message = get_timetable_details(week, time)
 
         val week_jp = week_to_day_jp_chenger(week)
 
@@ -59,7 +59,7 @@ class timetable_dialog_class(){
         }
     }
 
-    private fun get_timetable_details(time: String): String {
+    private fun get_timetable_details(week: String, period: Int): String {
         var str: String = ""
         //str = fun 授業詳細を取得(time)
         str = "教科:情報倫理\n教室:951\n教員:中川　太郎"//一時的
@@ -92,36 +92,45 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                         lecture_name.isNotEmpty() && teacher_name.isNotEmpty() &&
                         class_name.isNotEmpty()) {
 
-                    Log.d("add_timetable", "未入力なし")
+                    Log.d(TAG, "未入力なし")
 
                     //時間数の確認
                     if (period.toString().toInt() < 6){
 
                         val week_to_daylist = listOf("月", "火", "水", "木", "金")
                         //登録
-                        Log.d("add_timetable", "時限が5以下です")
+                        Log.d(TAG, "時限が5以下です")
 //                        Log.d("add_timetable", "これ:"+week_to_daylist.find{it == week_to_day.toString()}.toString())
                         if(week_to_daylist.find{it == week_to_day.toString()} != null){
-                            Log.d("add_timetable", "edit:" + week_to_day)
-                            Log.d("add_timetable", "登録へ")
+                            Log.d(TAG, "edit:" + week_to_day)
+                            Log.d(TAG, "登録へ")
 
                             //登録fun
                             val week_symbol = week_to_day_symbol_chenger(week_to_day)
                             val teacher_list = str_to_array(teacher_name)
 
+
+                            var data = hashMapOf(
+                                    "week_to_day" to  week_symbol + period,
+                                    "course " to  lecture_name,
+                                    "lecturer" to  teacher_list,
+                                    "room" to  class_name
+                            )
+
+
                             Log.d(TAG, teacher_list.toString())
 
-
-//                            firedb.add_university_timetable_firedb(week_symbol, period, lecture_name, teacher_name, class_name)
+                            //firebase
+                            firedb.add_university_timetable_firedb(data)
 
 
                         }else{
-                            Log.d("add_timetable", "曜日が不正")
+                            Log.d(TAG, "曜日が不正")
                             Toast.makeText(context, "曜日は漢字一文字にしてください", Toast.LENGTH_LONG).show()
                         }
                     }else{
                         //オーバー
-                        Log.d("add_timetable", "時限数が5以上:${period}")
+                        Log.d(TAG, "時限数が5以上:${period}")
                         Toast.makeText(context, "時限数は5以下まで対応しています\n" +
                                 "入力された時限数は6以上のため登録されていません\n" +
                                 "入力された値: ${period}", Toast.LENGTH_LONG).show()
@@ -129,9 +138,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
                 } else {
                     Toast.makeText(context, "未入力の場所があります", Toast.LENGTH_SHORT).show()
-                    Log.d("add_timetable", "未入力あり")
+                    Log.d(TAG, "未入力あり")
                 }
-                Log.d("add_timetable", "end add_timetable")
+                Log.d(TAG, "end add_timetable")
 
             }
             .setNegativeButton("破棄") { dialog, which ->
