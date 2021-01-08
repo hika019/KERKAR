@@ -2,6 +2,7 @@ package com.example.kerkar
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,7 +11,6 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 
 private val TAG = "firedb"
@@ -77,7 +77,7 @@ class firedb_login_register_class(private val context: Context){
 
     //user
     fun add_user_data(uid: String, college: String){
-        val time = SimpleDateFormat("yyyy/MM/dd_HH:mm-ss").format(Date())
+        val time = SimpleDateFormat("yyyy/MM/dd HH:mm").format(Date())
         val data = hashMapOf(
                 "uid" to uid,
                 "university" to college,
@@ -177,7 +177,8 @@ class firedb_login_register_class(private val context: Context){
 class firedb_timetable_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
-    fun get_university_id(data: HashMap<String, Any>) {
+
+    fun create_university_timetable(data: MutableMap<String, Any>){
         val login_check = login_cheack()
         if (login_check == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -185,71 +186,133 @@ class firedb_timetable_class(private val context: Context){
                     .get()
                     .addOnCompleteListener {
                         if(it.isSuccessful){
-                            Log.d("hoge", "get college is success")
+                            Log.d(TAG, "get college is success")
+                            //大学idを取得
                             val university_id = it.result?.getString("university_id")
+                            Log.d(TAG, "university_id: ${university_id}")
 
-                            Log.d("hoge", "${university_id}")
-
-                            add_course_data(university_id!!, data)
-
+                            add_course_to_univeristy(university_id!!, data)
 
                         }else{
                             Log.d(TAG, "get college is failed")
                         }
                     }
         }
-
     }
 
-    fun add_course_data(university_id: String, data: HashMap<String, Any>){
+
+    fun add_course_to_univeristy(university_id: String, data: MutableMap<String, Any>){
         val week_to_day = data["week_to_day"]!!.toString()
 
-        firedb.collection("university")
-                .document(university_id)
-                .collection(week_to_day)
-                .document()
-                .set(data)
-                .addOnSuccessListener {
-                    Log.d(TAG, "add course_data is success")
+        val doc = firedb.collection("university")
+                    .document(university_id)
+                     .collection(week_to_day)
+                    .document()
 
+        data["id"] = doc.id
+
+        doc.set(data)
+                .addOnSuccessListener {
+                    Log.d(TAG, "add_course_data to university -> success")
+
+                    add_user_timetable_(doc.id, data["week_to_day"].toString())
                 }
                 .addOnFailureListener {
-                    Log.e(TAG, "add course_data is failure")
+                    Log.d(TAG, "add_course_data to university -> failure")
+                    Toast.makeText(context, "時間割が正しく登録されませんでした", Toast.LENGTH_LONG).show()
                 }
-
-    }
-
-    fun add_curse_id(){
-
     }
 
 
+    fun add_user_timetable_(classid: String, week_to_day: String){
+        val login_check = login_cheack()
+        if (login_check == true){
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
-    fun add_university_timetable_firedb(data: HashMap<String, Any>){
-//        firedb.firestoreSettings = settings
+            //classidで検索
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val university_id = it.result?.getString("university_id")
+//                            Log.d(TAG, "aa"+ university_id)
 
-        //universityに追加
+                            firedb.collection("university")
+                                    .document(university_id!!)
+                                    .collection(week_to_day)
+                                    .document(classid)
+                                    .get()
+                                    .addOnCompleteListener {
+                                        if(it.isSuccessful){
+
+
+                                            val result = it.result!!
+                                            //コピーとる
+                                            val time = result.getString("week_to_day")
+                                            val course = result.getString("course")
+                                            val id = result.getString("id")
+                                            val lecturer = result.get("lecturer")
+                                            val room = result.getString("room")
+
+                                            val in_data = hashMapOf(
+                                                    "week_to_day" to time,
+                                                    "id" to id,
+                                                    "lecturer" to lecturer,
+                                                    "course" to course,
+                                                    "room" to room
+                                            )
+                                            Log.d(TAG, "in_data: $in_data")
+
+                                            val data = hashMapOf(
+                                                    time to in_data
+                                            )
+
+                                            firedb.collection("user")
+                                                    .document(uid)
+                                                    .set(data, SetOptions.merge())
+                                                    .addOnSuccessListener {
+                                                        Log.d(TAG, "coped course: ${id} -> success")
+                                                    }
+                                                    .addOnFailureListener {
+                                                        Log.d(TAG, "coped course: ${id} -> failure")
+                                                    }
 
 
 
-        get_university_id(data)
 
-
-        //大学idを取得
-        var id_college_data = id_generator("中部大学")
+                                            Log.d(TAG, result.toString())
 
 
 
-//        firedb.collection("college")
-//            .document(id_college_data)
-//                .collection(lecture_name)
-//                .document()
-//                .set(data)
-//                .addOnSuccessListener { Log.d("firedb", "add_timetable_firedb -> 送信完了") }
-//                .addOnFailureListener {
-//                    Log.d("firedb", "add_timetable_firedb -> 送信失敗")
-//                    Toast.makeText(context, "エラーが発生しました", Toast.LENGTH_SHORT).show()
-//                }
+
+
+
+
+                                        }
+
+                                    }
+
+
+
+                        }else{
+
+                        }
+                    }
+
+
+
+            //userに追加
+
+
+
+
+
+
+
+        }
+
+
     }
 
 }

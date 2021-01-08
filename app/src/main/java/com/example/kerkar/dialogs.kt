@@ -110,9 +110,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                             val teacher_list = str_to_array(teacher_name)
 
 
-                            var data = hashMapOf(
+                            var data = mutableMapOf(
                                     "week_to_day" to  week_symbol + period,
-                                    "course " to  lecture_name,
+                                    "course" to  lecture_name,
                                     "lecturer" to  teacher_list,
                                     "room" to  class_name
                             )
@@ -121,7 +121,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                             Log.d(TAG, teacher_list.toString())
 
                             //firebase
-                            firedb.add_university_timetable_firedb(data)
+                            firedb.create_university_timetable(data)
 
 
                         }else{
