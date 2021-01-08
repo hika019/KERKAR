@@ -237,6 +237,7 @@ class firedb_timetable_class(private val context: Context){
                         if(it.isSuccessful){
                             val university_id = it.result?.getString("university_id")
 //                            Log.d(TAG, "aa"+ university_id)
+                            Log.d(TAG, "get university_id -> success")
 
                             firedb.collection("university")
                                     .document(university_id!!)
@@ -245,7 +246,7 @@ class firedb_timetable_class(private val context: Context){
                                     .get()
                                     .addOnCompleteListener {
                                         if(it.isSuccessful){
-
+                                            Log.d(TAG, "coped course -> success")
 
                                             val result = it.result!!
                                             //コピーとる
@@ -272,47 +273,71 @@ class firedb_timetable_class(private val context: Context){
                                                     .document(uid)
                                                     .set(data, SetOptions.merge())
                                                     .addOnSuccessListener {
-                                                        Log.d(TAG, "coped course: ${id} -> success")
+                                                        Log.d(TAG, "add course to user: ${id} -> success")
                                                     }
                                                     .addOnFailureListener {
-                                                        Log.d(TAG, "coped course: ${id} -> failure")
+                                                        Log.d(TAG, "add course to user: ${id} -> failure")
                                                     }
-
-
-
-
-                                            Log.d(TAG, result.toString())
-
-
-
-
-
-
-
+                                        }else{
+                                            Log.d(TAG, "coped course -> failure")
                                         }
 
                                     }
-
-
-
                         }else{
-
+                            Log.d(TAG, "get university_id -> failure")
                         }
                     }
 
-
-
-            //userに追加
-
-
-
-
-
-
-
+        }else{
+            Log.d(TAG, "not login")
         }
+    }
+
+    fun list_course(week_to_day: String){
+
+        val login_check = login_cheack()
+        if(login_check == true){
+
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
 
+            //classidで検索
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val university_id = it.result?.getString("university_id")!!
+                            Log.d(TAG, "get university_id -> success")
+  
+                            //授業検索
+
+                            firedb.collection("university")
+                                    .document(university_id)
+                                    .collection(week_to_day)
+                                    .get()
+                                    .addOnSuccessListener { 
+                                        for (document in it){
+                                            Log.d(TAG, "doc list: ${document.id}")
+                                            Log.d(TAG, "doc list: ${document.get("course")}")
+                                            Log.d(TAG, "doc list: ${document.get("lecturer")}")
+                                            Log.d(TAG, "doc list: ${document.get("room")}")
+
+                                        }
+                                    }
+                            
+                        }else{
+                            Log.d(TAG, "get university_id -> failure")
+                        }
+                    }
+            
+            
+            
+
+
+        }else{
+            Log.d(TAG, "not login")
+        }
     }
 
 }

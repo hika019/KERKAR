@@ -38,6 +38,11 @@ class Home_fragment() : Fragment() {
 
 
 
+        //ここ授業リスト
+        firedb_timetable_class(this_context).list_course("mon1")
+
+
+
         view.floatingActionButton.setOnClickListener {
             fab(this_context)
         }
@@ -74,10 +79,7 @@ class Home_fragment() : Fragment() {
 
                         //授業idとる
                         //dbにいれる
-//                        action_local_db.insert_assignmnet_data(
-//                                setting.tbname_assignment,
-//                                add_assignment.day, add_assignment.time, add_assignment.subject,
-//                                add_assignment.assignment_title, add_assignment.special_notes, 0)
+
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
                     }

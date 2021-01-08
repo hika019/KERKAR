@@ -83,9 +83,12 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
                 val week_to_day = dialog_messege.week_to_day_edit_textview.text.toString()
                 val period = dialog_messege.period_edittextview.text.toString()
-                val lecture_name = dialog_messege.lecture_neme_edittext.text.toString()
+                var lecture_name = dialog_messege.lecture_neme_edittext.text.toString()
                 val teacher_name = dialog_messege.teacher_name_edittext.text.toString()
-                val class_name = dialog_messege.class_name_edittext.text.toString()
+                var class_name = dialog_messege.class_name_edittext.text.toString()
+
+                class_name = str_num_normalization(class_name)
+                lecture_name = str_num_normalization(lecture_name)
 
                 //空欄の確認
                 if (week_to_day.isNotEmpty() && period.isNotEmpty() &&
@@ -122,8 +125,6 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
                             //firebase
                             firedb.create_university_timetable(data)
-
-
                         }else{
                             Log.d(TAG, "曜日が不正")
                             Toast.makeText(context, "曜日は漢字一文字にしてください", Toast.LENGTH_LONG).show()
@@ -160,7 +161,13 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
 //        val classList: Array<String> = serch_classes(time_and_week)//授業検索
 
-        val colorList: Array<String> = arrayOf("倫理\n山田　太郎", "マクロ経済\n鈴木　恵一", "英語スキル\nデイビッド", "哲学\n奥居　達也", "創造理工実験\n長瀬　亮, 渡辺　二郎", "統計学\n早瀬　はるか", "形式言語とオートマトン\n奥居　太一")
+        val colorList: Array<String> = arrayOf(
+                "倫理\n山田　太郎\n952",
+                "マクロ経済\n鈴木　恵一\n大講義室",
+                "英語スキル\nデイビッド\n10号館21",
+                "哲学\n奥居　達也", "創造理工実験\n長瀬　亮, 渡辺　二郎\n第三実験室",
+                "統計学\n早瀬　はるか",
+                "形式言語とオートマトン\n奥居　太一")
         val builder = AlertDialog.Builder(context)
         val week_jp = week_to_day_jp_chenger(week)
 
@@ -171,6 +178,10 @@ class add_timetable(var context: Context, var week: String, val period: Int){
             .setPositiveButton("確定"){ dialog, which ->
 
                 //登録処理
+
+            }
+            .setNegativeButton("キャンセル"){dialog, which ->
+                add_timetable_dialog()
 
             }
         val dialog = builder.create()
