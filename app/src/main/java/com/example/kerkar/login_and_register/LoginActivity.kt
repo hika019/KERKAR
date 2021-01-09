@@ -48,7 +48,6 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun login() {
-        val db = action_local_DB(this)
         val mail = EmaileditTextText.text.toString()
         val password = PasswordeditTextText.text.toString()
 

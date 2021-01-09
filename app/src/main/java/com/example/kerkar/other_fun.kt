@@ -1,5 +1,7 @@
 package com.example.kerkar
 
+import android.content.Context
+import android.util.Log
 import java.security.MessageDigest
 
 
@@ -56,7 +58,6 @@ fun str_to_array(str: String): List<String> {
     return list
 }
 
-
 fun id_generator(str: String): String {
     val id = MessageDigest.getInstance("SHA-256")
             .digest(str.toByteArray())
@@ -64,4 +65,30 @@ fun id_generator(str: String): String {
                 "%02x".format(it)
             }
     return id
+}
+
+
+fun get_course_list(week_to_day: String, context: Context){
+    try{
+        firedb_timetable_class(context).list_course(week_to_day)
+        Log.d("home", "call")
+
+
+    }catch(e: Exception){
+        Log.e("fun", "get_course_list -> error: ${e}")
+    }
+}
+
+fun show_course_list(context: Context){
+    Log.d("home", "call2")
+
+    val list = timetable_local_DB(context).get_timetable()
+    var id_list: Array<String> = arrayOf()
+    var selecter_list: Array<String> = arrayOf()
+    for(item in list){
+        val data = item as Map<String, Any>
+        id_list += data["id"].toString()
+        Log.d(com.example.kerkar.home.TAG, "item: ${item}")
+
+    }
 }

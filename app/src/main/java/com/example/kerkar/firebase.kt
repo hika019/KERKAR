@@ -316,12 +316,25 @@ class firedb_timetable_class(private val context: Context){
                                     .document(university_id)
                                     .collection(week_to_day)
                                     .get()
-                                    .addOnSuccessListener { 
+                                    .addOnSuccessListener {
+                                        val timetable_local_DB = timetable_local_DB(context)
+                                        timetable_local_DB.clear()
+
                                         for (document in it){
                                             Log.d(TAG, "doc list: ${document.id}")
                                             Log.d(TAG, "doc list: ${document.get("course")}")
                                             Log.d(TAG, "doc list: ${document.get("lecturer")}")
+                                            Log.d(TAG, "doc list: ${document.get("lecturer")!!.javaClass.kotlin}")
                                             Log.d(TAG, "doc list: ${document.get("room")}")
+
+
+                                            timetable_local_DB.insert_timetable(
+                                                    document.id,
+                                                    document.get("week_to_day") as String,
+                                                    document.get("course") as String,
+                                                    document.get("lecturer") as ArrayList<String>,
+                                                    document.get("room") as String
+                                            )
 
                                         }
                                     }

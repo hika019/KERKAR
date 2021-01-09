@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
+import kotlinx.android.synthetic.main.item_taimetable.view.*
 import java.util.*
 
+val TAG = "home"
 
 class Home_fragment() : Fragment() {
     override fun onCreateView(
@@ -37,22 +39,28 @@ class Home_fragment() : Fragment() {
         view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
 
+        //ここ授業リスト取得&local db作成
+        get_course_list("mon1", this_context)
 
-        //ここ授業リスト
-        firedb_timetable_class(this_context).list_course("mon1")
+
+
+
+        //時間の更新&取得
+        update_timetable(view)
 
 
 
         view.floatingActionButton.setOnClickListener {
             fab(this_context)
+            show_course_list(this_context)
+
+
         }
 
         return view
     }
 
     private fun fab(context: Context){
-        val setting = db_setting()
-        val action_local_db = action_local_DB(context)
         val mdialogView = LayoutInflater.from(context).inflate(
                 R.layout.dialog_add_assignment,
                 null
@@ -120,6 +128,9 @@ class Home_fragment() : Fragment() {
         view.today_fifth_period.setOnClickListener {
             timetable_dialog_class.timetable_dialog(week, 5, context)
         }
+    }
+    private fun update_timetable(view: View){
+        view.today_first_period.timetable_title_textView.text = "創造理工実験"
     }
 
 }

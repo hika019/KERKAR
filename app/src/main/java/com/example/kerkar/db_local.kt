@@ -29,11 +29,7 @@ class tmp_local_DB(val context: Context?){
     val dbVersion = dbSetting.dbVersion
     val tbtmp = dbSetting.tbname_tmp
     val dbName = dbSetting.dbName
-    val userdb = dbSetting.tbname_userdb
     private val TAG = "tmp_db"
-
-
-
 
     fun insert_tmp(tmp:String){
         try{
@@ -85,10 +81,6 @@ class tmp_local_DB(val context: Context?){
 //            Log.d(TAG, list.toString())
 
 
-
-
-
-
         }catch(exception: Exception){
             Log.e(TAG, "error: "+exception.toString())
         }
@@ -114,34 +106,94 @@ class tmp_local_DB(val context: Context?){
     }
 }
 
-class action_local_DB(val context: Context?){
+class timetable_local_DB(val context: Context?){
     val dbSetting = db_setting()
     val dbVersion = dbSetting.dbVersion
-    val tbtmp = dbSetting.tbname_tmp
     val dbName = dbSetting.dbName
-    val userdb = dbSetting.tbname_userdb
+    val tbtimetable = dbSetting.tbname_time
 
 
-    fun insert_userdb(uid: String, college: String, mail: String, password: String){
+    fun insert_timetable(id: String, week_to_day: String, course: String, lecturer: ArrayList<String>, room: String){
         try {
-            val setting = db_setting()
+
 
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val db = dbHelper.writableDatabase
 
-            val values = ContentValues()
-            values.put("uid", uid)
-            values.put("college", college)
-            values.put("email", mail)
-            values.put("password", password)
+            val lecturer_str = lecturer.toString()
+            Log.d(TAG, "call timetable insert")
 
-            db.replaceOrThrow(setting.tbname_userdb, null, values)
-            Log.d("local_db_action", "replaced timetable db")
+            val values = ContentValues()
+            values.put("id", id)
+            values.put("week_to_day", week_to_day)
+            values.put("course", course)
+            values.put("lecturer", lecturer_str)
+            values.put("room", room)
+
+            db.replaceOrThrow(tbtimetable, null, values)
+            Log.d(TAG, "replaced timetable db")
 
         }catch (exception: Exception){
-            Log.d("local_db_action", exception.toString())
+            Log.e(TAG, exception.toString())
         }
     }
+
+    fun get_timetable(): Array<Any> {
+        var list: Array<Any> = arrayOf()
+        val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
+        val database = dbHelper.readableDatabase
+        val sql = "select * from ${tbtimetable}"
+
+        Log.d(TAG, "call get timetable")
+        try {
+            val cursor = database.rawQuery(sql, null)
+            Log.d(TAG, "call get timetable ")
+
+            if(cursor.count > 0){
+                cursor.moveToFirst()
+                while(!cursor.isAfterLast){
+
+                    val in_data = hashMapOf<String, Any>(
+                            "id" to cursor.getString(0),
+                            "week_to_day" to cursor.getString(1),
+                            "course" to cursor.getString(2),
+                            "lecturer" to cursor.getString(3),
+                            "room" to cursor.getString(4)
+                    )
+
+                    list += in_data
+                    cursor.moveToNext()
+                }
+            }
+
+
+        }catch (exception: Exception){
+            Log.e(TAG, "call get timetable -> excption")
+            Log.e(TAG, exception.toString())
+        }
+        return list
+    }
+
+
+
+    fun clear(){
+        Log.d(TAG, "call clear in timetable")
+        try{
+            val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
+            val database = dbHelper.readableDatabase
+
+            val sql = "delete from ${tbtimetable}"
+
+            database.delete(tbtimetable, "value", null)
+
+
+        }catch(exception: Exception){
+            Log.e(TAG, exception.toString())
+        }
+    }
+
+
+
 }
 
 
@@ -159,7 +211,7 @@ class local_DBHelper(context: Context, databaseName: String, factory: SQLiteData
 
 
         sql = "create table if not exists ${setting.tbname_time} " +
-                "(week_to_day_and_period text primary key, id text , week_to_day text, period text, lecture_name text, teacher_name text, class_name text)"
+                "(id text primary key, week_to_day text, course text , lecturer text, room text)"
         db?.execSQL(sql)
         Log.d("db_local", "create tb :時間割")
 
