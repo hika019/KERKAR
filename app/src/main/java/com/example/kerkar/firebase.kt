@@ -2,12 +2,12 @@ package com.example.kerkar
 
 import android.content.Context
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_timetable.view.*
@@ -343,44 +343,56 @@ class firedb_timetable_class(private val context: Context){
                             Log.d(TAG, "get university_id -> failure")
                         }
                     }
-            
-            
-            
-
 
         }else{
             Log.d(TAG, "not login")
         }
     }
 
-    fun get_course_symbol(week_to_day: String): String {
-        var title = ""
+
+    fun get_course_symbol() {
+        var symbol_timetable_map: MutableMap<String, String> = mutableMapOf()
         val localdb = tmp_local_DB(context)
+        val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+        val period_list:List<Int> = List(5){it +1}
 
         if (login_cheack() == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
-            firedb.collection("user")
+            val fuga =firedb.collection("user")
                     .document(uid)
                     .get()
                     .addOnSuccessListener {
-                        val data = it.get(week_to_day) as Map<String, String>
-                        title = data["course"].toString()
-//                        Log.d("hoge", "data: ${hoge}")
-                        Log.d(TAG, "get_course_symbol(${week_to_day}) -> success")
+                        for(week in week_to_day_symbol_list){
+                            for(period in period_list){
+                                val week_to_day = week + period.toString()
+                                val tmp_data = it.get(week_to_day)
+                                if (tmp_data != null){
+                                    val data = it.get(week_to_day) as Map<String?, Any?>
+                                    var title: String? = data["course"].toString()
 
-                        localdb.clear()
-                        localdb.insert_tmp(title)
+                                    if (title == null) title = "授業はありません"
 
+                                    Log.d("hoge", "week: $week_to_day")
+                                    symbol_timetable_map.put(week_to_day, title)
+                                }
+
+                                Log.d("hoge", (it.get(week_to_day)).toString())
+
+
+
+                            }
+                        }
+                        Log.d("hoge", "data: $symbol_timetable_map")
                     }
 
         }else{
             Log.d(TAG, "not login")
             Toast.makeText(context, "ログインされていません", Toast.LENGTH_SHORT).show()
         }
-        val tmp = tmp_local_DB(context).get_tmp()
-//        Log.d("hoge", "tmp: ${tmp[0]}")
-        return tmp[0]
     }
+}
 
+internal interface CityCallback {
+    fun isCityExist(exist: Boolean)
 }

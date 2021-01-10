@@ -2,6 +2,7 @@ package com.example.kerkar
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -113,7 +114,8 @@ class Timetable_fragment() : Fragment(){
 
     private fun load_timetable_symbol(view: View, context: Context){
         val firedb = firedb_timetable_class(context)
-        view.timetable_include_mon1.timetable_title_textView.text = firedb.get_course_symbol("mon1")
+        val tmp = firedb.get_course_symbol()
+
     }
 
 }

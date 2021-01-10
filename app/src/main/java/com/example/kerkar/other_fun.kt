@@ -10,6 +10,7 @@ class assignment_swith(){
     var flag = 0
 }
 
+
 fun week_to_day_jp_chenger(week: String): String{
     val week_to_day_jp_list = listOf("日", "月", "火", "水", "木", "金", "土")
     val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
@@ -118,19 +119,3 @@ fun show_course_list(context: Context): Array<String> {
 
 }
 
-fun get_course_symbol_map(context: Context){
-    val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
-    val period_list = listOf(1, 2, 3, 4, 5)
-    for(week_item in week_to_day_symbol_list){
-        for(period in period_list){
-            val week_to_day = week_item + period.toString()
-            firedb_timetable_class(context).get_course_symbol(week_to_day)
-            tmp_local_DB(context).get_tmp()
-
-        }
-
-
-    }
-
-
-}

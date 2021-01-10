@@ -40,7 +40,7 @@ class Home_fragment() : Fragment() {
 
 
         //ここ授業リスト取得&local db作成
-        firedb_timetable_class(this_context).get_course_symbol("mon1")
+//        val hoge = firedb_timetable_class(this_context).get_course_symbol("mon1")
 
 
 
