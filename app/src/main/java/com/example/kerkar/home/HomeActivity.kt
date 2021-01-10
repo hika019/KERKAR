@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
-import kotlinx.android.synthetic.main.item_taimetable.view.*
+import kotlinx.android.synthetic.main.item_timetable.view.*
 import java.util.*
 
 val TAG = "home"
@@ -40,8 +40,7 @@ class Home_fragment() : Fragment() {
 
 
         //ここ授業リスト取得&local db作成
-
-
+        firedb_timetable_class(this_context).get_course_symbol("mon1")
 
 
 

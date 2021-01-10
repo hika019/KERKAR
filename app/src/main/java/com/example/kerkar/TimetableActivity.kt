@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_timetable.view.*
-import kotlinx.android.synthetic.main.item_taimetable.view.*
+import kotlinx.android.synthetic.main.item_timetable.view.*
 
 class Timetable_fragment() : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
@@ -18,6 +18,9 @@ class Timetable_fragment() : Fragment(){
 
         timetable_onclick_event(view, this_context)
 
+        if (this_context != null) {
+            load_timetable_symbol(view, this_context)
+        }
 
         return view
     }
@@ -106,6 +109,11 @@ class Timetable_fragment() : Fragment(){
         view.timetable_include_fri5.setOnClickListener {
             timetable_dialog_class.timetable_dialog("fri", 5, context)
         }
+    }
+
+    private fun load_timetable_symbol(view: View, context: Context){
+        val firedb = firedb_timetable_class(context)
+        view.timetable_include_mon1.timetable_title_textView.text = firedb.get_course_symbol("mon1")
     }
 
 }

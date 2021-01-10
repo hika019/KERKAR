@@ -91,35 +91,35 @@
 
             <include
                 android:id="@+id/timetable_include_mon1"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_tue1"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_wen1"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_thu1"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_fri1"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -143,35 +143,35 @@
 
             <include
                 android:id="@+id/timetable_include_mon2"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_tue2"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_wen2"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_thu2"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_fri2"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -195,35 +195,35 @@
 
             <include
                 android:id="@+id/timetable_include_mon3"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_tue3"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_wen3"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_thu3"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_fri3"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -246,34 +246,34 @@
 
             <include
                 android:id="@+id/timetable_include_mon4"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_tue4"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_wen4"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_thu4"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -296,35 +296,35 @@
 
             <include
                 android:id="@+id/timetable_include_mon5"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_tue5"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_wen5"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_thu5"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <include
                 android:id="@+id/timetable_include_fri5"
-                layout="@layout/item_taimetable"
+                layout="@layout/item_timetable"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />

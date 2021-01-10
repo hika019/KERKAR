@@ -33,6 +33,7 @@ class tmp_local_DB(val context: Context?){
 
     fun insert_tmp(tmp:String){
         try{
+            clear()
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val db = dbHelper.writableDatabase
 
@@ -95,9 +96,8 @@ class tmp_local_DB(val context: Context?){
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
 
-            val sql = "delete from ${tbtmp}"
 
-            database.delete(tbtmp, "value", null)
+            database.delete(tbtmp, null, null)
 
 
         }catch(exception: Exception){
@@ -182,9 +182,7 @@ class timetable_local_DB(val context: Context?){
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
 
-            val sql = "delete * from ${tbtimetable}"
-
-            database.delete(tbtimetable, "value", null)
+            database.delete(tbtimetable, null, null)
 
 
         }catch(exception: Exception){

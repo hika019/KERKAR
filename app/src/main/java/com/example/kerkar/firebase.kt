@@ -2,6 +2,7 @@ package com.example.kerkar
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_timetable.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -317,16 +319,11 @@ class firedb_timetable_class(private val context: Context){
                                     .collection(week_to_day)
                                     .get()
                                     .addOnSuccessListener {
+                                        Log.d(TAG, "get ${week_to_day} class data -> success")
                                         val timetable_local_DB = timetable_local_DB(context)
                                         timetable_local_DB.clear()
 
                                         for (document in it){
-                                            Log.d(TAG, "doc list: ${document.id}")
-                                            Log.d(TAG, "doc list: ${document.get("course")}")
-                                            Log.d(TAG, "doc list: ${document.get("lecturer")}")
-                                            Log.d(TAG, "doc list: ${document.get("lecturer")!!.javaClass.kotlin}")
-                                            Log.d(TAG, "doc list: ${document.get("room")}")
-
 
                                             timetable_local_DB.insert_timetable(
                                                     document.id,
@@ -337,6 +334,9 @@ class firedb_timetable_class(private val context: Context){
                                             )
 
                                         }
+                                    }
+                                    .addOnFailureListener {
+                                        Log.e(TAG, "get ${week_to_day} class data -> failure")
                                     }
                             
                         }else{
@@ -351,6 +351,36 @@ class firedb_timetable_class(private val context: Context){
         }else{
             Log.d(TAG, "not login")
         }
+    }
+
+    fun get_course_symbol(week_to_day: String): String {
+        var title = ""
+        val localdb = tmp_local_DB(context)
+
+        if (login_cheack() == true){
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener {
+                        val data = it.get(week_to_day) as Map<String, String>
+                        title = data["course"].toString()
+//                        Log.d("hoge", "data: ${hoge}")
+                        Log.d(TAG, "get_course_symbol(${week_to_day}) -> success")
+
+                        localdb.clear()
+                        localdb.insert_tmp(title)
+
+                    }
+
+        }else{
+            Log.d(TAG, "not login")
+            Toast.makeText(context, "ログインされていません", Toast.LENGTH_SHORT).show()
+        }
+        val tmp = tmp_local_DB(context).get_tmp()
+//        Log.d("hoge", "tmp: ${tmp[0]}")
+        return tmp[0]
     }
 
 }
