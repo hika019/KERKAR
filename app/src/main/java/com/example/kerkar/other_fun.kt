@@ -48,9 +48,11 @@ fun str_num_normalization(str: String): String{
 }
 
 fun str_to_array(str: String): List<String> {
-    val str = str_num_normalization(str)
+    var str = str_num_normalization(str)
     var position: Int
     val list: List<String>
+
+    str = str.replace("[", "").replace("]", "")
 
     if(str.indexOf(",") != -1) list = str.split(",")
     else list = listOf(str)
@@ -70,6 +72,7 @@ fun id_generator(str: String): String {
 
 fun get_course_list(week_to_day: String, context: Context){
     try{
+        timetable_local_DB(context).clear()
         firedb_timetable_class(context).list_course(week_to_day)
         Log.d("home", "call")
 
@@ -79,16 +82,38 @@ fun get_course_list(week_to_day: String, context: Context){
     }
 }
 
-fun show_course_list(context: Context){
+fun show_course_list(context: Context): Array<String> {
     Log.d("home", "call2")
 
     val list = timetable_local_DB(context).get_timetable()
-    var id_list: Array<String> = arrayOf()
+    var data_list: Array<Any> = arrayOf()
     var selecter_list: Array<String> = arrayOf()
+
     for(item in list){
         val data = item as Map<String, Any>
-        id_list += data["id"].toString()
-        Log.d(com.example.kerkar.home.TAG, "item: ${item}")
+        data_list += data
 
+        val week_to_day = data["week_to_day"]
+        val course = data["course"]
+        val teacher = str_to_array(data["lecturer"] as String)
+        val room = data["room"]
+        var lecturer = ""
+
+        if(teacher.size > 1){
+            lecturer += teacher[0] + " ...他"
+        }else{
+            lecturer += teacher[0]
+        }
+
+        val str = "教科: ${course}\n" +
+                "講師: ${lecturer}\n" +
+                "教室: ${room}"
+
+        selecter_list += str
+
+        Log.d("hoge", selecter_list.toString())
+        Log.d(com.example.kerkar.home.TAG, "item: ${item}")
     }
+    return selecter_list
+
 }

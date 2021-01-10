@@ -40,7 +40,7 @@ class Home_fragment() : Fragment() {
 
 
         //ここ授業リスト取得&local db作成
-        get_course_list("mon1", this_context)
+
 
 
 
@@ -52,6 +52,7 @@ class Home_fragment() : Fragment() {
 
         view.floatingActionButton.setOnClickListener {
             fab(this_context)
+
             show_course_list(this_context)
 
 

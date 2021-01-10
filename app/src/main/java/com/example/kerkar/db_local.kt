@@ -182,7 +182,7 @@ class timetable_local_DB(val context: Context?){
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
 
-            val sql = "delete from ${tbtimetable}"
+            val sql = "delete * from ${tbtimetable}"
 
             database.delete(tbtimetable, "value", null)
 

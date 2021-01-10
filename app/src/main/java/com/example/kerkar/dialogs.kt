@@ -75,6 +75,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
     val TAG = "add_timetable"
 
     fun add_timetable_dialog(){
+        //localdbにダウンロード
+        get_course_list(week+period, context)
+
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
         val dialog = AlertDialog.Builder(context)
             .setView(dialog_messege)
@@ -159,21 +162,51 @@ class add_timetable(var context: Context, var week: String, val period: Int){
     fun search_timetable_dialog(context: Context, week: String, period: Int){
         Log.d("dialog", "called search_timetable_dialog")
 
-//        val classList: Array<String> = serch_classes(time_and_week)//授業検索
+//        val list = show_course_list(context)
+        //localdbからデータ取得
+        val list = timetable_local_DB(context).get_timetable()
+        var data_list: Array<String> = arrayOf()
+        var selecter_list: Array<String> = arrayOf()
 
-        val colorList: Array<String> = arrayOf(
-                "倫理\n山田　太郎\n952",
-                "マクロ経済\n鈴木　恵一\n大講義室",
-                "英語スキル\nデイビッド\n10号館21",
-                "哲学\n奥居　達也", "創造理工実験\n長瀬　亮, 渡辺　二郎\n第三実験室",
-                "統計学\n早瀬　はるか",
-                "形式言語とオートマトン\n奥居　太一")
+        for(item in list){
+            val data = item as Map<String, Any>
+            data_list += data["id"] as String
+
+            val week_to_day = data["week_to_day"]
+            val course = data["course"]
+            val teacher = str_to_array(data["lecturer"] as String)
+            val room = data["room"]
+            var lecturer = ""
+
+            if(teacher.size > 1){
+                lecturer += teacher[0] + " ...他"
+            }else{
+                lecturer += teacher[0]
+            }
+
+            val str = "教科: ${course}\n" +
+                    "講師: ${lecturer}\n" +
+                    "教室: ${room}"
+
+            selecter_list += str
+
+            Log.d("hoge", selecter_list.toString())
+            Log.d(com.example.kerkar.home.TAG, "item: ${item}")
+        }
+
+
+
+
+//        val classList: Array<String> = serch_classes(time_and_week)//授業検索
+        Log.d("hoge", "called5")
+
+
         val builder = AlertDialog.Builder(context)
         val week_jp = week_to_day_jp_chenger(week)
 
         builder.setTitle(week_jp + "曜日 " + period + "限 で検索されています")
-            .setSingleChoiceItems(colorList, -1) { dialog, which ->
-                Toast.makeText(context, colorList[which], Toast.LENGTH_SHORT).show()
+            .setSingleChoiceItems(selecter_list, -1) { dialog, which ->
+                Toast.makeText(context, data_list[which], Toast.LENGTH_SHORT).show()
             }
             .setPositiveButton("確定"){ dialog, which ->
 
