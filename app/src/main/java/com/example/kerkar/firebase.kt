@@ -379,7 +379,7 @@ class firedb_timetable_class(private val context: Context){
 
                                     timetable_data_map.put(data["week_to_day"] as String, data["course"] as String)
 
-                                    Log.d("hoge", "week: $week_to_day")
+//                                    Log.d("hoge", "week: $week_to_day")
                                 }
                                 if (flag ==0){
                                     val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
@@ -462,11 +462,11 @@ class firedb_timetable_class(private val context: Context){
 
 
 
-                                Log.d("hoge", (it.get(week_to_day)).toString())
+//                                Log.d("hoge", (it.get(week_to_day)).toString())
 
                             }
                         }
-                        Log.d("hoge", "data: $symbol_timetable_map")
+//                        Log.d("hoge", "data: $symbol_timetable_map")
                     }
 
         }else{
