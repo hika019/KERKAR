@@ -2,6 +2,7 @@ package com.example.kerkar
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -10,7 +11,9 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_timetable.view.*
+import kotlinx.android.synthetic.main.item_timetable.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -350,15 +353,17 @@ class firedb_timetable_class(private val context: Context){
     }
 
 
-    fun get_course_symbol() {
+    fun get_course_symbol(view: View, flag:Int) {
         var symbol_timetable_map: MutableMap<String, String> = mutableMapOf()
-        val localdb = tmp_local_DB(context)
         val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
         val period_list:List<Int> = List(5){it +1}
+        val localdb = timetable_local_DB(context)
+
+        var timetable_data_map: MutableMap<String, String> = mutableMapOf()
 
         if (login_cheack() == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
-
+            localdb.clear()
             val fuga =firedb.collection("user")
                     .document(uid)
                     .get()
@@ -369,17 +374,95 @@ class firedb_timetable_class(private val context: Context){
                                 val tmp_data = it.get(week_to_day)
                                 if (tmp_data != null){
                                     val data = it.get(week_to_day) as Map<String?, Any?>
+
                                     var title: String? = data["course"].toString()
 
-                                    if (title == null) title = "授業はありません"
+                                    timetable_data_map.put(data["week_to_day"] as String, data["course"] as String)
 
                                     Log.d("hoge", "week: $week_to_day")
-                                    symbol_timetable_map.put(week_to_day, title)
+                                }
+                                if (flag ==0){
+                                    val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+                                    val calendar: Calendar = Calendar.getInstance()
+                                    val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
+                                    Log.d("hoge", "hoge: ${timetable_data_map["${week}1"]}")
+
+                                    view.today_first_period.timetable_title_textView.text=
+                                            timetable_data_map["${week}1"]
+                                    view.today_second_period.timetable_title_textView.text=
+                                            timetable_data_map["${week}2"]
+                                    view.today_third_period.timetable_title_textView.text=
+                                            timetable_data_map["${week}3"]
+                                    view.today_fourth_period.timetable_title_textView.text=
+                                            timetable_data_map["${week}4"]
+                                    view.today_fifth_period.timetable_title_textView.text=
+                                            timetable_data_map["${week}5"]
+
+                                }else if(flag == 1){
+                                    //Timetable
+                                    view.timetable_include_mon1.timetable_title_textView.text =
+                                            timetable_data_map["mon1"]
+                                    view.timetable_include_mon2.timetable_title_textView.text =
+                                            timetable_data_map["mon2"]
+                                    view.timetable_include_mon3.timetable_title_textView.text =
+                                            timetable_data_map["mon3"]
+                                    view.timetable_include_mon4.timetable_title_textView.text =
+                                            timetable_data_map["mon4"]
+                                    view.timetable_include_mon5.timetable_title_textView.text =
+                                            timetable_data_map["mon5"]
+
+                                    view.timetable_include_tue1.timetable_title_textView.text =
+                                            timetable_data_map["tue1"]
+                                    view.timetable_include_tue2.timetable_title_textView.text =
+                                            timetable_data_map["tue2"]
+                                    view.timetable_include_tue3.timetable_title_textView.text =
+                                            timetable_data_map["tue3"]
+                                    view.timetable_include_tue4.timetable_title_textView.text =
+                                            timetable_data_map["tue4"]
+                                    view.timetable_include_tue5.timetable_title_textView.text =
+                                            timetable_data_map["tue5"]
+
+                                    view.timetable_include_wen1.timetable_title_textView.text =
+                                            timetable_data_map["wen1"]
+                                    view.timetable_include_wen2.timetable_title_textView.text =
+                                            timetable_data_map["wen2"]
+                                    view.timetable_include_wen3.timetable_title_textView.text =
+                                            timetable_data_map["wen3"]
+                                    view.timetable_include_wen4.timetable_title_textView.text =
+                                            timetable_data_map["wen4"]
+                                    view.timetable_include_wen5.timetable_title_textView.text =
+                                            timetable_data_map["wen5"]
+
+                                    view.timetable_include_thu1.timetable_title_textView.text =
+                                            timetable_data_map["thu1"]
+                                    view.timetable_include_thu2.timetable_title_textView.text =
+                                            timetable_data_map["thu2"]
+                                    view.timetable_include_thu3.timetable_title_textView.text =
+                                            timetable_data_map["thu3"]
+                                    view.timetable_include_thu4.timetable_title_textView.text =
+                                            timetable_data_map["thu4"]
+                                    view.timetable_include_thu5.timetable_title_textView.text =
+                                            timetable_data_map["thu5"]
+
+                                    view.timetable_include_fri1.timetable_title_textView.text =
+                                            timetable_data_map["fri1"]
+                                    view.timetable_include_fri2.timetable_title_textView.text =
+                                            timetable_data_map["fri2"]
+                                    view.timetable_include_fri3.timetable_title_textView.text =
+                                            timetable_data_map["fri3"]
+                                    view.timetable_include_fri4.timetable_title_textView.text =
+                                            timetable_data_map["fri4"]
+                                    view.timetable_include_fri5.timetable_title_textView.text =
+                                            timetable_data_map["fri5"]
+
+                                    Log.d(TAG, "get_course_symbol (Timetable) -> call")
                                 }
 
+
+
+
+
                                 Log.d("hoge", (it.get(week_to_day)).toString())
-
-
 
                             }
                         }

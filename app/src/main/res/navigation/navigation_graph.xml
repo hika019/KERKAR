@@ -7,22 +7,26 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.kerkar.HomeActivity_fragment"
+        android:name="com.example.kerkar.home.Home_fragment"
         android:label="@string/home"
-        tools:layout="@layout/activity_home"/>
+        tools:layout="@layout/activity_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_timetable"
+            app:destination="@id/nav_timetable" />
+    </fragment>
     <fragment
         android:id="@+id/nav_assignment_list"
-        android:name="com.example.kerkar.assignment_list_fragment"
+        android:name="com.example.kerkar.assignment_list.Assignment_list_fragment"
         android:label="@string/assignment"
         tools:layout="@layout/activity_assignment_list"/>
     <fragment
         android:id="@+id/nav_timetable"
-        android:name="com.example.kerkar.Timetable_flagment"
+        android:name="com.example.kerkar.Timetable_fragment"
         android:label="@string/timetable"
         tools:layout="@layout/activity_timetable"/>
     <fragment
         android:id="@+id/nav_setting"
-        android:name="com.example.kerkar.settingActivity_fragment"
+        android:name="com.example.kerkar.Setting_fragment"
         android:label="@string/setting"
         tools:layout="@layout/activity_setting"/>
 </navigation>

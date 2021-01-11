@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
@@ -212,6 +213,9 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 Log.d("firedb", "index: ${index}")
                 firedb.add_user_timetable_(id_list[index], "mon1")
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
+
+                //画面更新
+
 
 
             }

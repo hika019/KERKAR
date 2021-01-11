@@ -2,12 +2,17 @@ package com.example.kerkar
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import java.security.MessageDigest
 
-
+private val TAG = "otherfun"
 
 class assignment_swith(){
     var flag = 0
+}
+
+class now_position(){
+    var value = 0
 }
 
 
@@ -75,11 +80,11 @@ fun get_course_list(week_to_day: String, context: Context){
     try{
         timetable_local_DB(context).clear()
         firedb_timetable_class(context).list_course(week_to_day)
-        Log.d("home", "call")
+        Log.d(TAG, "get_course_list -> call")
 
 
     }catch(e: Exception){
-        Log.e("fun", "get_course_list -> error: ${e}")
+        Log.e(TAG, "get_course_list -> error: ${e}")
     }
 }
 
@@ -118,4 +123,14 @@ fun show_course_list(context: Context): Array<String> {
     return selecter_list
 
 }
+
+fun get_timetable_list(context: Context, view: View, flag: Int){
+    try{
+        firedb_timetable_class(context).get_course_symbol(view, flag)
+        Log.d(TAG, "get_timetable_list -> call")
+    }catch (e: Exception){
+        Log.e(TAG, "get_timetable_list -> error: $e")
+    }
+}
+
 
