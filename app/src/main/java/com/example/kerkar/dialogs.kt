@@ -255,8 +255,6 @@ fun error_college_upload_dialog(context: Context){
 
 class register_dialog(val context: Context, val uid: String){
 
-    val localdb = tmp_local_DB(context)
-
     fun add_university(){
         val dialog_layout = LayoutInflater.from(context).inflate(R.layout.dialog_add_university, null)
         val firedb = firedb_login_register_class(context)
@@ -270,7 +268,6 @@ class register_dialog(val context: Context, val uid: String){
 
                     firedb.add_user_data(uid, university_name)
 
-                    localdb.clear()
                     val i = Intent(context, main_activity::class.java)
                     context.startActivity(i)
 

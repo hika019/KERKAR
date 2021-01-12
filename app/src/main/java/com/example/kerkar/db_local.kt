@@ -33,7 +33,7 @@ class tmp_local_DB(val context: Context?){
 
     fun insert_tmp(tmp:String){
         try{
-            clear()
+//            clear()
             val dbHelper = local_DBHelper(context!!, dbName, null, dbVersion)
             val db = dbHelper.writableDatabase
 

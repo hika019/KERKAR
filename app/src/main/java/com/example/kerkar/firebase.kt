@@ -323,8 +323,6 @@ class firedb_timetable_class(private val context: Context){
                                     .get()
                                     .addOnSuccessListener {
                                         Log.d(TAG, "get ${week_to_day + period.toString()} class data -> success")
-                                        val timetable_local_DB = timetable_local_DB(context)
-                                        timetable_local_DB.clear()
 
                                         val datalist: ArrayList<Any> = arrayListOf()
 
@@ -362,13 +360,11 @@ class firedb_timetable_class(private val context: Context){
     fun get_course_symbol(view: View, flag:Int) {
         val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
         val period_list:List<Int> = List(5){it +1}
-        val localdb = timetable_local_DB(context)
 
         var timetable_data_map: MutableMap<String, String> = mutableMapOf()
 
         if (login_cheack() == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            localdb.clear()
             val fuga =firedb.collection("user")
                     .document(uid)
                     .get()
