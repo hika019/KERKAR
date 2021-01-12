@@ -28,6 +28,11 @@ fun login_cheack(): Boolean {
     return cheack_user != null
 }
 
+fun get_uid(): String {
+    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    return uid
+}
+
 
 class firedb_login_register_class(private val context: Context){
     private var firedb = FirebaseFirestore.getInstance()
@@ -300,7 +305,7 @@ class firedb_timetable_class(private val context: Context){
         }
     }
 
-    fun list_course(week_to_day: String, period: Int){
+    fun list_course_university(week_to_day: String, period: Int){
 
         val login_check = login_cheack()
         if(login_check == true){
@@ -382,84 +387,85 @@ class firedb_timetable_class(private val context: Context){
                                     timetable_data_map.put(data["week_to_day"] as String, data["course"] as String)
 
                                 }
-                                if (flag ==0){
-                                    val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
-                                    val calendar: Calendar = Calendar.getInstance()
-                                    val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
 
-                                    view.today_first_period.timetable_title_textView.text=
-                                            timetable_data_map["${week}1"]
-                                    view.today_second_period.timetable_title_textView.text=
-                                            timetable_data_map["${week}2"]
-                                    view.today_third_period.timetable_title_textView.text=
-                                            timetable_data_map["${week}3"]
-                                    view.today_fourth_period.timetable_title_textView.text=
-                                            timetable_data_map["${week}4"]
-                                    view.today_fifth_period.timetable_title_textView.text=
-                                            timetable_data_map["${week}5"]
-                                    Log.d(TAG, "get_course_symbol (Home) -> call")
-
-                                }else if(flag == 1){
-                                    //Timetable
-                                    view.timetable_include_mon1.timetable_title_textView.text =
-                                            timetable_data_map["mon1"]
-                                    view.timetable_include_mon2.timetable_title_textView.text =
-                                            timetable_data_map["mon2"]
-                                    view.timetable_include_mon3.timetable_title_textView.text =
-                                            timetable_data_map["mon3"]
-                                    view.timetable_include_mon4.timetable_title_textView.text =
-                                            timetable_data_map["mon4"]
-                                    view.timetable_include_mon5.timetable_title_textView.text =
-                                            timetable_data_map["mon5"]
-
-                                    view.timetable_include_tue1.timetable_title_textView.text =
-                                            timetable_data_map["tue1"]
-                                    view.timetable_include_tue2.timetable_title_textView.text =
-                                            timetable_data_map["tue2"]
-                                    view.timetable_include_tue3.timetable_title_textView.text =
-                                            timetable_data_map["tue3"]
-                                    view.timetable_include_tue4.timetable_title_textView.text =
-                                            timetable_data_map["tue4"]
-                                    view.timetable_include_tue5.timetable_title_textView.text =
-                                            timetable_data_map["tue5"]
-
-                                    view.timetable_include_wen1.timetable_title_textView.text =
-                                            timetable_data_map["wen1"]
-                                    view.timetable_include_wen2.timetable_title_textView.text =
-                                            timetable_data_map["wen2"]
-                                    view.timetable_include_wen3.timetable_title_textView.text =
-                                            timetable_data_map["wen3"]
-                                    view.timetable_include_wen4.timetable_title_textView.text =
-                                            timetable_data_map["wen4"]
-                                    view.timetable_include_wen5.timetable_title_textView.text =
-                                            timetable_data_map["wen5"]
-
-                                    view.timetable_include_thu1.timetable_title_textView.text =
-                                            timetable_data_map["thu1"]
-                                    view.timetable_include_thu2.timetable_title_textView.text =
-                                            timetable_data_map["thu2"]
-                                    view.timetable_include_thu3.timetable_title_textView.text =
-                                            timetable_data_map["thu3"]
-                                    view.timetable_include_thu4.timetable_title_textView.text =
-                                            timetable_data_map["thu4"]
-                                    view.timetable_include_thu5.timetable_title_textView.text =
-                                            timetable_data_map["thu5"]
-
-                                    view.timetable_include_fri1.timetable_title_textView.text =
-                                            timetable_data_map["fri1"]
-                                    view.timetable_include_fri2.timetable_title_textView.text =
-                                            timetable_data_map["fri2"]
-                                    view.timetable_include_fri3.timetable_title_textView.text =
-                                            timetable_data_map["fri3"]
-                                    view.timetable_include_fri4.timetable_title_textView.text =
-                                            timetable_data_map["fri4"]
-                                    view.timetable_include_fri5.timetable_title_textView.text =
-                                            timetable_data_map["fri5"]
-
-                                    Log.d(TAG, "get_course_symbol (Timetable) -> call")
-                                }
 
                             }
+                        }
+                        if (flag ==0){
+                            val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+                            val calendar: Calendar = Calendar.getInstance()
+                            val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
+
+                            view.today_first_period.timetable_title_textView.text=
+                                    timetable_data_map["${week}1"]
+                            view.today_second_period.timetable_title_textView.text=
+                                    timetable_data_map["${week}2"]
+                            view.today_third_period.timetable_title_textView.text=
+                                    timetable_data_map["${week}3"]
+                            view.today_fourth_period.timetable_title_textView.text=
+                                    timetable_data_map["${week}4"]
+                            view.today_fifth_period.timetable_title_textView.text=
+                                    timetable_data_map["${week}5"]
+                            Log.d(TAG, "get_course_symbol (Home) -> call")
+
+                        }else if(flag == 1){
+                            //Timetable
+                            view.timetable_include_mon1.timetable_title_textView.text =
+                                    timetable_data_map["mon1"]
+                            view.timetable_include_mon2.timetable_title_textView.text =
+                                    timetable_data_map["mon2"]
+                            view.timetable_include_mon3.timetable_title_textView.text =
+                                    timetable_data_map["mon3"]
+                            view.timetable_include_mon4.timetable_title_textView.text =
+                                    timetable_data_map["mon4"]
+                            view.timetable_include_mon5.timetable_title_textView.text =
+                                    timetable_data_map["mon5"]
+
+                            view.timetable_include_tue1.timetable_title_textView.text =
+                                    timetable_data_map["tue1"]
+                            view.timetable_include_tue2.timetable_title_textView.text =
+                                    timetable_data_map["tue2"]
+                            view.timetable_include_tue3.timetable_title_textView.text =
+                                    timetable_data_map["tue3"]
+                            view.timetable_include_tue4.timetable_title_textView.text =
+                                    timetable_data_map["tue4"]
+                            view.timetable_include_tue5.timetable_title_textView.text =
+                                    timetable_data_map["tue5"]
+
+                            view.timetable_include_wen1.timetable_title_textView.text =
+                                    timetable_data_map["wen1"]
+                            view.timetable_include_wen2.timetable_title_textView.text =
+                                    timetable_data_map["wen2"]
+                            view.timetable_include_wen3.timetable_title_textView.text =
+                                    timetable_data_map["wen3"]
+                            view.timetable_include_wen4.timetable_title_textView.text =
+                                    timetable_data_map["wen4"]
+                            view.timetable_include_wen5.timetable_title_textView.text =
+                                    timetable_data_map["wen5"]
+
+                            view.timetable_include_thu1.timetable_title_textView.text =
+                                    timetable_data_map["thu1"]
+                            view.timetable_include_thu2.timetable_title_textView.text =
+                                    timetable_data_map["thu2"]
+                            view.timetable_include_thu3.timetable_title_textView.text =
+                                    timetable_data_map["thu3"]
+                            view.timetable_include_thu4.timetable_title_textView.text =
+                                    timetable_data_map["thu4"]
+                            view.timetable_include_thu5.timetable_title_textView.text =
+                                    timetable_data_map["thu5"]
+
+                            view.timetable_include_fri1.timetable_title_textView.text =
+                                    timetable_data_map["fri1"]
+                            view.timetable_include_fri2.timetable_title_textView.text =
+                                    timetable_data_map["fri2"]
+                            view.timetable_include_fri3.timetable_title_textView.text =
+                                    timetable_data_map["fri3"]
+                            view.timetable_include_fri4.timetable_title_textView.text =
+                                    timetable_data_map["fri4"]
+                            view.timetable_include_fri5.timetable_title_textView.text =
+                                    timetable_data_map["fri5"]
+
+                            Log.d(TAG, "get_course_symbol (Timetable) -> call")
                         }
                     }
                     .addOnFailureListener{
@@ -525,4 +531,31 @@ class firedb_timetable_class(private val context: Context){
 
         }
     }
+
+    fun get_registered_classes_list(){
+        if(login_cheack() == true){
+            val uid = get_uid()
+
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener {
+                        val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+                        val period_list:List<Int> = List(5){it +1}
+
+                        for( week in week_to_day_symbol_list){
+                            for(period in period_list){
+
+
+
+                            }
+                        }
+
+
+
+                    }
+        }
+    }
 }
+
+

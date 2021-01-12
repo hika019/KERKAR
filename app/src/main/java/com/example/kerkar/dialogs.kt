@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
@@ -54,9 +53,8 @@ class timetable_dialog_class(){
                     val add_timetable = add_timetable(context, week, time)
                     add_timetable.search_timetable_dialog_rapper()
                 }
-                .setNegativeButton("空き授業"){ dialog, which ->
-                    //firedbから消去
-                    firedb_timetable_class(context).delete_course(week, time)
+                .setNegativeButton("戻る"){ dialog, which ->
+
                 }
                 .setNeutralButton("課題を確認") { dialog, which ->
 
@@ -165,7 +163,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
     fun search_timetable_dialog_rapper(){
         try{
             Log.d(TAG, "call search_timetable_dialog_rapper -> success")
-            firedb_timetable_class(context).list_course(week, period)
+            firedb_timetable_class(context).list_course_university(week, period)
         }catch (e: Exception){
             Log.e(TAG, "call search_timetable_dialog_rapper -> failure")
             Log.e(TAG, "error: ${e}")
@@ -229,9 +227,10 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
 
             }
-            .setNegativeButton("キャンセル"){dialog, which ->
-                add_timetable_dialog()
+            .setNegativeButton("空き授業登録"){dialog, which ->
 
+                //firedbから消去
+                firedb_timetable_class(context).delete_course(week, period)
             }
             .setNeutralButton("授業をつくる") { dialog, which ->
                 add_timetable_dialog()
