@@ -370,7 +370,7 @@ class firedb_timetable_class(private val context: Context){
 
         if (login_cheack() == true){
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val fuga =firedb.collection("user")
+            firedb.collection("user")
                     .document(uid)
                     .get()
                     .addOnSuccessListener {
@@ -532,6 +532,12 @@ class firedb_timetable_class(private val context: Context){
         }
     }
 
+
+}
+
+class firedb_task_class(private val context: Context){
+    private val firedb = FirebaseFirestore.getInstance()
+
     fun get_registered_classes_list(){
         if(login_cheack() == true){
             val uid = get_uid()
@@ -543,8 +549,19 @@ class firedb_timetable_class(private val context: Context){
                         val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
                         val period_list:List<Int> = List(5){it +1}
 
+                        var timetable_data_array: Array<Any> = arrayOf()
+
                         for( week in week_to_day_symbol_list){
                             for(period in period_list){
+                                val week_period = week + period
+
+                                val raw_data = it.get(week_period)
+                                if (raw_data != null){
+                                    val data = raw_data as Map<String, Any>
+                                    timetable_data_array +=  data
+                                }
+
+
 
 
 

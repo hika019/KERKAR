@@ -62,6 +62,7 @@ fun str_to_array(str: String): List<String> {
     return list
 }
 
+
 fun get_timetable_list(context: Context, view: View, flag: Int){
     try{
         firedb_timetable_class(context).get_course_symbol(view, flag)

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
@@ -13,8 +14,61 @@ import kotlinx.android.synthetic.main.dialog_add_university.view.*
 data class add_assignment(var day: String, var time: String, var subject: String, var assignment_title: String, var special_notes: String){
 }
 
-class assignment_dialog_class(){
-    fun assigmenment_ditail_dialog(context: Context, str: String, position: Int){
+class assignment_dialog_class(val context: Context){
+
+    fun add_task_rapper(){
+
+    }
+
+
+    fun course_selecter_dialog(){
+        //登録している授業の一覧
+
+        firedb_task_class(context).get_registered_classes_list()//をつかう
+
+    }
+
+    fun create_task(){
+        val mdialogView = LayoutInflater.from(context).inflate(
+                R.layout.dialog_add_assignment,
+                null
+        )
+
+        val mBilder = AlertDialog.Builder(context)
+                .setView(mdialogView)
+                .setTitle("課題追加")
+                .setPositiveButton("確定") { dialog, which ->
+                    var add_assignment = add_assignment(
+                            mdialogView.dialog_deadline_day.text.toString(),
+                            mdialogView.dialog_deadline_time.text.toString(),
+                            mdialogView.dialog_subject.text.toString(),
+                            mdialogView.dialog_assignment_title.text.toString(),
+                            mdialogView.dialog_assignment_special_notes.text.toString()
+                    )
+                    Log.d("home", add_assignment.toString())
+
+                    if(add_assignment.day.isNotEmpty() &&
+                            add_assignment.time.isNotEmpty() &&
+                            add_assignment.subject.isNotEmpty() &&
+                            add_assignment.assignment_title.isNotEmpty()){
+
+                    }else{
+                        Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
+                    }
+
+
+
+                    Log.d("dialog", add_assignment.day + add_assignment.time)
+                }
+                .setNegativeButton("破棄") { dialog, which ->
+
+                }
+
+        mBilder.show()
+    }
+
+
+    fun assigmenment_ditail_dialog(str: String, position: Int){
 
 
         AlertDialog.Builder(context)
@@ -225,6 +279,8 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 Log.d("firedb", "index: ${index}")
                 firedb.add_user_timetable_(id_list[index], week+period)
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
+
+//                get_timetable_list(context, null, null)
 
             }
             .setNegativeButton("空き授業登録"){dialog, which ->
