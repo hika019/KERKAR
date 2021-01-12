@@ -182,7 +182,6 @@ class firedb_login_register_class(private val context: Context){
 class firedb_timetable_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
-
     fun create_university_timetable(data: MutableMap<String, Any>){
         val login_check = login_cheack()
         if (login_check == true){
@@ -298,13 +297,12 @@ class firedb_timetable_class(private val context: Context){
         }
     }
 
-    fun list_course(week_to_day: String){
+    fun list_course(week_to_day: String, period: Int){
 
         val login_check = login_cheack()
         if(login_check == true){
 
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
-
 
             //classidで検索
             firedb.collection("user")
@@ -316,30 +314,35 @@ class firedb_timetable_class(private val context: Context){
                             Log.d(TAG, "get university_id -> success")
   
                             //授業検索
-
                             firedb.collection("university")
                                     .document(university_id)
-                                    .collection(week_to_day)
+                                    .collection(week_to_day + period.toString())
                                     .get()
                                     .addOnSuccessListener {
-                                        Log.d(TAG, "get ${week_to_day} class data -> success")
+                                        Log.d(TAG, "get ${week_to_day + period.toString()} class data -> success")
                                         val timetable_local_DB = timetable_local_DB(context)
                                         timetable_local_DB.clear()
 
+                                        val datalist: ArrayList<Any> = arrayListOf()
+
                                         for (document in it){
 
-                                            timetable_local_DB.insert_timetable(
-                                                    document.id,
-                                                    document.get("week_to_day") as String,
-                                                    document.get("course") as String,
-                                                    document.get("lecturer") as ArrayList<String>,
-                                                    document.get("room") as String
+                                            val data = hashMapOf<String, Any>(
+                                                    "id" to document.id,
+                                                   "week_to_day" to document.get("week_to_day") as String,
+                                                    "course" to document.get("course") as String,
+                                                    "lecturer" to document.get("lecturer") as ArrayList<String>,
+                                                    "room" to document.get("room") as String
                                             )
 
+                                            datalist.add(data)
                                         }
+
+                                        add_timetable(context, week_to_day, period).search_timetable_dialog(datalist)
+
                                     }
                                     .addOnFailureListener {
-                                        Log.e(TAG, "get ${week_to_day} class data -> failure")
+                                        Log.e(TAG, "get ${week_to_day + period.toString()} class data -> failure")
                                     }
                             
                         }else{
@@ -354,7 +357,6 @@ class firedb_timetable_class(private val context: Context){
 
 
     fun get_course_symbol(view: View, flag:Int) {
-        var symbol_timetable_map: MutableMap<String, String> = mutableMapOf()
         val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
         val period_list:List<Int> = List(5){it +1}
         val localdb = timetable_local_DB(context)

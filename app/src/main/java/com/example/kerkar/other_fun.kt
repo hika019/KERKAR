@@ -11,10 +11,6 @@ class assignment_swith(){
     var flag = 0
 }
 
-class now_position(){
-    var value = 0
-}
-
 
 fun week_to_day_jp_chenger(week: String): String{
     val week_to_day_jp_list = listOf("日", "月", "火", "水", "木", "金", "土")
@@ -66,27 +62,6 @@ fun str_to_array(str: String): List<String> {
     return list
 }
 
-fun id_generator(str: String): String {
-    val id = MessageDigest.getInstance("SHA-256")
-            .digest(str.toByteArray())
-            .joinToString(separator = "") {
-                "%02x".format(it)
-            }
-    return id
-}
-
-
-fun get_course_list(week_to_day: String, context: Context){
-    try{
-        timetable_local_DB(context).clear()
-        firedb_timetable_class(context).list_course(week_to_day)
-        Log.d(TAG, "get_course_list -> call")
-
-
-    }catch(e: Exception){
-        Log.e(TAG, "get_course_list -> error: ${e}")
-    }
-}
 
 fun show_course_list(context: Context): Array<String> {
     Log.d("home", "call2")

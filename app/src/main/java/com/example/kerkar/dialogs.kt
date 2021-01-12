@@ -50,7 +50,7 @@ class timetable_dialog_class(){
                 .setNegativeButton("授業登録"){ dialog, which ->
                     //登録画面
                     val add_timetable = add_timetable(context, week, time)
-                    add_timetable.add_timetable_dialog()
+                    add_timetable.search_timetable_dialog_rapper()
 
                 }
                 .setNeutralButton("課題を確認") { dialog, which ->
@@ -77,7 +77,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
     fun add_timetable_dialog(){
         //localdbにダウンロード
-        get_course_list(week+period, context)
+//        get_course_list(week+period, context)
 
         val dialog_messege = LayoutInflater.from(context).inflate(R.layout.dialog_add_class_editer, null)
         val dialog = AlertDialog.Builder(context)
@@ -124,7 +124,6 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                                     "room" to  class_name
                             )
 
-
                             Log.d(TAG, teacher_list.toString())
 
                             //firebase
@@ -152,20 +151,30 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
             }
             .setNeutralButton("検索") { dialog, which ->
-                search_timetable_dialog(context, week, period)
+//                search_timetable_dialog_rapper()
             }
         dialog.create().show()
     }
 
 
+    fun search_timetable_dialog_rapper(){
+        try{
+            Log.d(TAG, "call search_timetable_dialog_rapper -> success")
+            firedb_timetable_class(context).list_course(week, period)
+        }catch (e: Exception){
+            Log.e(TAG, "call search_timetable_dialog_rapper -> failure")
+            Log.e(TAG, "error: ${e}")
+
+        }
+    }
 
 
-    fun search_timetable_dialog(context: Context, week: String, period: Int){
+    fun search_timetable_dialog(list: List<Any>){
         Log.d("dialog", "called search_timetable_dialog")
 
 //        val list = show_course_list(context)
         //localdbからデータ取得
-        val list = timetable_local_DB(context).get_timetable()
+//        val list = timetable_local_DB(context).get_timetable()
         var id_list: Array<String> = arrayOf()
         var selecter_list: Array<String> = arrayOf()
 
@@ -175,7 +184,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
             val week_to_day = data["week_to_day"]
             val course = data["course"]
-            val teacher = str_to_array(data["lecturer"] as String)
+            val teacher = data["lecturer"] as List<String>
             val room = data["room"]
             var lecturer = ""
 
@@ -214,14 +223,13 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 firedb.add_user_timetable_(id_list[index], "mon1")
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
 
-                //画面更新
-
-
-
             }
             .setNegativeButton("キャンセル"){dialog, which ->
                 add_timetable_dialog()
 
+            }
+            .setNeutralButton("授業をつくる") { dialog, which ->
+                add_timetable_dialog()
             }
         val dialog = builder.create()
         dialog.show()

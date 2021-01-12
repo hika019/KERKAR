@@ -38,7 +38,7 @@ class Home_fragment() : Fragment() {
         view.main_assignment_info_recyclerview.adapter = adapter
         view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
-        get_timetable_list(this_context!!, view, 0)
+
 
 
 
@@ -49,14 +49,16 @@ class Home_fragment() : Fragment() {
 
 
         //時間の更新&取得
-        update_timetable(view)
+        get_timetable_list(this_context!!, view, 0)
 
 
 
         view.floatingActionButton.setOnClickListener {
-            fab(this_context)
+            firedb_timetable_class(this_context).list_course("mon", 1)
 
-            show_course_list(this_context)
+//            fab(this_context)
+//
+//            show_course_list(this_context)
 
 
         }
@@ -132,9 +134,6 @@ class Home_fragment() : Fragment() {
         view.today_fifth_period.setOnClickListener {
             timetable_dialog_class.timetable_dialog(week, 5, context)
         }
-    }
-    private fun update_timetable(view: View){
-        view.today_first_period.timetable_title_textView.text = "創造理工実験"
     }
 
 }
