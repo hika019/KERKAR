@@ -49,14 +49,14 @@ class timetable_dialog_class(){
             AlertDialog.Builder(context)
                 .setTitle("${week_jp}曜日 ${time}限の授業")
                 .setMessage(message)
-                .setPositiveButton("ok") { dialog, which ->
-
-                }
-                .setNegativeButton("授業登録"){ dialog, which ->
+                .setPositiveButton("授業登録") { dialog, which ->
                     //登録画面
                     val add_timetable = add_timetable(context, week, time)
                     add_timetable.search_timetable_dialog_rapper()
-
+                }
+                .setNegativeButton("空き授業"){ dialog, which ->
+                    //firedbから消去
+                    firedb_timetable_class(context).delete_course(week, time)
                 }
                 .setNeutralButton("課題を確認") { dialog, which ->
 
@@ -217,7 +217,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
         builder.setTitle(week_jp + "曜日 " + period + "限 で検索されています")
             .setSingleChoiceItems(selecter_list, -1) { dialog, which ->
-                Toast.makeText(context, id_list[which], Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, id_list[which], Toast.LENGTH_SHORT).show()
                 index = which
             }
             .setPositiveButton("確定"){ dialog, which ->
@@ -225,7 +225,7 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 //登録処理
                 val firedb = firedb_timetable_class(context)
                 Log.d("firedb", "index: ${index}")
-                firedb.add_user_timetable_(id_list[index], "mon1")
+                firedb.add_user_timetable_(id_list[index], week+period)
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
 
             }

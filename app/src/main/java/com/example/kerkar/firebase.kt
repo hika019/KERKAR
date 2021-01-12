@@ -7,10 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_timetable.view.*
@@ -247,59 +244,55 @@ class firedb_timetable_class(private val context: Context){
             firedb.collection("user")
                     .document(uid)
                     .get()
-                    .addOnCompleteListener {
-                        if(it.isSuccessful){
-                            val university_id = it.result?.getString("university_id")
-//                            Log.d(TAG, "aa"+ university_id)
-                            Log.d(TAG, "get university_id -> success")
+                    .addOnSuccessListener {
+                        val university_id = it.getString("university_id")
+//                        Log.d(TAG, "hoge:"+ university_id)
+                        Log.d(TAG, "get university_id -> success")
 
-                            firedb.collection("university")
-                                    .document(university_id!!)
-                                    .collection(week_to_day)
-                                    .document(classid)
-                                    .get()
-                                    .addOnCompleteListener {
-                                        if(it.isSuccessful){
-                                            Log.d(TAG, "coped course -> success")
+                        firedb.collection("university")
+                                .document(university_id!!)
+                                .collection(week_to_day)
+                                .document(classid)
+                                .get()
+                                .addOnSuccessListener {
+                                    Log.d("hoge", "uni_id:${university_id}")
+                                    Log.d("hoge", "week:${week_to_day}")
+                                    Log.d("hoge", "classid:${classid}")
+                                    Log.d("hoge", "hoge:${it}")
+//                                    Log.d("hoge", "hoge${it.result?.getString("week_to_day")}")
 
-                                            val result = it.result!!
-                                            //コピーとる
-                                            val time = result.getString("week_to_day")
-                                            val course = result.getString("course")
-                                            val id = result.getString("id")
-                                            val lecturer = result.get("lecturer")
-                                            val room = result.getString("room")
 
-                                            val in_data = hashMapOf(
-                                                    "week_to_day" to time,
-                                                    "id" to id,
-                                                    "lecturer" to lecturer,
-                                                    "course" to course,
-                                                    "room" to room
-                                            )
-                                            Log.d(TAG, "in_data: $in_data")
+                                    val result = it
+                                    //コピーとる
+                                    val time = it.getString("week_to_day")
+                                    val course = result.getString("course")
+                                    val id = result.getString("id")
+                                    val lecturer = result.get("lecturer")
+                                    val room = result.getString("room")
 
-                                            val data = hashMapOf(
-                                                    time to in_data
-                                            )
+                                    val in_data = hashMapOf(
+                                            "week_to_day" to time,
+                                            "id" to id,
+                                            "lecturer" to lecturer,
+                                            "course" to course,
+                                                "room" to room
+                                    )
+                                    Log.d(TAG, "in_data: $in_data")
 
-                                            firedb.collection("user")
-                                                    .document(uid)
-                                                    .set(data, SetOptions.merge())
-                                                    .addOnSuccessListener {
-                                                        Log.d(TAG, "add course to user: ${id} -> success")
-                                                    }
-                                                    .addOnFailureListener {
-                                                        Log.d(TAG, "add course to user: ${id} -> failure")
-                                                    }
-                                        }else{
-                                            Log.d(TAG, "coped course -> failure")
-                                        }
+                                    val data = hashMapOf(
+                                            time.toString() to in_data
+                                    )
 
-                                    }
-                        }else{
-                            Log.d(TAG, "get university_id -> failure")
-                        }
+                                    firedb.collection("user")
+                                            .document(uid)
+                                            .set(data, SetOptions.merge())
+                                            .addOnSuccessListener {
+                                                Log.d(TAG, "add course to user: ${id} -> success")
+                                            }
+                                            .addOnFailureListener {
+                                                Log.d(TAG, "add course to user: ${id} -> failure")
+                                            }
+                                }
                     }
 
         }else{
@@ -516,6 +509,24 @@ class firedb_timetable_class(private val context: Context){
         }else{
             Log.e(TAG, "call get_course_detail -> not login")
             Toast.makeText(context, "ログインしていないため検索不可", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun delete_course(week: String, period: Int){
+        if(login_cheack() == true){
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+            val updates = hashMapOf<String, Any>(
+                    week + period.toString() to FieldValue.delete()
+            )
+
+            firedb.collection("user")
+                    .document(uid)
+                    .update(updates)
+                    .addOnCompleteListener {
+                        Log.d(TAG, "deleate ${week + period} -> complete")
+                    }
+
         }
     }
 }
