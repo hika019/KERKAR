@@ -39,24 +39,13 @@ class Home_fragment() : Fragment() {
         view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
 
-
-
-
-
-        //ここ授業リスト取得&local db作成
-//        val hoge = firedb_timetable_class(this_context).get_course_symbol("mon1")
-
-
-
         //時間の更新&取得
         get_timetable_list(this_context!!, view, 0)
 
 
 
         view.floatingActionButton.setOnClickListener {
-            firedb_timetable_class(this_context).list_course("mon", 1)
-
-//            fab(this_context)
+            fab(this_context)
 //
 //            show_course_list(this_context)
 
@@ -90,10 +79,6 @@ class Home_fragment() : Fragment() {
                             add_assignment.subject.isNotEmpty() &&
                             add_assignment.assignment_title.isNotEmpty()){
 
-
-                        //授業idとる
-                        //dbにいれる
-
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
                     }
@@ -120,19 +105,19 @@ class Home_fragment() : Fragment() {
 
         val timetable_dialog_class = timetable_dialog_class()
         view.today_first_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week, 1, context)
+            timetable_dialog_class.timetable_dialog_rapper(week, 1, context)
         }
         view.today_second_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week, 2, context)
+            timetable_dialog_class.timetable_dialog_rapper(week, 2, context)
         }
         view.today_third_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week, 3, context)
+            timetable_dialog_class.timetable_dialog_rapper(week, 3, context)
         }
         view.today_fourth_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week, 4, context)
+            timetable_dialog_class.timetable_dialog_rapper(week, 4, context)
         }
         view.today_fifth_period.setOnClickListener {
-            timetable_dialog_class.timetable_dialog(week, 5, context)
+            timetable_dialog_class.timetable_dialog_rapper(week, 5, context)
         }
     }
 

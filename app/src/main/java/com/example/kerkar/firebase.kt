@@ -370,6 +370,7 @@ class firedb_timetable_class(private val context: Context){
                     .document(uid)
                     .get()
                     .addOnSuccessListener {
+                        Log.d(TAG, "get_course_symbol -> success")
                         for(week in week_to_day_symbol_list){
                             for(period in period_list){
                                 val week_to_day = week + period.toString()
@@ -381,13 +382,11 @@ class firedb_timetable_class(private val context: Context){
 
                                     timetable_data_map.put(data["week_to_day"] as String, data["course"] as String)
 
-//                                    Log.d("hoge", "week: $week_to_day")
                                 }
                                 if (flag ==0){
                                     val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
                                     val calendar: Calendar = Calendar.getInstance()
                                     val week = week_name[calendar.get(Calendar.DAY_OF_WEEK)-1]
-                                    Log.d("hoge", "hoge: ${timetable_data_map["${week}1"]}")
 
                                     view.today_first_period.timetable_title_textView.text=
                                             timetable_data_map["${week}1"]
@@ -399,6 +398,7 @@ class firedb_timetable_class(private val context: Context){
                                             timetable_data_map["${week}4"]
                                     view.today_fifth_period.timetable_title_textView.text=
                                             timetable_data_map["${week}5"]
+                                    Log.d(TAG, "get_course_symbol (Home) -> call")
 
                                 }else if(flag == 1){
                                     //Timetable
@@ -460,15 +460,11 @@ class firedb_timetable_class(private val context: Context){
                                     Log.d(TAG, "get_course_symbol (Timetable) -> call")
                                 }
 
-
-
-
-
-//                                Log.d("hoge", (it.get(week_to_day)).toString())
-
                             }
                         }
-//                        Log.d("hoge", "data: $symbol_timetable_map")
+                    }
+                    .addOnFailureListener{
+                        Log.e(TAG, "get_course_symbol -> failure")
                     }
 
         }else{
@@ -476,8 +472,40 @@ class firedb_timetable_class(private val context: Context){
             Toast.makeText(context, "ログインされていません", Toast.LENGTH_SHORT).show()
         }
     }
-}
 
-internal interface CityCallback {
-    fun isCityExist(exist: Boolean)
+    fun get_course_detail(week: String, period: Int){
+        var str: String? = null
+        if (login_cheack() == true){
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener {
+                        Log.d(TAG, "get_course_detail(${week+period}) -> success")
+                        val raw_data = it.get(week+period.toString())
+                        if(raw_data != null){
+                            val map_data = raw_data as Map<String, Any>
+
+                            str = "教科: ${map_data["course"]}\n" +
+                                    "教室: ${map_data["room"]}\n"
+
+                            val teacher = map_data["lecturer"] as List<String>
+                            if(teacher.size > 1){
+                                str += "講師: ${teacher[0]} ...他"
+                            }else{
+                                str += "講師: ${teacher[0]}"
+                            }
+                        }else{
+                            str = "授業が登録されていません"
+                        }
+                        timetable_dialog_class().timetable_dialog(week, period, str!!, context)
+                    }
+                    .addOnFailureListener {
+                        Log.e(TAG, "get_course_detail(${week+period}) -> failure")
+                    }
+        }else{
+            Log.e(TAG, "call get_course_detail -> not login")
+            Toast.makeText(context, "ログインしていないため検索不可", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

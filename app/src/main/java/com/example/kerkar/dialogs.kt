@@ -35,8 +35,13 @@ class assignment_dialog_class(){
 
 
 class timetable_dialog_class(){
-    fun timetable_dialog(week: String, time: Int, context: Context?){
-        var message = get_timetable_details(week, time)
+
+    fun timetable_dialog_rapper(week: String, time: Int, context: Context){
+        firedb_timetable_class(context).get_course_detail(week, time)
+    }
+
+    fun timetable_dialog(week: String, time: Int, message: String, context: Context?){
+//        var message = get_timetable_details(week, time)
 
         val week_jp = week_to_day_jp_chenger(week)
 
