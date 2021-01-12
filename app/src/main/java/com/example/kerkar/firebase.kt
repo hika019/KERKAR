@@ -1,6 +1,7 @@
 package com.example.kerkar
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -139,41 +140,50 @@ class firedb_login_register_class(private val context: Context){
     }
 
 
-
-    fun get_university_list(){
+    fun get_university_list(uid: String){
         Log.d(TAG, "####call: get_university_list #####")
         firedb.collection("university")
                 .get()
                 .addOnSuccessListener { documents ->
+                    var university_array: Array<String> = arrayOf()
                     for (document in documents){
                         Log.d(TAG, "get university_doc_id: ${document.id}")
-                        get_university_name(document.id)
+//                        get_university_name(document.id)
 
+                        val niversity_name = document.get("university").toString()
+                        university_array += niversity_name
                     }
+
+
+                    register_dialog(context, uid).select_univarsity(university_array, uid)
                 }
     }
-    
-    fun get_university_name(university_id: String){
-        var university_name: String = ""
-        firedb.collection("university")
-                .document(university_id)
-                .get()
-                .addOnCompleteListener { 
-                    if(it.isSuccessful){
-                        val data = it.result
-                        university_name = data!!.data?.get("university").toString()
-                        Log.d(TAG, university_name)
 
-                        val localdb = tmp_local_DB(context)
-                        localdb.insert_tmp(university_name)
+    fun check_university_data(){
+        Log.d(TAG, "check_university_data -> call")
+        if(login_cheack() == true){
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            Log.d(TAG, "check_university_data -> university_data is not null")
+                            val university = it.result?.getString("university")
+                            if(university != null){
+                                //homeへ
+                                val intent = Intent(context, main_activity::class.java)
+                                context.startActivity(intent)
+                            }else{
+                                //university選択
+                                Log.d(TAG, "check_university_data -> university_data is null")
+                                Log.d(TAG, "select_university_rapper -> call")
+                                register_dialog(context, uid).select_university_rapper()
+                            }
 
-                    }else{
-                        Log.d(TAG, "failed: get_university_name -> ${university_id}")
+                        }
                     }
-                }
-                .addOnFailureListener {
-                    Log.d(TAG, "Error: get_university_name -> ${it}")
-                }
+        }
     }
 
 }

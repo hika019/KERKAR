@@ -253,11 +253,11 @@ fun error_college_upload_dialog(context: Context){
 
 
 
-class register_dialog(val context: Context, val mail: String, val password: String, val uid: String){
+class register_dialog(val context: Context, val uid: String){
 
     val localdb = tmp_local_DB(context)
 
-    fun add_university(uid: String){
+    fun add_university(){
         val dialog_layout = LayoutInflater.from(context).inflate(R.layout.dialog_add_university, null)
         val firedb = firedb_login_register_class(context)
 
@@ -276,20 +276,24 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
 
                 }
                 .setNegativeButton("戻る"){ dialog, which ->
-                    select_univarsity()
+                    select_university_rapper()
                 }
 
         dialog.create().show()
     }
 
-    fun select_univarsity() {
 
-        var university:String? = ""
-        val list = localdb.get_tmp()
+    fun select_university_rapper(){
+        firedb_login_register_class(context).get_university_list(uid)
 
-        if(list.size < 0){
-            Toast.makeText(context, "大学一覧を取得中です\nしばらくお待ちください", Toast.LENGTH_LONG).show()
-        }
+    }
+
+
+    fun select_univarsity(list: Array<String>, uid: String) {
+
+        var university:String? = null
+//        val list = localdb.get_tmp()
+
         val dialog = AlertDialog.Builder(context)
                 .setTitle("大学の選択")
                 .setSingleChoiceItems(list, -1){ dialog, which ->
@@ -297,23 +301,19 @@ class register_dialog(val context: Context, val mail: String, val password: Stri
                     Toast.makeText(context, list[which], Toast.LENGTH_SHORT).show()
                 }
                 .setPositiveButton("確定"){ dialog, which ->
-                    Toast.makeText(context, university.toString(), Toast.LENGTH_SHORT).show()
-
-                    val user_data = User_data_class(mail, password, uid, university.toString())
-
-                    val firedb = firedb_login_register_class(context)
-                    firedb.add_user_data(user_data.u_id, user_data.college)
-
-                    tmp_local_DB(context).clear()
-
-//                    Log.d("fire", "call")
-                    localdb.clear()
-                    val i = Intent(context, main_activity::class.java)
-                    context.startActivity(i)
-
+//                    Toast.makeText(context, university.toString(), Toast.LENGTH_SHORT).show()
+                    if(university != null){
+                        val firedb = firedb_login_register_class(context)
+                        firedb.add_user_data(uid, university.toString())
+                        val i = Intent(context, main_activity::class.java)
+                        context.startActivity(i)
+                    }else{
+                        Toast.makeText(context, "大学の選択/追加をしてください",Toast.LENGTH_LONG).show()
+                        select_university_rapper()
+                    }
                 }
                 .setNegativeButton("大学を追加"){ dialog, which->
-                    add_university(uid)
+                    add_university()
                 }
         dialog.create().show()
     }

@@ -20,8 +20,8 @@ class RegisterActivity: AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         //大学リストを取得
-        val firedb = firedb_login_register_class(this)
-        firedb.get_university_list()
+//        val firedb = firedb_login_register_class(this)
+//        firedb.get_university_list()
 
 
 
@@ -56,8 +56,8 @@ class RegisterActivity: AppCompatActivity() {
                     Log.d(TAG, "Successfully created user with uid: ${it.result?.user?.uid}")
 
                     //dialog 大学選択
-                    val register_dialog_class = register_dialog(this, mail, password, it.result?.user?.uid!!)
-                    register_dialog_class.select_univarsity()
+                    val register_dialog_class = register_dialog(this, it.result?.user?.uid!!)
+                    register_dialog_class.select_university_rapper()
 
                 }
                 .addOnFailureListener {

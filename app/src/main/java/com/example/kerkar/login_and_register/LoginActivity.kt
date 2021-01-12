@@ -60,14 +60,15 @@ class LoginActivity: AppCompatActivity() {
                         val uid = Firebase.auth.currentUser!!.uid
                         Log.d(TAG,  "uid:${uid}")
 
-                        val intent = Intent(this, main_activity::class.java)
-                        startActivity(intent)
+                        firedb_login_register_class(this).check_university_data()
+
+//                        val intent = Intent(this, main_activity::class.java)
+//                        startActivity(intent)
 
                     }else{
                         Log.d(TAG, "signInWithEmail:failure")
                         Toast.makeText(this, "ログインに失敗しました", Toast.LENGTH_LONG).show()
                     }
-
                 }
     }
 
