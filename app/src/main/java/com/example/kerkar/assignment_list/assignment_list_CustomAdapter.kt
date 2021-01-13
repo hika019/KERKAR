@@ -40,7 +40,6 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
         holder.lecture_title.text = read_lecture_List[position]
         //タップ
         holder.view.setOnClickListener {
-            val assignment_dialog_class = assignment_dialog_class()
             Log.d("AssignmentActivity", "select assignment item: $position")
 
             //表示する内容

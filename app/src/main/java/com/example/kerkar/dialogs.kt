@@ -13,37 +13,100 @@ import kotlinx.android.synthetic.main.dialog_add_university.view.*
 
 data class add_assignment(var day: String, var time: String, var subject: String, var assignment_title: String, var special_notes: String){
 }
+class add_task(){
+    var day: String? = null
+    var time: String? = null
+    var subject_data: Map<String, String> = mutableMapOf()
+    var assignment_title: String? = null
+    var special_notes: String? = null
+}
+
 
 class assignment_dialog_class(val context: Context){
 
-    fun add_task_rapper(){
+    var day: String? = null
+    var time: String? = null
+    var subject_data: MutableMap<String, String> = mutableMapOf()
+    var assignment_title: String? = null
+    var special_notes: String? = null
 
+
+    val home_dialog_View = LayoutInflater.from(context).inflate(
+            R.layout.dialog_add_assignment,
+            null
+    )
+
+
+    fun add_task_rapper(){
+        //登録している授業の一覧
+        firedb_task_class(context).get_registered_classes_list()//をつかう
     }
 
 
-    fun course_selecter_dialog(){
-        //登録している授業の一覧
+    fun course_selecter_dialog(class_name_list: Array<String>,
+                               class_id_list: Array<String>,
+                               class_week_to_day_list: Array<String>){
 
-        firedb_task_class(context).get_registered_classes_list()//をつかう
+        var select_point: Int? = null
+
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("追加する課題の授業を選択")
+                .setSingleChoiceItems(class_name_list, -1){ dialog, which ->
+                    select_point = which
+                }
+                .setPositiveButton("確定"){ dialog, which ->
+                    if(select_point != null) {
+//                        create_task(class_name_list[select_point!!],
+//                                class_id_list[select_point!!],
+//                                class_week_to_day_list[select_point!!]
+//                        )
+                        create_task()
+                        val data =hashMapOf<String, String>(
+                                "class_name" to class_name_list[select_point!!],
+                                "class_id" to class_id_list[select_point!!],
+                                "week_to_day" to class_week_to_day_list[select_point!!]
+                        )
+
+                        //表示
+                        home_dialog_View.dialog_subject.text = "${data["class_name"]}"
+
+
+                    }
+                }
+                .show()
 
     }
 
     fun create_task(){
-        val mdialogView = LayoutInflater.from(context).inflate(
-                R.layout.dialog_add_assignment,
-                null
-        )
+
+
+        Log.d("hoge", "hoge: ${subject_data}")
+
+
+        home_dialog_View.dialog_deadline_day_add_button.setOnClickListener{
+
+        }
+
+        home_dialog_View.dialog_deadline_time_add_button.setOnClickListener{
+            Toast.makeText(context, "hoge", Toast.LENGTH_SHORT).show()
+        }
+
+        home_dialog_View.dialog_subject_add_button.setOnClickListener{
+            add_task_rapper()
+        }
+
 
         val mBilder = AlertDialog.Builder(context)
-                .setView(mdialogView)
+                .setView(home_dialog_View)
                 .setTitle("課題追加")
                 .setPositiveButton("確定") { dialog, which ->
                     var add_assignment = add_assignment(
-                            mdialogView.dialog_deadline_day.text.toString(),
-                            mdialogView.dialog_deadline_time.text.toString(),
-                            mdialogView.dialog_subject.text.toString(),
-                            mdialogView.dialog_assignment_title.text.toString(),
-                            mdialogView.dialog_assignment_special_notes.text.toString()
+                            home_dialog_View.dialog_deadline_day.text.toString(),
+                            home_dialog_View.dialog_deadline_time.text.toString(),
+                            home_dialog_View.dialog_subject.text.toString(),
+                            home_dialog_View.dialog_assignment_title.text.toString(),
+                            home_dialog_View.dialog_assignment_special_notes.text.toString()
                     )
                     Log.d("home", add_assignment.toString())
 

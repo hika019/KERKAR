@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.ItemList
 import com.example.kerkar.R
 import com.example.kerkar.assignment_swith
+import com.example.kerkar.firedb_task_class
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_assignment_list.view.*
 
@@ -27,6 +28,8 @@ class Assignment_list_fragment() :Fragment() {
 
         val frame_context = getContext()
         Log.d("hoge", "this:"+ frame_context.toString())
+
+        firedb_task_class(frame_context!!).get_registered_classes_list()
 
 
         //未提出list

@@ -45,8 +45,9 @@ class Home_fragment() : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-            fab(this_context)
-//
+//            fab(this_context)
+            val add_task_class = assignment_dialog_class(this_context)
+            add_task_class.create_task()
 //            show_course_list(this_context)
 
 

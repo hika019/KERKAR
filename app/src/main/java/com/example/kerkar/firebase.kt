@@ -387,8 +387,6 @@ class firedb_timetable_class(private val context: Context){
                                     timetable_data_map.put(data["week_to_day"] as String, data["course"] as String)
 
                                 }
-
-
                             }
                         }
                         if (flag ==0){
@@ -549,26 +547,28 @@ class firedb_task_class(private val context: Context){
                         val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
                         val period_list:List<Int> = List(5){it +1}
 
-                        var timetable_data_array: Array<Any> = arrayOf()
+                        var class_name_array: Array<String> = arrayOf()
+                        var class_id_array: Array<String> = arrayOf()
+                        var class_week_to_day_array: Array<String> = arrayOf()
+
 
                         for( week in week_to_day_symbol_list){
                             for(period in period_list){
                                 val week_period = week + period
 
                                 val raw_data = it.get(week_period)
+                                Log.d("hoge", "hoge${raw_data}")
+
                                 if (raw_data != null){
                                     val data = raw_data as Map<String, Any>
-                                    timetable_data_array +=  data
+                                    class_name_array +=  data["course"] as String
+                                    class_id_array +=  data["id"] as String
+                                    class_week_to_day_array += data["week_to_day"] as String
                                 }
-
-
-
-
-
                             }
                         }
 
-
+                        assignment_dialog_class(context).course_selecter_dialog(class_name_array, class_id_array, class_week_to_day_array)
 
                     }
         }
