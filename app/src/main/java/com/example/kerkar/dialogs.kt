@@ -1,5 +1,6 @@
 package com.example.kerkar
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 data class add_assignment(var day: String, var time: String, var subject: String, var assignment_title: String, var special_notes: String){
@@ -23,6 +26,8 @@ class add_task(){
 
 
 class assignment_dialog_class(val context: Context){
+
+    val TAG = "task_dialog"
 
     var day: String? = null
     var time: String? = null
@@ -50,8 +55,7 @@ class assignment_dialog_class(val context: Context){
         var select_point: Int? = null
 
         val builder = AlertDialog.Builder(context)
-
-        builder.setTitle("追加する課題の授業を選択")
+                .setTitle("追加する課題の授業を選択")
                 .setSingleChoiceItems(class_name_list, -1){ dialog, which ->
                     select_point = which
                 }
@@ -67,25 +71,44 @@ class assignment_dialog_class(val context: Context){
                                 "class_id" to class_id_list[select_point!!],
                                 "week_to_day" to class_week_to_day_list[select_point!!]
                         )
+                        subject_data = data
+                        Log.d(TAG, "class_id1: ${class_id_list[select_point!!]}")
 
                         //表示
                         home_dialog_View.dialog_subject.text = "${data["class_name"]}"
-
-
                     }
                 }
-                .show()
+                .setNegativeButton("戻る"){ dialog, which ->
+                }
 
+        builder.show()
     }
+
+    fun set_deadline_day(){
+
+        val calendar = Calendar.getInstance()
+
+        val datePickerDialog = DatePickerDialog(context,
+                { view, year, month, dayOfMonth -> //setした日付を取得して表示
+                    calendar.set(year, month, dayOfMonth)
+                    val dfInputeDate = SimpleDateFormat("yyyy/MM/dd", Locale.US)
+                    val strInputDate = dfInputeDate.format(calendar.time)
+                    day = strInputDate
+                    Log.d("hoge", "day: ${day}")
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DATE)
+        )
+
+        datePickerDialog.show()
+    }
+
 
     fun create_task(){
 
-
-        Log.d("hoge", "hoge: ${subject_data}")
-
-
         home_dialog_View.dialog_deadline_day_add_button.setOnClickListener{
-
+            set_deadline_day()
         }
 
         home_dialog_View.dialog_deadline_time_add_button.setOnClickListener{
@@ -101,6 +124,9 @@ class assignment_dialog_class(val context: Context){
                 .setView(home_dialog_View)
                 .setTitle("課題追加")
                 .setPositiveButton("確定") { dialog, which ->
+                    Log.d("hoge", "hoge0: ${day}")
+                    Log.d("hoge", "hoge0: ${subject_data}")
+
                     var add_assignment = add_assignment(
                             home_dialog_View.dialog_deadline_day.text.toString(),
                             home_dialog_View.dialog_deadline_time.text.toString(),
@@ -238,10 +264,10 @@ class add_timetable(var context: Context, var week: String, val period: Int){
 
 
                             var data = mutableMapOf(
-                                    "week_to_day" to  week_symbol + period,
-                                    "course" to  lecture_name,
-                                    "lecturer" to  teacher_list,
-                                    "room" to  class_name
+                                    "week_to_day" to week_symbol + period,
+                                    "course" to lecture_name,
+                                    "lecturer" to teacher_list,
+                                    "room" to class_name
                             )
 
                             Log.d(TAG, teacher_list.toString())
@@ -340,13 +366,13 @@ class add_timetable(var context: Context, var week: String, val period: Int){
                 //登録処理
                 val firedb = firedb_timetable_class(context)
                 Log.d("firedb", "index: ${index}")
-                firedb.add_user_timetable_(id_list[index], week+period)
+                firedb.add_user_timetable_(id_list[index], week + period)
                 Toast.makeText(context, "登録されました", Toast.LENGTH_SHORT).show()
 
 //                get_timetable_list(context, null, null)
 
             }
-            .setNegativeButton("空き授業登録"){dialog, which ->
+            .setNegativeButton("空き授業登録"){ dialog, which ->
 
                 //firedbから消去
                 firedb_timetable_class(context).delete_course(week, period)
@@ -423,7 +449,7 @@ class register_dialog(val context: Context, val uid: String){
                         val i = Intent(context, main_activity::class.java)
                         context.startActivity(i)
                     }else{
-                        Toast.makeText(context, "大学の選択/追加をしてください",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "大学の選択/追加をしてください", Toast.LENGTH_LONG).show()
                         select_university_rapper()
                     }
                 }

@@ -260,10 +260,10 @@ class firedb_timetable_class(private val context: Context){
                                 .document(classid)
                                 .get()
                                 .addOnSuccessListener {
-                                    Log.d("hoge", "uni_id:${university_id}")
-                                    Log.d("hoge", "week:${week_to_day}")
-                                    Log.d("hoge", "classid:${classid}")
-                                    Log.d("hoge", "hoge:${it}")
+//                                    Log.d("hoge", "uni_id:${university_id}")
+//                                    Log.d("hoge", "week:${week_to_day}")
+//                                    Log.d("hoge", "classid:${classid}")
+//                                    Log.d("hoge", "hoge:${it}")
 //                                    Log.d("hoge", "hoge${it.result?.getString("week_to_day")}")
 
 
@@ -557,7 +557,7 @@ class firedb_task_class(private val context: Context){
                                 val week_period = week + period
 
                                 val raw_data = it.get(week_period)
-                                Log.d("hoge", "hoge${raw_data}")
+//                                Log.d("hoge", "hoge${raw_data}")
 
                                 if (raw_data != null){
                                     val data = raw_data as Map<String, Any>
