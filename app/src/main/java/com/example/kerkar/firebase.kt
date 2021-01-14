@@ -557,7 +557,7 @@ class firedb_task_class(private val context: Context){
                                 val week_period = week + period
 
                                 val raw_data = it.get(week_period)
-//                                Log.d("hoge", "hoge${raw_data}")
+                                Log.d("hoge", "hoge${raw_data}")
 
                                 if (raw_data != null){
                                     val data = raw_data as Map<String, Any>

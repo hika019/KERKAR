@@ -1,10 +1,12 @@
 package com.example.kerkar
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
@@ -41,6 +43,34 @@ class assignment_dialog_class(val context: Context){
             null
     )
 
+    fun load_text(){
+        home_dialog_View.dialog_deadline_day.text = day
+        home_dialog_View.dialog_deadline_time.text = time
+        home_dialog_View.dialog_subject.text = subject_data["class_name"]
+    }
+
+    fun time_picker(){
+        val calender = Calendar.getInstance()
+        val hour = calender.get(Calendar.HOUR_OF_DAY)
+        val minute = calender.get(Calendar.MINUTE)
+
+        val timePicker = TimePickerDialog(context,
+                {view, hour, minute ->
+                    calender.set(hour, minute)
+                    val dfInputdata = SimpleDateFormat("hh:mm", Locale.US)
+                    val strInputDate = dfInputdata.format(calender.time)
+
+                    time = strInputDate
+                    Log.d("hoge", "time: ${time} -> set")
+                },
+                calender.get(Calendar.HOUR_OF_DAY),
+                calender.get(Calendar.MINUTE),
+                true
+                )
+        timePicker.show()
+
+    }
+
 
     fun add_task_rapper(){
         //登録している授業の一覧
@@ -65,7 +95,7 @@ class assignment_dialog_class(val context: Context){
 //                                class_id_list[select_point!!],
 //                                class_week_to_day_list[select_point!!]
 //                        )
-                        create_task()
+
                         val data =hashMapOf<String, String>(
                                 "class_name" to class_name_list[select_point!!],
                                 "class_id" to class_id_list[select_point!!],
@@ -76,6 +106,8 @@ class assignment_dialog_class(val context: Context){
 
                         //表示
                         home_dialog_View.dialog_subject.text = "${data["class_name"]}"
+                        create_task()
+//                        load_text()
                     }
                 }
                 .setNegativeButton("戻る"){ dialog, which ->
@@ -94,25 +126,27 @@ class assignment_dialog_class(val context: Context){
                     val dfInputeDate = SimpleDateFormat("yyyy/MM/dd", Locale.US)
                     val strInputDate = dfInputeDate.format(calendar.time)
                     day = strInputDate
-                    Log.d("hoge", "day: ${day}")
+                    Log.d("hoge", "day: ${day} -> set")
+                    home_dialog_View.dialog_deadline_day.text = day
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DATE)
         )
-
         datePickerDialog.show()
     }
 
 
     fun create_task(){
 
+        load_text()
+
         home_dialog_View.dialog_deadline_day_add_button.setOnClickListener{
             set_deadline_day()
         }
 
         home_dialog_View.dialog_deadline_time_add_button.setOnClickListener{
-            Toast.makeText(context, "hoge", Toast.LENGTH_SHORT).show()
+            time_picker()
         }
 
         home_dialog_View.dialog_subject_add_button.setOnClickListener{
@@ -132,7 +166,7 @@ class assignment_dialog_class(val context: Context){
                             home_dialog_View.dialog_deadline_time.text.toString(),
                             home_dialog_View.dialog_subject.text.toString(),
                             home_dialog_View.dialog_assignment_title.text.toString(),
-                            home_dialog_View.dialog_assignment_special_notes.text.toString()
+                            home_dialog_View.dialog_assignment_special_notes.text.toString(),
                     )
                     Log.d("home", add_assignment.toString())
 
@@ -144,13 +178,10 @@ class assignment_dialog_class(val context: Context){
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
                     }
-
-
-
                     Log.d("dialog", add_assignment.day + add_assignment.time)
                 }
                 .setNegativeButton("破棄") { dialog, which ->
-
+                    false
                 }
 
         mBilder.show()
