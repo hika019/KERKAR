@@ -2,13 +2,11 @@ package com.example.kerkar.assignment_list
 
 
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +27,7 @@ class Assignment_list_fragment() :Fragment() {
         val frame_context = getContext()
         Log.d("hoge", "this:"+ frame_context.toString())
 
-        firedb_task_class(frame_context!!).get_registered_classes_list()
+        firedb_task_class(frame_context!!).get_create_classes_list()
 
 
         //未提出list

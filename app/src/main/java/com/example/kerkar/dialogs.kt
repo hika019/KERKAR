@@ -55,16 +55,15 @@ class assignment_dialog_class(val context: Context){
 
         val timePicker = TimePickerDialog(context,
                 { view, hour, minute ->
-                    Log.d("hoge", "time: ${hour} -> get")
+//                    Log.d("hoge", "time: ${hour} -> get")
                     calender.set(2000,1,5,hour, minute)
                     val dfInputdata = SimpleDateFormat("HH:mm")
                     val strInputDate = dfInputdata.format(calender.time)
-                    Log.d("hoge", "time: ${strInputDate} -> show")
+//                    Log.d("hoge", "time: ${strInputDate} -> show")
                     time = strInputDate
 //                    time = ("%2:${minute}").format(hour)
 //                    time = "${hour}:${minute}"
-
-                    Log.d("hoge", "time: ${time} -> set")
+                    Log.d(TAG, "time: ${time} -> set")
                     task_dialog_second.dialog_deadline_time.text = time
                 },
                 calender.get(Calendar.HOUR_OF_DAY),
@@ -78,7 +77,7 @@ class assignment_dialog_class(val context: Context){
 
     fun add_task_rapper(){
         //登録している授業の一覧
-        firedb_task_class(context).get_registered_classes_list()//をつかう
+        firedb_task_class(context).get_create_classes_list()//をつかう
     }
 
 
@@ -95,11 +94,6 @@ class assignment_dialog_class(val context: Context){
                 }
                 .setPositiveButton("確定"){ dialog, which ->
                     if(select_point != null) {
-//                        create_task(class_name_list[select_point!!],
-//                                class_id_list[select_point!!],
-//                                class_week_to_day_list[select_point!!]
-//                        )
-
 
                         val data =hashMapOf<String, String>(
                                 "class_name" to class_name_list[select_point!!],
@@ -109,8 +103,6 @@ class assignment_dialog_class(val context: Context){
                         subject_data = data
                         Log.d(TAG, "class_id1: ${class_id_list[select_point!!]}")
                         create_task()
-//                        create_task()
-//                        load_text()
                     }
                 }
                 .setNegativeButton("戻る"){ dialog, which ->
@@ -128,9 +120,9 @@ class assignment_dialog_class(val context: Context){
                     calendar.set(year, month, dayOfMonth)
                     val dfInputeDate = SimpleDateFormat("yyyy/MM/dd", Locale.US)
                     val strInputDate = dfInputeDate.format(calendar.time)
-                    Log.d("hoge", "time: ${calendar.time} -> show")
+//                    Log.d("hoge", "time: ${calendar.time} -> show")
                     day = strInputDate
-                    Log.d("hoge", "day: ${day} -> set")
+                    Log.d(TAG, "day: ${day} -> set")
                     task_dialog_second.dialog_deadline_day.text = day
                 },
                 calendar.get(Calendar.YEAR),
@@ -167,24 +159,37 @@ class assignment_dialog_class(val context: Context){
                     Log.d("hoge", "hoge0: ${day}")
                     Log.d("hoge", "hoge0: ${subject_data}")
 
-                    var add_assignment = add_assignment(
-                            task_dialog_second.dialog_deadline_day.text.toString(),
-                            task_dialog_second.dialog_deadline_time.text.toString(),
-                            task_dialog_second.dialog_subject.text.toString(),
-                            task_dialog_second.dialog_assignment_title.text.toString(),
-                            task_dialog_second.dialog_assignment_special_notes.text.toString(),
-                    )
-                    Log.d("home", add_assignment.toString())
 
-                    if(add_assignment.day.isNotEmpty() &&
-                            add_assignment.time.isNotEmpty() &&
-                            add_assignment.subject.isNotEmpty() &&
-                            add_assignment.assignment_title.isNotEmpty()){
+                    val title = task_dialog_second.dialog_assignment_special_notes.text
+//                    Log.d("hoge", "day: ${task_dialog_second.dialog_deadline_day.text.isNotEmpty()}")
+//                    Log.d("hoge", "time: ${task_dialog_second.dialog_deadline_time.text.isNotEmpty()}")
+//                    Log.d("hoge", "task: ${title != null}")
+
+
+
+                    if(task_dialog_second.dialog_deadline_day.text.isNotEmpty() &&
+                            task_dialog_second.dialog_deadline_time.text.isNotEmpty() &&
+//                            subject_data["class"] != null &&
+                            title != null){
+
+
+
+                        val data = hashMapOf(
+                                "day" to task_dialog_second.dialog_deadline_day.text.toString(),
+                                "time" to task_dialog_second.dialog_deadline_time.text.toString(),
+                                "class" to subject_data,
+                                "task_title" to task_dialog_second.dialog_assignment_title.text.toString(),
+                                "note" to task_dialog_second.dialog_assignment_special_notes.text.toString()
+                        )
+                        Log.d(TAG, "set -> data: ${data}")
+
+                        //追加処理
+                        firedb_task_class(context).add_task_to_university(data)
 
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()
                     }
-                    Log.d("dialog", add_assignment.day + add_assignment.time)
+//                    Log.d("dialog", "")
                 }
                 .setNegativeButton("破棄") { dialog, which ->
                     false

@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_timetable.view.*
 import kotlinx.android.synthetic.main.item_timetable.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 private val TAG = "firedb"
@@ -189,7 +190,6 @@ class firedb_login_register_class(private val context: Context){
     }
 
 }
-
 
 class firedb_timetable_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
@@ -536,7 +536,7 @@ class firedb_timetable_class(private val context: Context){
 class firedb_task_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
-    fun get_registered_classes_list(){
+    fun get_create_classes_list(){
         if(login_cheack() == true){
             val uid = get_uid()
 
@@ -573,6 +573,60 @@ class firedb_task_class(private val context: Context){
                     }
         }
     }
+
+    fun add_task_to_university(data: HashMap<String, Any>) {
+
+        val class_data: HashMap<String, String> = data["class"] as HashMap<String, String>
+
+//        Log.d("hoge", "data: $class_data")
+
+        val uid = get_uid()
+
+        firedb.collection("user")
+                .document(uid)
+                .get()
+                .addOnCompleteListener{
+                    if(it.isSuccessful){
+                        Log.d(TAG, "add_task_to_university -> Successfull")
+
+                        val university_id = it.result?.getString("university_id")
+                        Log.d(TAG, "university_id -> get")
+
+                        val task_document = firedb.collection("university")
+                                .document(university_id!!)
+                                .collection(class_data["week_to_day"]!!)
+                                .document(class_data["class_id"]!!)
+                                .collection("task")
+                                .document()
+
+                        val task_id = task_document.id
+
+                        val task_data = hashMapOf(
+                            "task_id" to task_id,
+                            "timelimit" to ("${data["day"]} ${data["time"]}"),
+                            "task_name" to data["task_title"],
+                            "note" to data["note"]
+                        )
+
+                        task_document.set(task_data, SetOptions.merge())
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "task_data: $task_data")
+                                    Log.d(TAG, "set task_data -> Success")
+                                }
+                                .addOnFailureListener {
+                                    Log.e(TAG, "set task_data -> Failure")
+                                }
+
+                    }else{
+                        Log.e(TAG, "add_task_to_university -> not Successfull")
+                    }
+                }
+    }
+
+    fun load_task(){
+
+    }
+
 }
 
 
