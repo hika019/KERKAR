@@ -6,11 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.dialog_add_assignment.view.*
+import kotlinx.android.synthetic.main.dialog_add_assignment_first.view.dialog_deadline_day
+import kotlinx.android.synthetic.main.dialog_add_assignment_first.view.dialog_deadline_time
 import kotlinx.android.synthetic.main.dialog_add_class_editer.view.*
+import kotlinx.android.synthetic.main.dialog_add_task.view.*
 import kotlinx.android.synthetic.main.dialog_add_university.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,35 +39,38 @@ class assignment_dialog_class(val context: Context){
     var special_notes: String? = null
 
 
-    val home_dialog_View = LayoutInflater.from(context).inflate(
-            R.layout.dialog_add_assignment,
+    val task_dialog_second = LayoutInflater.from(context).inflate(
+            R.layout.dialog_add_task,
             null
     )
 
-    fun load_text(){
-        home_dialog_View.dialog_deadline_day.text = day
-        home_dialog_View.dialog_deadline_time.text = time
-        home_dialog_View.dialog_subject.text = subject_data["class_name"]
+
+    fun start(){
+        add_task_rapper()
     }
+
 
     fun time_picker(){
         val calender = Calendar.getInstance()
-        val hour = calender.get(Calendar.HOUR_OF_DAY)
-        val minute = calender.get(Calendar.MINUTE)
 
         val timePicker = TimePickerDialog(context,
-                {view, hour, minute ->
-                    calender.set(hour, minute)
-                    val dfInputdata = SimpleDateFormat("hh:mm", Locale.US)
+                { view, hour, minute ->
+                    Log.d("hoge", "time: ${hour} -> get")
+                    calender.set(2000,1,5,hour, minute)
+                    val dfInputdata = SimpleDateFormat("HH:mm")
                     val strInputDate = dfInputdata.format(calender.time)
-
+                    Log.d("hoge", "time: ${strInputDate} -> show")
                     time = strInputDate
+//                    time = ("%2:${minute}").format(hour)
+//                    time = "${hour}:${minute}"
+
                     Log.d("hoge", "time: ${time} -> set")
+                    task_dialog_second.dialog_deadline_time.text = time
                 },
                 calender.get(Calendar.HOUR_OF_DAY),
                 calender.get(Calendar.MINUTE),
                 true
-                )
+        )
         timePicker.show()
 
     }
@@ -96,6 +100,7 @@ class assignment_dialog_class(val context: Context){
 //                                class_week_to_day_list[select_point!!]
 //                        )
 
+
                         val data =hashMapOf<String, String>(
                                 "class_name" to class_name_list[select_point!!],
                                 "class_id" to class_id_list[select_point!!],
@@ -103,10 +108,8 @@ class assignment_dialog_class(val context: Context){
                         )
                         subject_data = data
                         Log.d(TAG, "class_id1: ${class_id_list[select_point!!]}")
-
-                        //表示
-                        home_dialog_View.dialog_subject.text = "${data["class_name"]}"
                         create_task()
+//                        create_task()
 //                        load_text()
                     }
                 }
@@ -125,9 +128,10 @@ class assignment_dialog_class(val context: Context){
                     calendar.set(year, month, dayOfMonth)
                     val dfInputeDate = SimpleDateFormat("yyyy/MM/dd", Locale.US)
                     val strInputDate = dfInputeDate.format(calendar.time)
+                    Log.d("hoge", "time: ${calendar.time} -> show")
                     day = strInputDate
                     Log.d("hoge", "day: ${day} -> set")
-                    home_dialog_View.dialog_deadline_day.text = day
+                    task_dialog_second.dialog_deadline_day.text = day
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -139,34 +143,36 @@ class assignment_dialog_class(val context: Context){
 
     fun create_task(){
 
-        load_text()
-
-        home_dialog_View.dialog_deadline_day_add_button.setOnClickListener{
+        task_dialog_second.add_day_button.setOnClickListener{
             set_deadline_day()
         }
 
-        home_dialog_View.dialog_deadline_time_add_button.setOnClickListener{
+        task_dialog_second.add_time_button.setOnClickListener{
             time_picker()
         }
 
-        home_dialog_View.dialog_subject_add_button.setOnClickListener{
-            add_task_rapper()
-        }
+//        load_text()
+        Log.d("hoge", "create_task_second -> call")
+        Log.d("hoge", "day: $day")
+        task_dialog_second.dialog_deadline_day.text = day
+        task_dialog_second.dialog_deadline_time.text = time
+        task_dialog_second.dialog_subject.text = subject_data["class_name"]
+
 
 
         val mBilder = AlertDialog.Builder(context)
-                .setView(home_dialog_View)
+                .setView(task_dialog_second)
                 .setTitle("課題追加")
                 .setPositiveButton("確定") { dialog, which ->
                     Log.d("hoge", "hoge0: ${day}")
                     Log.d("hoge", "hoge0: ${subject_data}")
 
                     var add_assignment = add_assignment(
-                            home_dialog_View.dialog_deadline_day.text.toString(),
-                            home_dialog_View.dialog_deadline_time.text.toString(),
-                            home_dialog_View.dialog_subject.text.toString(),
-                            home_dialog_View.dialog_assignment_title.text.toString(),
-                            home_dialog_View.dialog_assignment_special_notes.text.toString(),
+                            task_dialog_second.dialog_deadline_day.text.toString(),
+                            task_dialog_second.dialog_deadline_time.text.toString(),
+                            task_dialog_second.dialog_subject.text.toString(),
+                            task_dialog_second.dialog_assignment_title.text.toString(),
+                            task_dialog_second.dialog_assignment_special_notes.text.toString(),
                     )
                     Log.d("home", add_assignment.toString())
 
@@ -186,6 +192,8 @@ class assignment_dialog_class(val context: Context){
 
         mBilder.show()
     }
+
+
 
 
     fun assigmenment_ditail_dialog(str: String, position: Int){
