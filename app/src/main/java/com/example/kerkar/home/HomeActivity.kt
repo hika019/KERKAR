@@ -9,7 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.*
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
+import com.xwray.groupie.viewbinding.BindableItem
 import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 import java.util.*
 
 val TAG = "home"
@@ -26,12 +31,17 @@ class Home_fragment() : Fragment() {
 
         val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
 
-        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
-        val layoutManager = LinearLayoutManager(this_context)
+//        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
+//        val layoutManager = LinearLayoutManager(this_context)
 
-        view.main_assignment_info_recyclerview.layoutManager = layoutManager
-        view.main_assignment_info_recyclerview.adapter = adapter
-        view.main_assignment_info_recyclerview.setHasFixedSize(true)
+//        view.main_assignment_info_recyclerview.layoutManager = layoutManager
+//        view.main_assignment_info_recyclerview.adapter = adapter
+//        view.main_assignment_info_recyclerview.setHasFixedSize(true)
+
+//        val adapter = GroupAdapter<GroupieViewHolder>()
+//        adapter.add(ListItem("hoge"))
+//        view.main_assignment_info_recyclerview.adapter = adapter
+        firedb_task_class(this_context).load_task(view)
 
 
         //時間の更新&取得
@@ -40,19 +50,11 @@ class Home_fragment() : Fragment() {
 
 
         view.floatingActionButton.setOnClickListener {
-//            fab(this_context)
             val add_task_class = assignment_dialog_class(this_context)
             add_task_class.start()
-//            show_course_list(this_context)
-
-
         }
-
         return view
     }
-
-
-
     private fun today_class(view: View, context: Context) {
         val week_name = arrayOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
         val calendar: Calendar = Calendar.getInstance()
@@ -77,5 +79,22 @@ class Home_fragment() : Fragment() {
             timetable_dialog_class.timetable_dialog_rapper(week, 5, context)
         }
     }
+
+}
+
+class ListItem(private val day: String,
+               private val class_name: String,
+               private val task_title: String) : Item<GroupieViewHolder>() {
+
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        viewHolder.itemView.item_homeactivity_assignment_day_textview.text = day
+        viewHolder.itemView.item_homeactivity_assignment_title_textview.text = class_name
+        viewHolder.itemView.item_homeactivity_assignment_details_textview.text = task_title
+    }
+
+    override fun getLayout(): Int{
+        return R.layout.item_home_assignment_info
+    }
+
 
 }
