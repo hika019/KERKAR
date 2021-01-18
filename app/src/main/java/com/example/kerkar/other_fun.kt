@@ -1,5 +1,6 @@
 package com.example.kerkar
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -9,6 +10,21 @@ private val TAG = "otherfun"
 
 class assignment_swith(){
     var flag = 0
+}
+
+class MyApp : Application(){
+    var QRResult: Array<Any>? = null
+
+    companion object {
+        private var instance : MyApp? = null
+
+        fun  getInstance(): MyApp {
+            if (instance == null)
+                instance = MyApp()
+
+            return instance!!
+        }
+    }
 }
 
 

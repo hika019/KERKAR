@@ -33,6 +33,7 @@ class RegisterActivity: AppCompatActivity() {
         already_hav_account_textview.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

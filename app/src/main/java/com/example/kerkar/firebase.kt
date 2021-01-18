@@ -5,6 +5,8 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kerkar.home.Home_Assignment_list_CustomAdapter
 import com.example.kerkar.home.ListItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -630,6 +632,7 @@ class firedb_task_class(private val context: Context){
 
     fun load_task(view: View){
         var tmp_class_list: Array<Any> = arrayOf()
+        var task_list: Array<Any> = arrayOf()
 
         if(login_cheack()){
             val uid = get_uid()
@@ -662,7 +665,7 @@ class firedb_task_class(private val context: Context){
                         val university_collection = firedb.collection("university")
                                 .document(university_id!!)
 
-                        val adapter = GroupAdapter<GroupieViewHolder>()
+//                        val adapter = GroupAdapter<GroupieViewHolder>()
 
                         //task data get
                         for(class_list_item in tmp_class_list){
@@ -696,13 +699,14 @@ class firedb_task_class(private val context: Context){
                                             Log.d("hoge", "class_data: $class_data")
 
 
-                                            adapter.add(ListItem(
-                                                    task_data["timelimit"] as String,
-                                                    class_data["course"] as String,
-                                                    task_data["task_name"] as String
-                                                )
-                                            )
-//                                            class_list += class_data
+//                                            adapter.add(ListItem(
+//                                                    task_data["timelimit"] as String,
+//                                                    class_data["course"] as String,
+//                                                    task_data["task_name"] as String
+//                                                )
+//                                            )
+//                                            Log.d("hoge", "data: ${myApp.QRResult}")
+                                            task_list += class_data
                                         }
                                     }
                                     .addOnFailureListener {
@@ -711,7 +715,24 @@ class firedb_task_class(private val context: Context){
                             Log.d("hoge", "class_list: $class_list")
                         }
 
+
+//                        adapter.setOnItemClickListener { item, view ->
+////                            val hoge = item as Map<Any, Any>
+//
+//                            Toast.makeText(context, "item:${task_list[]}",Toast.LENGTH_LONG).show()
+//                            Log.d("hoge", "item: ${item.javaClass.kotlin}")
+//                        }
+//                        view.main_assignment_info_recyclerview.adapter = adapter
+
+
+                        val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+                        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, context)
+                        val layoutManager = LinearLayoutManager(context)
+                        view.main_assignment_info_recyclerview.layoutManager = layoutManager
                         view.main_assignment_info_recyclerview.adapter = adapter
+                        view.main_assignment_info_recyclerview.setHasFixedSize(true)
+
+
 
                     }
                     .addOnFailureListener {
@@ -720,7 +741,42 @@ class firedb_task_class(private val context: Context){
         }
     }
 
+    fun load_task2(){
+        if(login_cheack()){
+            val uid = get_uid()
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnSuccessListener {
+                        val university_id = it.getString("university_id")
 
+                        for(week in week_to_day_symbol_list){
+                            for(time in period_list){
+
+                                val week_period = week + time
+                                val raw_data = it.get(week_period)
+
+                                if(raw_data != null){
+                                    //get classdata
+                                    val data = raw_data as Map<String, Any>
+                                    val tmp_class_data = hashMapOf(
+                                            "course" to data["course"] as String,
+                                            "id" to data["id"] as String,
+                                            "week_to_day" to data["week_to_day"] as String
+                                    )
+                                }
+                            }
+                        }
+
+
+
+
+                    }
+
+        }else{
+            Log.e(TAG, "not Login")
+        }
+    }
 }
 
 

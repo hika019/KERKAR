@@ -3,7 +3,9 @@ package com.example.kerkar.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -42,6 +44,10 @@ class Home_fragment() : Fragment() {
 //        adapter.add(ListItem("hoge"))
 //        view.main_assignment_info_recyclerview.adapter = adapter
         firedb_task_class(this_context).load_task(view)
+
+//        Log.d("hoge", "data: ${myApp.QRResult}")
+
+//        val QRResult = myApp.QRResult
 
 
         //時間の更新&取得
