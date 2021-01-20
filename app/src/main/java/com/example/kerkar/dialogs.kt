@@ -77,7 +77,7 @@ class assignment_dialog_class(val context: Context){
 
     fun add_task_rapper(){
         //登録している授業の一覧
-        firedb_task_class(context).get_create_classes_list()//をつかう
+        firedb_add_task_class(context).get_create_classes_list()//をつかう
     }
 
 
@@ -184,7 +184,7 @@ class assignment_dialog_class(val context: Context){
                         Log.d(TAG, "set -> data: ${data}")
 
                         //追加処理
-                        firedb_task_class(context).add_task_to_university(data)
+                        firedb_add_task_class(context).add_task_to_university(data)
 
                     }else{
                         Toast.makeText(context, "空の部分があります", Toast.LENGTH_SHORT).show()

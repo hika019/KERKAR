@@ -43,7 +43,7 @@ class Home_fragment() : Fragment() {
 //        val adapter = GroupAdapter<GroupieViewHolder>()
 //        adapter.add(ListItem("hoge"))
 //        view.main_assignment_info_recyclerview.adapter = adapter
-        firedb_task_class(this_context).load_task(view)
+        firedb_load_task_class(this_context).get_task(view)
 
 //        Log.d("hoge", "data: ${myApp.QRResult}")
 

@@ -5,8 +5,6 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kerkar.home.Home_Assignment_list_CustomAdapter
 import com.example.kerkar.home.ListItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -14,12 +12,14 @@ import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_timetable.view.*
 import kotlinx.android.synthetic.main.item_timetable.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.abs
 
 
 private val TAG = "firedb"
@@ -120,7 +120,7 @@ class firedb_login_register_class(private val context: Context){
     fun get_univarsity_id(uid: String, univarsity_name: String) {
         firedb.collection("university").whereEqualTo("university", univarsity_name)
                 .get()
-                .addOnSuccessListener{ documents -> 
+                .addOnSuccessListener{ documents ->
                     for (document in documents){
 //                        Log.d(TAG, "${document.id} => ${document.data}")
                         Log.d(TAG, "get university_id: ${document.id}")
@@ -325,7 +325,7 @@ class firedb_timetable_class(private val context: Context){
                         if (it.isSuccessful) {
                             val university_id = it.result?.getString("university_id")!!
                             Log.d(TAG, "get university_id -> success")
-  
+
                             //授業検索
                             firedb.collection("university")
                                     .document(university_id)
@@ -355,7 +355,7 @@ class firedb_timetable_class(private val context: Context){
                                     .addOnFailureListener {
                                         Log.e(TAG, "get ${week_to_day + period.toString()} class data -> failure")
                                     }
-                            
+
                         }else{
                             Log.d(TAG, "get university_id -> failure")
                         }
@@ -538,12 +538,14 @@ class firedb_timetable_class(private val context: Context){
 
 }
 
-class firedb_task_class(private val context: Context){
+class firedb_add_task_class(private val context: Context){
     private val firedb = FirebaseFirestore.getInstance()
 
     var class_list: Array<Any> = arrayOf()
     val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
     val period_list:List<Int> = List(5){it +1}
+
+    private var task_list: Array<HashMap<String, Any>> = arrayOf()
 
     fun get_create_classes_list(){
         if(login_cheack()){
@@ -630,9 +632,13 @@ class firedb_task_class(private val context: Context){
                 }
     }
 
-    fun load_task(view: View){
+    fun load_task(){
+        load_task2()
+        Log.d("hoge", "data2: ${task_list.size}")
+    }
+
+    fun load_task2(){
         var tmp_class_list: Array<Any> = arrayOf()
-        var task_list: Array<Any> = arrayOf()
 
         if(login_cheack()){
             val uid = get_uid()
@@ -698,7 +704,6 @@ class firedb_task_class(private val context: Context){
 
                                             Log.d("hoge", "class_data: $class_data")
 
-
 //                                            adapter.add(ListItem(
 //                                                    task_data["timelimit"] as String,
 //                                                    class_data["course"] as String,
@@ -707,12 +712,13 @@ class firedb_task_class(private val context: Context){
 //                                            )
 //                                            Log.d("hoge", "data: ${myApp.QRResult}")
                                             task_list += class_data
+                                            Log.d("hoge", "data: ${task_list.size}")
                                         }
                                     }
                                     .addOnFailureListener {
                                         Log.e(TAG, "get task -> failure")
                                     }
-                            Log.d("hoge", "class_list: $class_list")
+//                            Log.d("hoge", "class_list: $class_list")
                         }
 
 
@@ -725,14 +731,12 @@ class firedb_task_class(private val context: Context){
 //                        view.main_assignment_info_recyclerview.adapter = adapter
 
 
-                        val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
-                        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, context)
-                        val layoutManager = LinearLayoutManager(context)
-                        view.main_assignment_info_recyclerview.layoutManager = layoutManager
-                        view.main_assignment_info_recyclerview.adapter = adapter
-                        view.main_assignment_info_recyclerview.setHasFixedSize(true)
-
-
+//                        val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
+//                        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, context)
+//                        val layoutManager = LinearLayoutManager(context)
+//                        view.main_assignment_info_recyclerview.layoutManager = layoutManager
+//                        view.main_assignment_info_recyclerview.adapter = adapter
+//                        view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
                     }
                     .addOnFailureListener {
@@ -740,41 +744,114 @@ class firedb_task_class(private val context: Context){
                     }
         }
     }
+}
 
-    fun load_task2(){
+class firedb_load_task_class(private val context: Context){
+    private val firedb = FirebaseFirestore.getInstance()
+    private val week_to_day_symbol_list = listOf("sun", "mon", "tue", "wen", "thu", "fri", "sat")
+    private val period_list:List<Int> = List(5){it +1}
+
+    private var task_list: Array<Any> = arrayOf()
+
+    fun get_task(view: View) {
+        var tmp_class_list: Array<Map<String, Any>> = arrayOf()
+
         if(login_cheack()){
             val uid = get_uid()
             firedb.collection("user")
                     .document(uid)
                     .get()
                     .addOnSuccessListener {
+
                         val university_id = it.getString("university_id")
 
-                        for(week in week_to_day_symbol_list){
-                            for(time in period_list){
-
+                        for (week in  week_to_day_symbol_list){
+                            for (time in period_list){
                                 val week_period = week + time
                                 val raw_data = it.get(week_period)
 
                                 if(raw_data != null){
-                                    //get classdata
+                                    //classdata get
                                     val data = raw_data as Map<String, Any>
                                     val tmp_class_data = hashMapOf(
                                             "course" to data["course"] as String,
                                             "id" to data["id"] as String,
                                             "week_to_day" to data["week_to_day"] as String
                                     )
+
+                                    tmp_class_list += tmp_class_data
                                 }
                             }
                         }
 
+                        val university_collection = firedb.collection("university")
+                                .document(university_id!!)
 
+                        val adapter = GroupAdapter<GroupieViewHolder>()
 
+                        //task data get
+                        for(class_list_item in tmp_class_list){
+                            val tmp_class_data = class_list_item as HashMap<String, String>
 
+                            university_collection.collection(tmp_class_data["week_to_day"]!!)
+                                    .document(tmp_class_data["id"]!!)
+                                    .collection("task")
+                                    .get()
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "get task -> success")
+                                        for( document in it){
+                                            val task_id = document.getString("task_id")
+                                            val task_name = document.getString("task_name")
+                                            val timelimit = document.getString("timelimit")
+                                            val note = document.getString("note")
+
+                                            val task_data = hashMapOf(
+                                                    "task_id" to task_id,
+                                                    "task_name" to task_name,
+                                                    "timelimit" to timelimit,
+                                                    "note" to note
+                                            )
+                                            val class_data: HashMap<String, Any> = hashMapOf(
+                                                    "course" to tmp_class_data["course"] as String,
+                                                    "id" to tmp_class_data["id"] as String,
+                                                    "week_to_day" to tmp_class_data["week_to_day"] as String,
+                                                    "task" to task_data
+                                            )
+
+                                            Log.d("hoge", "class_data: $class_data")
+
+                                            adapter.add(ListItem(
+                                                    task_data["timelimit"] as String,
+                                                    class_data["course"] as String,
+                                                    task_data["task_name"] as String
+                                                )
+                                            )
+//                                            Log.d("hoge", "data: ${myApp.QRResult}")
+                                            task_list += class_data
+                                        }
+                                    }
+                                    .addOnFailureListener {
+                                        Log.e(TAG, "get task -> failure")
+                                    }
+//                            Log.d("hoge", "class_list: $class_list")
+                        }
+
+                        adapter.setOnItemClickListener { item, view ->
+                            Log.d("hoge", item.javaClass.kotlin.toString())
+//                            item as task_data_class
+                            Log.d("hoge", "item: ${item.id}")
+                            Log.d("hoge", "item: ${task_list[abs(item.id+1).toInt()]}")
+
+                            Toast.makeText(context, "item: ${abs(item.id+1).toInt()}",Toast.LENGTH_LONG).show()
+                        }
+
+                        view.main_assignment_info_recyclerview.adapter = adapter
                     }
-
+                    .addOnFailureListener {
+                        Log.e(TAG, "load_task: get_class -> Failure")
+                    }
         }else{
-            Log.e(TAG, "not Login")
+            Log.e(TAG, "not login")
         }
     }
 }
