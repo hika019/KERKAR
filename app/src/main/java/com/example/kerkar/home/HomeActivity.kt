@@ -47,8 +47,6 @@ class Home_fragment() : Fragment() {
 
 //        Log.d("hoge", "data: ${myApp.QRResult}")
 
-//        val QRResult = myApp.QRResult
-
 
         //時間の更新&取得
         get_timetable_list(this_context!!, view, 0)

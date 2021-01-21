@@ -820,8 +820,10 @@ class firedb_load_task_class(private val context: Context){
 
                                             Log.d("hoge", "class_data: $class_data")
 
+                                            val day = task_data["timelimit"] as String
+
                                             adapter.add(ListItem(
-                                                    task_data["timelimit"] as String,
+                                                    day.substring(5,10),
                                                     class_data["course"] as String,
                                                     task_data["task_name"] as String
                                                 )
