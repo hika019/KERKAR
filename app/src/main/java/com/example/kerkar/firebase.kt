@@ -756,6 +756,7 @@ class firedb_load_task_class(private val context: Context){
     private var task_list: Array<Any> = arrayOf()
 
     fun home_get_task(view: View) {
+//        var task_list: Array<Any> = arrayOf()
         var tmp_class_list: Array<Map<String, Any>> = arrayOf()
 
         if(login_cheack()){
@@ -872,6 +873,9 @@ class firedb_load_task_class(private val context: Context){
 
 
     fun get_task_not_comp(view: View, falg: Boolean) {
+//        var task_list = arrayOf<Any>()
+        Log.d("hoge", "size: ${task_list.size}")
+
         var tmp_class_list: Array<Map<String, Any>> = arrayOf()
 
         if(login_cheack()){
@@ -882,7 +886,6 @@ class firedb_load_task_class(private val context: Context){
                     .addOnSuccessListener {
 
                         val university_id = it.getString("university_id")
-
                         for (week in  week_to_day_symbol_list){
                             for (time in period_list){
                                 val week_period = week + time
@@ -906,6 +909,8 @@ class firedb_load_task_class(private val context: Context){
                                 .document(university_id!!)
 
                         val adapter = GroupAdapter<GroupieViewHolder>()
+                        task_list = arrayOf()
+                        Log.d("hoge", "start size: ${task_list.size}")
 
                         //task data get
                         for(class_list_item in tmp_class_list){
@@ -947,36 +952,26 @@ class firedb_load_task_class(private val context: Context){
                                             if(compusers!= null ){
                                                 val done_list = compusers as Map<String, Boolean>
                                                 val fuga = done_list[uid]
-                                                if(done_list[uid] == true){
-                                                    if(falg == true){
-                                                        adapter.add(TaskListItem(
-                                                                day.substring(5,10),
-                                                                class_data["course"] as String,
-                                                                task_data["task_name"] as String
-                                                        ))
-                                                    }
-
-                                                }else{
-                                                    if(falg == false){
-                                                        adapter.add(TaskListItem(
-                                                                day.substring(5,10),
-                                                                class_data["course"] as String,
-                                                                task_data["task_name"] as String
-                                                        ))
-                                                    }
-                                                }
-
-                                            }else{
-                                                if(falg == false){
+                                                if(done_list[uid] != true){
+//                                                    task_list += class_data
                                                     adapter.add(TaskListItem(
                                                             day.substring(5,10),
                                                             class_data["course"] as String,
                                                             task_data["task_name"] as String
                                                     ))
                                                 }
+
+                                            }else{
+                                                //compusersが存在する
+                                                task_list += class_data
+                                                adapter.add(TaskListItem(
+                                                        day.substring(5,10),
+                                                        class_data["course"] as String,
+                                                        task_data["task_name"] as String
+                                                ))
                                             }
 
-                                            task_list += class_data
+
                                         }
                                     }
                                     .addOnFailureListener {
@@ -988,18 +983,19 @@ class firedb_load_task_class(private val context: Context){
                         adapter.setOnItemClickListener { item, view ->
 //                            Log.d("hoge", item.javaClass.kotlin.toString())
 //                            item as task_data_class
-//                            Log.d("hoge", "item: ${item.id}")
+                            Log.d("hoge", "item: ${item.id}")
+                            Toast.makeText(context, "${item.id}", Toast.LENGTH_SHORT).show()
 //                            Log.d("hoge", "item: ${task_list[abs(item.id+1).toInt()]}")
-                            val task_data = task_list[abs(item.id+1).toInt()] as Map<String, Any>
-                            val task = task_data["task"] as Map<String, String>
-                            Log.d("hoge", "data: ${task}")
+//                            val task_data = task_list[abs(item.id+1).toInt()] as Map<String, Any>
+//                            val task = task_data["task"] as Map<String, String>
+//                            Log.d("hoge", "data: ${task}")
 
 
-                            val str = "期限: ${task["timelimit"]}\n" +
-                                    "教科: ${task_data["course"]}\n" +
-                                    "詳細: ${task["task_name"]}\n" +
-                                    "その他: ${task["note"]}"
-                            task_dialogs(context).home_task_ditail_dialog(task_data)
+//                            val str = "期限: ${task["timelimit"]}\n" +
+//                                    "教科: ${task_data["course"]}\n" +
+//                                    "詳細: ${task["task_name"]}\n" +
+//                                    "その他: ${task["note"]}"
+//                            task_dialogs(context).home_task_ditail_dialog(task_data)
 //                            Toast.makeText(context, "item: ${abs(item.id+1).toInt()}",Toast.LENGTH_LONG).show()
                         }
                         view.AssignmentActivity_assignment_recyclerView.adapter = adapter
