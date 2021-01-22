@@ -27,7 +27,7 @@ class Assignment_list_fragment() :Fragment() {
         val frame_context = getContext()
         Log.d("hoge", "this:"+ frame_context.toString())
 
-        firedb_add_task_class(frame_context!!).get_create_classes_list()
+//        firedb_add_task_class(frame_context!!).get_create_classes_list()
 
 
         //未提出list

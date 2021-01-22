@@ -439,6 +439,27 @@ fun error_college_upload_dialog(context: Context){
             .show()
 }
 
+class task_dialogs(var context: Context){
+    fun home_task_ditail_dialog(class_data: Map<String, Any>){
+
+        val task = class_data["task"] as Map<String, String>
+
+        val str = "期限: ${task["timelimit"]}\n" +
+                "教科: ${class_data["course"]}\n" +
+                "詳細: ${task["task_name"]}\n" +
+                "その他: ${task["note"]}"
+
+        AlertDialog.Builder(context)
+                .setTitle("課題")
+                .setMessage(str)
+                .setPositiveButton("OK") { dialog, which ->
+                }
+                .setNeutralButton("提出済みにする") {dialog, which ->
+                    firedb_load_task_class(context).task_to_comp(class_data)
+                }
+                .show()
+    }
+}
 
 
 class register_dialog(val context: Context, val uid: String){

@@ -78,7 +78,6 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
 
     fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
 
-
         AlertDialog.Builder(context)
                 .setTitle("課題")
                 .setMessage(str)

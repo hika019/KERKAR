@@ -3,18 +3,13 @@ package com.example.kerkar.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.*
-import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import com.xwray.groupie.viewbinding.BindableItem
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 import java.util.*
@@ -41,9 +36,9 @@ class Home_fragment() : Fragment() {
 //        view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
 //        val adapter = GroupAdapter<GroupieViewHolder>()
-//        adapter.add(ListItem("hoge"))
+//        adapter.add(TodayListItem("hoge"))
 //        view.main_assignment_info_recyclerview.adapter = adapter
-        firedb_load_task_class(this_context).get_task(view)
+        firedb_load_task_class(this_context).home_get_task(view)
 
 //        Log.d("hoge", "data: ${myApp.QRResult}")
 
@@ -86,9 +81,9 @@ class Home_fragment() : Fragment() {
 
 }
 
-class ListItem(private val day: String,
-               private val class_name: String,
-               private val task_title: String) : Item<GroupieViewHolder>() {
+class TodayListItem(private val day: String,
+                    private val class_name: String,
+                    private val task_title: String) : Item<GroupieViewHolder>() {
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.item_homeactivity_assignment_day_textview.text = day
