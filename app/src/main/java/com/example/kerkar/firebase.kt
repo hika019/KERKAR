@@ -904,7 +904,10 @@ class firedb_load_task_class(private val context: Context){
 
                                             firedb_task.set(data,SetOptions.merge())
                                                     .addOnSuccessListener {
-                                                        Log.d("hoge", "comp")
+                                                        Log.d(TAG, "task_to_comp -> upload -> success")
+                                                    }
+                                                    .addOnFailureListener {
+                                                        Log.e(TAG, "task_to_comp -> upload -> failure")
                                                     }
 
                                         }else{
@@ -916,6 +919,58 @@ class firedb_load_task_class(private val context: Context){
                         }
                     }
             
+        }else{
+            Log.e(TAG, "not Login")
+        }
+    }
+
+    fun task_to_not_comp(class_data: Map<String, Any>){
+        if(login_cheack()){
+            val uid = get_uid()
+            firedb.collection("user")
+                    .document(uid)
+                    .get()
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val university_id = it.result?.getString("university_id")
+
+                            val week_to_day = class_data["week_to_day"] as String
+                            val class_id = class_data["id"] as String
+                            val task = class_data["task"] as Map<String, String>
+                            val task_id = task["task_id"]
+
+                            val firedb_task = firedb.collection("university")
+                                    .document(university_id!!)
+                                    .collection(week_to_day)
+                                    .document(class_id)
+                                    .collection("task")
+                                    .document(task_id!!)
+
+                            firedb_task.get()
+                                    .addOnCompleteListener {
+                                        if(it.isSuccessful){
+//                                            Log.d("hoge", "in")
+                                            var compuser: MutableMap<String, Boolean> = mutableMapOf()
+                                            compuser = it.result?.get("done_list") as MutableMap<String, Boolean>
+                                            compuser.remove(uid)
+                                            val data = hashMapOf("done_list" to compuser)
+
+                                            firedb_task.set(data,SetOptions.merge())
+                                                    .addOnSuccessListener {
+                                                        Log.d(TAG, "task_to_not_comp -> upload -> success")
+                                                    }
+                                                    .addOnFailureListener {
+                                                        Log.e(TAG, "task_to_not_comp -> upload -> failure")
+                                                    }
+                                        }else{
+                                            Log.e(TAG, "task_to_not_comp: get task -> failure")
+                                        }
+                                    }
+                        }else{
+                            Log.e(TAG, "task_to_not_comp: get userdata -> failure")
+                        }
+                    }
+
         }else{
             Log.e(TAG, "not Login")
         }
