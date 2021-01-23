@@ -12,7 +12,7 @@ import com.example.kerkar.assignment_dialog_class
 import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
-class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<String>, private val write_lecture_List: ArrayList<String>, private val context: Context?)
+class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private val context: Context?)
     : RecyclerView.Adapter<assignment_list_CustomAdapter.CustomViewHolder>() {
 
     lateinit var listener: OnItemClickListener
@@ -32,12 +32,25 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
     }
 
     override fun getItemCount(): Int {
-        return read_lecture_List.size
+        return list.size
     }
 
     //ここで挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.lecture_title.text = read_lecture_List[position]
+
+        val classdata = list[position] as Map<String, Any>
+        val task_data = classdata["task"] as Map<String, String>
+        Log.d("hoge", "class_data: ${classdata}")
+        Log.d("hoge", "task_data: ${task_data}")
+
+        val day = task_data["timelimit"] as String
+        val couse = classdata["course"] as String
+        Log.d("hoge", "couse: ${couse}")
+
+
+        holder.day.text = day.substring(5,10)
+        holder.lecture_title.text = "${couse}"
+        holder.assignment_details.text = "${task_data["task_name"]}"
         //タップ
         holder.view.setOnClickListener {
             Log.d("AssignmentActivity", "select assignment item: $position")
@@ -46,8 +59,7 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
             val id = "unique_id"
             val str = "期限: 12/25\n科目: 情報倫理\n詳細: 小課題\n$position"
             assigmenment_ditail_dialog(context!!, str, position)
-            Log.d("assignment_list", read_lecture_List.toString())
-            Log.d("assignment_list", write_lecture_List.toString())
+            Log.d("assignment_list", list.toString())
 
         }
     }
@@ -64,13 +76,12 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
 
     // Itemを追加する
     fun addListItem (item: String) {
-        write_lecture_List.add(item)
         notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
     }
 
     // Itemを削除する
     private fun removeItem(position: Int) {
-        read_lecture_List.removeAt(position)
+        list.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
     }
@@ -86,7 +97,7 @@ class assignment_list_CustomAdapter(private val read_lecture_List: ArrayList<Str
                 }
                 .setNeutralButton("提出済みにする") {dialog, which ->
                     Log.d("Assignment", "$position　を提出済みにする")
-                    addListItem(read_lecture_List[position])
+//                    addListItem(list[position])
                     removeItem(position)
                 }
                 .show()

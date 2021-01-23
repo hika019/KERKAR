@@ -13,7 +13,7 @@ import com.example.kerkar.assignment_dialog_class
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 
 
-class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<String>, private val context: Context)
+class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>, private val context: Context)
     : RecyclerView.Adapter<Home_Assignment_list_CustomAdapter.CustomViewHolder>() {
 
     lateinit var listener: OnItemClickListener
@@ -44,7 +44,19 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Stri
 
     //ここで挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.lecture_title.text = teache_List[position]
+        val classdata = teache_List[position] as Map<String, Any>
+        val task_data = classdata["task"] as Map<String, String>
+        Log.d("hoge", "class_data: ${classdata}")
+        Log.d("hoge", "task_data: ${task_data}")
+
+        val day = task_data["timelimit"] as String
+        val couse = classdata["course"] as String
+        Log.d("hoge", "couse: ${couse}")
+
+
+        holder.day.text = day.substring(5,10)
+        holder.lecture_title.text = "${couse}"
+        holder.assignment_details.text = "${task_data["task_name"]}"
         //タップ
         holder.view.setOnClickListener {
             Log.d("HomeActivity", "select assignment item: $position")

@@ -1,14 +1,12 @@
 package com.example.kerkar.assignment_list
 
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kerkar.*
 import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupieViewHolder
@@ -27,8 +25,6 @@ class Assignment_list_fragment() :Fragment() {
         val frame_context = getContext()
         Log.d("hoge", "this:"+ frame_context.toString())
 
-//        firedb_add_task_class(frame_context!!).get_create_classes_list()
-
 
         //未提出list
 //        var unsubmitted_lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語",
@@ -42,7 +38,7 @@ class Assignment_list_fragment() :Fragment() {
 //
 //        list(view, unsubmmitted_list, submmitted_list, context)
 //        view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        firedb_load_task_class(frame_context!!).get_task_not_comp(view, false)
+        firedb_load_task_class(frame_context!!).assignment_get_notcomp_task(view)
 
         //提出済み,未提出の切り替え
         view.unsubmitted_or_submitted_tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
@@ -51,12 +47,12 @@ class Assignment_list_fragment() :Fragment() {
                 if(tab?.text == "提出済課題") {
                     assignmentSwith.flag=0
 //                    list(view,  submmitted_list, unsubmmitted_list, frame_context)
-                    firedb_load_task_class(frame_context!!).get_task_not_comp(view, true)
+                    firedb_load_task_class(frame_context!!).assignment_get_comp_task(view)
                 }
                 else {
                     assignmentSwith.flag=1
 //                    list(view, unsubmmitted_list, submmitted_list, frame_context)
-                    firedb_load_task_class(frame_context!!).get_task_not_comp(view, false)
+                    firedb_load_task_class(frame_context!!).assignment_get_notcomp_task(view)
                 }
             }
 
@@ -75,20 +71,18 @@ class Assignment_list_fragment() :Fragment() {
         return view
     }
 
-    private fun list(view: View, read_list: ArrayList<String>, write_list: ArrayList<String>, context: Context?){
-        val recyclerView = view.AssignmentActivity_assignment_recyclerView
-
-
-        val adapter = assignment_list_CustomAdapter(read_list, write_list, context)
-        val layoutManager = LinearLayoutManager(context)
-
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-
-
-
-    }
+//    private fun list(view: View, read_list: ArrayList<String>, write_list: ArrayList<String>, context: Context?){
+//        val recyclerView = view.AssignmentActivity_assignment_recyclerView
+//
+//
+//        val adapter = assignment_list_CustomAdapter(read_list, write_list, context)
+//        val layoutManager = LinearLayoutManager(context)
+//
+//        recyclerView.layoutManager = layoutManager
+//        recyclerView.adapter = adapter
+//        recyclerView.setHasFixedSize(true)
+//
+//    }
 
 }
 
