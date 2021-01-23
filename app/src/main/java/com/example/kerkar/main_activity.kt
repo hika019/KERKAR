@@ -1,6 +1,7 @@
 package com.example.kerkar
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.kerkar.assignment_list.Assignment_list_fragment
 import com.example.kerkar.home.Home_fragment
+import com.example.kerkar.login_and_register.LoginActivity
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -37,10 +40,6 @@ class main_activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.nav_host_fragment, Home_fragment())
         ft.commit()
-
-
-
-
 
     }
 
@@ -88,6 +87,15 @@ class main_activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.nav_setting -> {
                 fragment = Setting_fragment()
                 Log.d("main_activity", "select fragment: Setting_fragment")
+            }
+            R.id.logout -> {
+                AuthUI.getInstance()
+                        .signOut(this)
+                        .addOnCompleteListener {
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                Log.d("main_activity", "logout")
             }
         }
 

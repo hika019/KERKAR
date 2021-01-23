@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/use_google_sign_in_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
+<!--    <com.google.android.gms.common.SignInButton-->
+<!--        android:id="@+id/use_google_sign_in_button"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_gravity="center_horizontal"-->
 
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/EmaileditTextText"
-        app:layout_constraintEnd_toEndOf="@+id/EmaileditTextText"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="@+id/EmaileditTextText" />
+<!--        android:layout_marginBottom="44dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/EmaileditTextText"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/EmaileditTextText"-->
+<!--        app:layout_constraintHorizontal_bias="0.494"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/EmaileditTextText" />-->
 
     <EditText
         android:id="@+id/EmaileditTextText"

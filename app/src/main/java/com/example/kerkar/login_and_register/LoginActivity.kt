@@ -25,14 +25,12 @@ class LoginActivity: AppCompatActivity() {
         setContentView(R.layout.activity_login)
         auth = Firebase.auth
 
-        use_google_sign_in_button.setOnClickListener{
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-
-
-        }
+//        use_google_sign_in_button.setOnClickListener{
+//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                    .requestIdToken(getString(R.string.default_web_client_id))
+//                    .requestEmail()
+//                    .build()
+//        }
 
         login_button.setOnClickListener{
             login()

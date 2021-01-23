@@ -5,31 +5,18 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/home" />
         <item
             android:id="@+id/nav_timetable"
-            android:icon="@android:drawable/ic_menu_myplaces"
             android:title="@string/timetable" />
         <item
             android:id="@+id/nav_assignment_list"
-            android:icon="@android:drawable/ic_menu_manage"
             android:title="@string/assignment" />
         <item
             android:id="@+id/nav_setting"
             android:title="@string/setting"/>
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout"/>
     </group>
-
-<!--    <item android:title="@string/assignment">-->
-<!--        <menu>-->
-<!--            <item-->
-<!--                android:id="@+id/draw_manu_submitted_assignment"-->
-<!--                android:icon="@android:drawable/ic_menu_save"-->
-<!--                android:title="@string/submitted_assignment" />-->
-<!--            <item-->
-<!--                android:id="@+id/draw_manu_unsubmitted_assignment"-->
-<!--                android:icon="@android:drawable/ic_menu_delete"-->
-<!--                android:title="@string/unsubmitted_assignment" />-->
-<!--        </menu>-->
-<!--    </item>-->
 </menu>
