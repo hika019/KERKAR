@@ -844,7 +844,7 @@ class firedb_load_task_class(private val context: Context){
                                             task_list.add(class_data)
 
                                             if(tmp_class_list.last() == class_list_item && it.last() == document && class_data == class_data){
-
+                                                Thread.sleep(200)
                                                 Log.d(TAG, "get -> end: show->")
                                                 val adapter = Home_Assignment_list_CustomAdapter(task_list, context)
                                                 val layoutManager = LinearLayoutManager(context)
@@ -904,12 +904,18 @@ class firedb_load_task_class(private val context: Context){
         firedb.firestoreSettings = settings
 
         var task_list = arrayListOf<Any>()
-        Log.d("hoge", "size: ${task_list.size}")
+//        Log.d("hoge", "size: ${task_list.size}")
 
         var tmp_class_list: Array<Map<String, Any>> = arrayOf()
 
         if(login_cheack()){
             val uid = get_uid()
+
+            val hoge = firedb.collection("user")
+                    .document(uid)
+                    .get()
+
+
             firedb.collection("user")
                     .document(uid)
                     .get()
@@ -940,7 +946,7 @@ class firedb_load_task_class(private val context: Context){
 
                         val adapter = GroupAdapter<GroupieViewHolder>()
                         task_list = arrayListOf()
-                        Log.d("hoge", "start size: ${task_list.size}")
+//                        Log.d("hoge", "start size: ${task_list.size}")
 
                         //task data get
                         for(class_list_item in tmp_class_list){
@@ -975,21 +981,21 @@ class firedb_load_task_class(private val context: Context){
                                                     "task" to task_data
                                             )
 
-                                            Log.d("hoge", "class_data: $class_data")
+//                                            Log.d("hoge", "class_data: $class_data")
 
                                             val day = task_data["timelimit"] as String
 
-//                                            if(compusers!= null ){
-//                                                val done_list = compusers as Map<String, Boolean>
-//                                                if(done_list[uid] == true){
-//                                                    task_list.add(class_data)
-//                                                    Log.d("hoge", "${class_data} -> comp")
-//                                                }
-//                                            }
-                                            task_list.add(class_data)
+                                            if(compusers!= null ){
+                                                val done_list = compusers as Map<String, Boolean>
+                                                if(done_list[uid] == true){
+                                                    task_list.add(class_data)
+                                                    Log.d("hoge", "${class_data} -> comp")
+                                                }
+                                            }
+//                                            task_list.add(class_data)
 
                                             if(tmp_class_list.last() == class_list_item && it.last() == document && class_data == class_data){
-                                                task_list_chenge(task_list)
+                                                Thread.sleep(200)
                                                 Log.d("hoge", "end")
                                                 val adapter = assignment_list_CustomAdapter(task_list, context,)
                                                 val layoutManager = LinearLayoutManager(context)
@@ -1051,12 +1057,9 @@ class firedb_load_task_class(private val context: Context){
 
                         val university_collection = firedb.collection("university")
                                 .document(university_id!!)
-
-                        val adapter = GroupAdapter<GroupieViewHolder>()
                         task_list = arrayListOf()
                         Log.d("hoge", "start size: ${task_list.size}")
 
-                        //task data get
                         for(class_list_item in tmp_class_list){
                             val tmp_class_data = class_list_item as HashMap<String, String>
 
@@ -1103,7 +1106,8 @@ class firedb_load_task_class(private val context: Context){
                                             }
 
                                             if(tmp_class_list.last() == class_list_item && it.last() == document && class_data == class_data){
-
+                                                //待機
+                                                Thread.sleep(200)
                                                 Log.d("hoge", "end")
                                                 val adapter = assignment_list_CustomAdapter(task_list, context,)
                                                 val layoutManager = LinearLayoutManager(context)

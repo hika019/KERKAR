@@ -88,11 +88,3 @@ fun get_timetable_list(context: Context, view: View, flag: Int){
     }
 }
 
-fun task_list_chenge(task_list: ArrayList<Any>){
-    for(item in task_list){
-        val class_data = item as Map<String, Any>
-        val task_data = class_data["task"] as Map<String, String>
-        Log.d("hoge", "data -> ${task_data}")
-    }
-    
-}
