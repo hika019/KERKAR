@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kerkar.R
 import com.example.kerkar.assignment_dialog_class
+import com.example.kerkar.firedb_load_task_class
 import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
 
 
@@ -30,10 +31,7 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
         val layoutInflater = LayoutInflater.from(parent.context)
         val item = layoutInflater.inflate(R.layout.item_home_assignment_info, parent, false)
 
-        item.setOnClickListener { view ->
-            Log.d("hoge", "click")
 
-        }
 
         return CustomViewHolder(item)
     }
@@ -114,6 +112,8 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
 
                 }
                 .setNeutralButton("提出済みにする") {dialog, which ->
+                    val class_data = teache_List[position] as Map<String, Any>
+                    firedb_load_task_class(context).task_to_comp(class_data)
                     Log.d("Assignment", "$position　を提出済みにする")
                     removeItem(position)
                 }

@@ -144,8 +144,8 @@ class assignment_dialog_class(val context: Context){
         }
 
 //        load_text()
-        Log.d("hoge", "create_task_second -> call")
-        Log.d("hoge", "day: $day")
+//        Log.d("hoge", "create_task_second -> call")
+//        Log.d("hoge", "day: $day")
         task_dialog_second.dialog_deadline_day.text = day
         task_dialog_second.dialog_deadline_time.text = time
         task_dialog_second.dialog_subject.text = subject_data["class_name"]
@@ -156,9 +156,9 @@ class assignment_dialog_class(val context: Context){
                 .setView(task_dialog_second)
                 .setTitle("課題追加")
                 .setPositiveButton("確定") { dialog, which ->
-                    Log.d("hoge", "hoge0: ${day}")
-                    Log.d("hoge", "hoge0: ${subject_data}")
-
+//                    Log.d("hoge", "hoge0: ${day}")
+//                    Log.d("hoge", "hoge0: ${subject_data}")
+                    Toast.makeText(context, "画面を更新すると課題が表示されます", Toast.LENGTH_SHORT).show()
 
                     val title = task_dialog_second.dialog_assignment_special_notes.text
 //                    Log.d("hoge", "day: ${task_dialog_second.dialog_deadline_day.text.isNotEmpty()}")
@@ -196,25 +196,6 @@ class assignment_dialog_class(val context: Context){
                 }
 
         mBilder.show()
-    }
-
-
-
-
-    fun assigmenment_ditail_dialog(str: String, position: Int){
-
-
-        AlertDialog.Builder(context)
-                .setTitle("課題")
-                .setMessage(str)
-                .setPositiveButton("OK") { dialog, which ->
-
-                }
-                .setNeutralButton("提出済みにする") { dialog, which ->
-                    Log.d("Assignment", "$position　を提出済みにする")
-
-                }
-                .show()
     }
 
 }
@@ -437,28 +418,6 @@ fun error_college_upload_dialog(context: Context){
             .setMessage(messege)
             .setPositiveButton("OK"){ dialog, which -> false}
             .show()
-}
-
-class task_dialogs(var context: Context){
-    fun home_task_ditail_dialog(class_data: Map<String, Any>){
-
-        val task = class_data["task"] as Map<String, String>
-
-        val str = "期限: ${task["timelimit"]}\n" +
-                "教科: ${class_data["course"]}\n" +
-                "詳細: ${task["task_name"]}\n" +
-                "その他: ${task["note"]}"
-
-        AlertDialog.Builder(context)
-                .setTitle("課題")
-                .setMessage(str)
-                .setPositiveButton("OK") { dialog, which ->
-                }
-                .setNeutralButton("提出済みにする") {dialog, which ->
-                    firedb_load_task_class(context).task_to_comp(class_data)
-                }
-                .show()
-    }
 }
 
 

@@ -29,7 +29,6 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-
     <View
         android:id="@+id/view2"
         android:layout_width="0dp"

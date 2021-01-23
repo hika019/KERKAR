@@ -84,10 +84,10 @@ class main_activity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 fragment = Assignment_list_fragment()
                 Log.d("main_activity", "select fragment: Assignment_list_fragment")
             }
-            R.id.nav_setting -> {
-                fragment = Setting_fragment()
-                Log.d("main_activity", "select fragment: Setting_fragment")
-            }
+//            R.id.nav_setting -> {
+//                fragment = Setting_fragment()
+//                Log.d("main_activity", "select fragment: Setting_fragment")
+//            }
             R.id.logout -> {
                 AuthUI.getInstance()
                         .signOut(this)
