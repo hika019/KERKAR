@@ -1,6 +1,5 @@
-package com.example.kerkar.home
+package com.example.kerkar.assignment_list
 
-import android.content.ClipData
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,48 +9,43 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kerkar.R
 import com.example.kerkar.assignment_dialog_class
-import kotlinx.android.synthetic.main.item_home_assignment_info.view.*
+import com.example.kerkar.assignment_swith
+import com.example.kerkar.firedb_load_task_class
+import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
-class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>, private val context: Context)
-    : RecyclerView.Adapter<Home_Assignment_list_CustomAdapter.CustomViewHolder>() {
+class assignment_cmp_list_CustomAdapter(private val list: ArrayList<Any>, private val context: Context?)
+    : RecyclerView.Adapter<assignment_cmp_list_CustomAdapter.CustomViewHolder>() {
 
     lateinit var listener: OnItemClickListener
 
     class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) {
-        val day = view.item_homeactivity_assignment_day_textview
-        val lecture_title = view.item_homeactivity_assignment_title_textview
-        val assignment_details = view.item_homeactivity_assignment_details_textview
+        val day = view.assignment_activity_info_day_textview
+        val lecture_title = view.assignment_activity_info_title_textview
+        val assignment_details = view.assignment_activity_info_details_textview
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
     // 上記のViewHolderクラスを使ってViewHolderを作成
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val item = layoutInflater.inflate(R.layout.item_home_assignment_info, parent, false)
-
-        item.setOnClickListener { view ->
-            Log.d("hoge", "click")
-
-        }
-
+        val item = layoutInflater.inflate(R.layout.item_assignment_activity, parent, false)
         return CustomViewHolder(item)
     }
 
     override fun getItemCount(): Int {
-        return teache_List.size
+        return list.size
     }
 
     //ここで挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val classdata = teache_List[position] as Map<String, Any>
+
+        val classdata = list[position] as Map<String, Any>
         val task_data = classdata["task"] as Map<String, String>
-        Log.d("hoge", "class_data: ${classdata}")
-        Log.d("hoge", "task_data: ${task_data}")
+        val assignmentSwith= assignment_swith()
 
         val day = task_data["timelimit"] as String
         val couse = classdata["course"] as String
-        Log.d("hoge", "couse: ${couse}")
 
 
         holder.day.text = day.substring(5,10)
@@ -59,9 +53,10 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
         holder.assignment_details.text = "${task_data["task_name"]}"
         //タップ
         holder.view.setOnClickListener {
-            Log.d("HomeActivity", "select assignment item: $position")
+            Log.d("AssignmentActivity", "select assignment item: $position")
 
-            val class_data = teache_List[position] as Map<String, Any>
+            //表示する内容
+            val class_data = list[position] as Map<String, Any>
             val task = class_data["task"] as Map<String, String>
 
             val str = "期限: ${task["timelimit"]}\n" +
@@ -69,14 +64,9 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
                     "詳細: ${task["task_name"]}\n" +
                     "その他: ${task["note"]}"
 
+            assigmenment_comp_ditail_dialog(context!!, str, position)
+//            Log.d("assignment_list", list.toString())
 
-            //表示する内容
-            val id = "unique_id"
-//            val str = "期限: 12/25\n科目: 情報倫理\n詳細: 小課題\n$position"
-            assigmenment_ditail_dialog(context, str, position)
-
-            //消す
-            //removeItem(position)
         }
     }
 
@@ -91,21 +81,18 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
     }
 
     // Itemを追加する
-    fun addListItem (item: ClipData.Item) {
-        teache_List.add(item.toString())
+    fun addListItem (item: String) {
         notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
     }
 
     // Itemを削除する
     private fun removeItem(position: Int) {
-        teache_List.removeAt(position)
+        list.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged() // これを忘れるとRecyclerViewにItemが反映されない
     }
 
-
-    private fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
-
+    fun assigmenment_comp_ditail_dialog(context: Context, str:String, position: Int){
 
         AlertDialog.Builder(context)
                 .setTitle("課題")
@@ -113,8 +100,10 @@ class Home_Assignment_list_CustomAdapter(private val teache_List: ArrayList<Any>
                 .setPositiveButton("OK") { dialog, which ->
 
                 }
-                .setNeutralButton("提出済みにする") {dialog, which ->
-                    Log.d("Assignment", "$position　を提出済みにする")
+                .setNeutralButton("未提出にする") {dialog, which ->
+//                    addListItem(list[position])
+                    val class_data = list[position] as Map<String, Any>
+                    firedb_load_task_class(context).task_to_not_comp(class_data)
                     removeItem(position)
                 }
                 .show()

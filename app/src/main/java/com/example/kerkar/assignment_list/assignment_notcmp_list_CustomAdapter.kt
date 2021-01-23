@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kerkar.R
-import com.example.kerkar.assignment_dialog_class
+import com.example.kerkar.assignment_swith
+import com.example.kerkar.firedb_load_task_class
 import kotlinx.android.synthetic.main.item_assignment_activity.view.*
 
 
-class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private val context: Context?)
-    : RecyclerView.Adapter<assignment_list_CustomAdapter.CustomViewHolder>() {
+class assignment_notcmp_list_CustomAdapter(private val list: ArrayList<Any>, private val context: Context?)
+    : RecyclerView.Adapter<assignment_notcmp_list_CustomAdapter.CustomViewHolder>() {
 
     lateinit var listener: OnItemClickListener
 
@@ -40,12 +41,10 @@ class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private va
 
         val classdata = list[position] as Map<String, Any>
         val task_data = classdata["task"] as Map<String, String>
-        Log.d("hoge", "class_data: ${classdata}")
-        Log.d("hoge", "task_data: ${task_data}")
+        val assignmentSwith= assignment_swith()
 
         val day = task_data["timelimit"] as String
         val couse = classdata["course"] as String
-        Log.d("hoge", "couse: ${couse}")
 
 
         holder.day.text = day.substring(5,10)
@@ -56,9 +55,14 @@ class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private va
             Log.d("AssignmentActivity", "select assignment item: $position")
 
             //表示する内容
-            val id = "unique_id"
-            val str = "期限: 12/25\n科目: 情報倫理\n詳細: 小課題\n$position"
-            assigmenment_ditail_dialog(context!!, str, position)
+            val class_data = list[position] as Map<String, Any>
+            val task = class_data["task"] as Map<String, String>
+
+            val str = "期限: ${task["timelimit"]}\n" +
+                    "教科: ${class_data["course"]}\n" +
+                    "詳細: ${task["task_name"]}\n" +
+                    "その他: ${task["note"]}"
+            assigmenment_nocomp_ditail_dialog(context!!, str, position)
             Log.d("assignment_list", list.toString())
 
         }
@@ -87,7 +91,7 @@ class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private va
     }
 
 
-    fun assigmenment_ditail_dialog(context: Context, str:String, position: Int){
+    fun assigmenment_nocomp_ditail_dialog(context: Context, str:String, position: Int){
 
         AlertDialog.Builder(context)
                 .setTitle("課題")
@@ -98,9 +102,10 @@ class assignment_list_CustomAdapter(private val list: ArrayList<Any>, private va
                 .setNeutralButton("提出済みにする") {dialog, which ->
                     Log.d("Assignment", "$position　を提出済みにする")
 //                    addListItem(list[position])
+                    val class_data = list[position] as Map<String, Any>
+                    firedb_load_task_class(context).task_to_comp(class_data)
                     removeItem(position)
                 }
                 .show()
     }
-
 }

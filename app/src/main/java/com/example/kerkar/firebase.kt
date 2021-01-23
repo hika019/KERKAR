@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kerkar.assignment_list.assignment_list_CustomAdapter
+import com.example.kerkar.assignment_list.assignment_cmp_list_CustomAdapter
+import com.example.kerkar.assignment_list.assignment_notcmp_list_CustomAdapter
 import com.example.kerkar.home.Home_Assignment_list_CustomAdapter
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
@@ -20,15 +20,9 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_home.view.main_assignment_info_recyclerview
 import kotlinx.android.synthetic.main.activity_timetable.view.*
 import kotlinx.android.synthetic.main.item_timetable.view.*
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 
 private val TAG = "firedb"
@@ -899,7 +893,6 @@ class firedb_load_task_class(private val context: Context){
         }
     }
 
-
     fun assignment_get_comp_task(view: View) {
         firedb.firestoreSettings = settings
 
@@ -997,7 +990,7 @@ class firedb_load_task_class(private val context: Context){
                                             if(tmp_class_list.last() == class_list_item && it.last() == document && class_data == class_data){
                                                 Thread.sleep(200)
                                                 Log.d("hoge", "end")
-                                                val adapter = assignment_list_CustomAdapter(task_list, context,)
+                                                val adapter = assignment_cmp_list_CustomAdapter(task_list, context,)
                                                 val layoutManager = LinearLayoutManager(context)
 
                                                 view.AssignmentActivity_assignment_recyclerView.layoutManager = layoutManager
@@ -1109,7 +1102,7 @@ class firedb_load_task_class(private val context: Context){
                                                 //待機
                                                 Thread.sleep(200)
                                                 Log.d("hoge", "end")
-                                                val adapter = assignment_list_CustomAdapter(task_list, context,)
+                                                val adapter = assignment_notcmp_list_CustomAdapter(task_list, context,)
                                                 val layoutManager = LinearLayoutManager(context)
 
                                                 view.AssignmentActivity_assignment_recyclerView.layoutManager = layoutManager
@@ -1131,7 +1124,6 @@ class firedb_load_task_class(private val context: Context){
             Log.e(TAG, "not login")
         }
     }
-
 
 
     fun task_to_comp(class_data: Map<String, Any>) {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.kerkar.*
 import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupieViewHolder
@@ -23,8 +24,6 @@ class Assignment_list_fragment() :Fragment() {
         val assignmentSwith= assignment_swith()
 
         val frame_context = getContext()
-        Log.d("hoge", "this:"+ frame_context.toString())
-
 
         //未提出list
 //        var unsubmitted_lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語",
@@ -37,7 +36,8 @@ class Assignment_list_fragment() :Fragment() {
 //        val unsubmmitted_list = list.unsubmitted_list
 //
 //        list(view, unsubmmitted_list, submmitted_list, context)
-//        view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
         firedb_load_task_class(frame_context!!).assignment_get_notcomp_task(view)
 
         //提出済み,未提出の切り替え
@@ -75,7 +75,7 @@ class Assignment_list_fragment() :Fragment() {
 //        val recyclerView = view.AssignmentActivity_assignment_recyclerView
 //
 //
-//        val adapter = assignment_list_CustomAdapter(read_list, write_list, context)
+//        val adapter = assignment_notcmp_list_CustomAdapter(read_list, write_list, context)
 //        val layoutManager = LinearLayoutManager(context)
 //
 //        recyclerView.layoutManager = layoutManager
