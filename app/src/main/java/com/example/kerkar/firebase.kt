@@ -951,8 +951,6 @@ class firedb_load_task_class(private val context: Context){
                                     .collection("task")
                                     .get()
                                     .addOnSuccessListener {
-                                        var flag = 0
-
                                         Log.d(TAG, "get task -> success")
                                         for( document in it){
                                             val task_id = document.getString("task_id")
@@ -991,7 +989,14 @@ class firedb_load_task_class(private val context: Context){
                                             task_list.add(class_data)
 
                                             if(tmp_class_list.last() == class_list_item && it.last() == document && class_data == class_data){
-                                                flag = 1
+                                                task_list_chenge(task_list)
+                                                Log.d("hoge", "end")
+                                                val adapter = assignment_list_CustomAdapter(task_list, context,)
+                                                val layoutManager = LinearLayoutManager(context)
+
+                                                view.AssignmentActivity_assignment_recyclerView.layoutManager = layoutManager
+                                                view.AssignmentActivity_assignment_recyclerView.adapter = adapter
+                                                view.AssignmentActivity_assignment_recyclerView.setHasFixedSize(true)
                                             }
                                         }
                                     }
