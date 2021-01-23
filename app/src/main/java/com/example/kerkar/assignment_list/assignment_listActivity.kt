@@ -25,17 +25,12 @@ class Assignment_list_fragment() :Fragment() {
 
         val frame_context = getContext()
 
-        //未提出list
-//        var unsubmitted_lecture_titel_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語",
-//                "国語", "C言語", "流体力学", "電磁気学")
-//        var submitted_lecture_titel_list: ArrayList<String> = ArrayList()
-//
-//        val list = ItemList(submitted_lecture_titel_list, unsubmitted_lecture_titel_list)
-//
-//        val submmitted_list = list.submitted_list
-//        val unsubmmitted_list = list.unsubmitted_list
-//
-//        list(view, unsubmmitted_list, submmitted_list, context)
+
+        view.add_task_fab.setOnClickListener{
+            val add_task_class = assignment_dialog_class(frame_context!!)
+            add_task_class.start()
+        }
+
         view.AssignmentActivity_assignment_recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         firedb_load_task_class(frame_context!!).assignment_get_notcomp_task(view)
@@ -62,11 +57,6 @@ class Assignment_list_fragment() :Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
-
-//        Log.d("AssignmentActivity", submmitted_list.toString())
-
-
-
 
         return view
     }

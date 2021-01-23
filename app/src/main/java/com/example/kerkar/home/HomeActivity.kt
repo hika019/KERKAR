@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.kerkar.*
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -28,16 +29,9 @@ class Home_fragment() : Fragment() {
 
         val teacher_list = arrayListOf("哲学", "英語", "創造理工実験", "現代社会経済", "データベース", "オブジェクト指向言語")
 
-//        val adapter = Home_Assignment_list_CustomAdapter(teacher_list, this_context)
-//        val layoutManager = LinearLayoutManager(this_context)
+        view.main_assignment_info_recyclerview.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-//        view.main_assignment_info_recyclerview.layoutManager = layoutManager
-//        view.main_assignment_info_recyclerview.adapter = adapter
-//        view.main_assignment_info_recyclerview.setHasFixedSize(true)
 
-//        val adapter = GroupAdapter<GroupieViewHolder>()
-//        adapter.add(TodayListItem("hoge"))
-//        view.main_assignment_info_recyclerview.adapter = adapter
         firedb_load_task_class(this_context).home_get_task(view)
 
 //        Log.d("hoge", "data: ${myApp.QRResult}")
